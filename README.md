@@ -203,8 +203,7 @@ docker build -t steel-ontology .
 docker run --rm steel-ontology steel-ontology validate examples/kestrel-platform/gold.json
 ```
 
-**Not verified locally:** Docker is not installed on the machine this was written on. The image
-is built by CI (`.github/workflows/ci.yml`).
+**Tested in CI:** the image is built on every push (`.github/workflows/ci.yml`).
 
 ## Static demo site
 
