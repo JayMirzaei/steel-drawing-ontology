@@ -1,0 +1,12 @@
+# id: CQ07
+# title: Sheets derived from raster images
+# question: Which sheets warn that they were made from raster images and may be inaccurate?
+
+PREFIX steel: <https://jaymirzaei.github.io/steel-drawing-ontology/core#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?sheet ?sheetNumber WHERE {
+    ?sheet steel:derivedFromRaster true .
+    OPTIONAL { ?sheet steel:sheetNumber ?sheetNumber }
+}
+ORDER BY ?sheet

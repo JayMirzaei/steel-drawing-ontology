@@ -1,0 +1,16 @@
+# id: CQ20
+# title: Standards cited
+# question: Which codes and specifications does the set cite, and which clause cites each one?
+
+PREFIX steel: <https://jaymirzaei.github.io/steel-drawing-ontology/core#>
+
+SELECT ?standard ?designation ?clauseNumber ?topic WHERE {
+    ?standard a steel:Standard .
+    OPTIONAL { ?standard steel:standardDesignation ?designation }
+    OPTIONAL {
+        ?clause steel:citesStandard ?standard .
+        OPTIONAL { ?clause steel:clauseNumber ?clauseNumber }
+        OPTIONAL { ?clause steel:requirementTopic ?topic }
+    }
+}
+ORDER BY ?designation ?clauseNumber

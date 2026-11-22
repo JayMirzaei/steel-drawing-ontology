@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Install
+        run: uv sync --frozen
+      - name: Lint
+        run: |
+          uv run ruff check .
+          uv run ruff format --check .
+      - name: Test (the HermiT tests run because Java is installed)
+        run: uv run pytest -q
+      - name: Generated reference is current
+        run: |
+          uv run steel-ontology docs --markdown docs/vocabulary.md
+          git diff --exit-code docs/vocabulary.md
+
+  docker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: docker build -t steel-ontology .
+      - name: CLI works in the image
+        run: |
+          docker run --rm steel-ontology steel-ontology validate examples/kestrel-platform/gold.json
+          docker run --rm steel-ontology steel-ontology ask examples/kestrel-platform/gold.json "What size is beam B3?"

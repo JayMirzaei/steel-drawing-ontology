@@ -1,0 +1,14 @@
+# id: CQ04
+# title: Assemblies with a stated weight
+# question: Which assemblies state a weight and list their parts (lifting and shipping decisions)?
+
+PREFIX steel: <https://jaymirzaei.github.io/steel-drawing-ontology/core#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?assembly ?weightTonnes (COUNT(?part) AS ?parts) WHERE {
+    ?assembly a/rdfs:subClassOf* steel:Assembly ;
+              steel:assemblyWeightTonnes ?weightTonnes ;
+              steel:hasPart ?part .
+}
+GROUP BY ?assembly ?weightTonnes
+ORDER BY ?assembly

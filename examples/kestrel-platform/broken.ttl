@@ -1,0 +1,1172 @@
+@prefix ex: <https://example.org/kestrel-platform/> .
+@prefix steel: <https://jaymirzaei.github.io/steel-drawing-ontology/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:connection-brace a steel:BraceConnection ;
+    steel:connects ex:brace-VB1,
+        ex:column-C1 ;
+    steel:evidencedBy ex:ev-connection-brace ;
+    steel:isDesignOpen true ;
+    steel:requiresSealedDesign true ;
+    steel:responsibility steel:ByConnectionEngineer .
+
+ex:drawing-set a steel:DrawingSet ;
+    steel:authorRole steel:EngineerOfRecordRole ;
+    steel:hasSheet ex:sheet-S-001,
+        ex:sheet-S-101,
+        ex:sheet-S-201,
+        ex:sheet-S-301 ;
+    steel:inDomain steel:PlatformStairDomain ;
+    steel:projectNumber "EX-0417" ;
+    steel:revisionCodeScheme "letters before the construction issue, then numbers" ;
+    steel:unitSystem steel:Metric .
+
+ex:grating a steel:Grating ;
+    steel:evidencedBy ex:ev-grating ;
+    steel:inZone ex:zone-platform ;
+    steel:responsibility steel:BySupplier ;
+    steel:workKind steel:InstallOnly .
+
+ex:anchor-rods a steel:Fastener ;
+    steel:evidencedBy ex:ev-anchor-rods ;
+    steel:responsibility steel:ByOthers .
+
+ex:annotation-query-note a steel:Annotation ;
+    steel:annotates ex:beam-B3 ;
+    steel:annotationOrigin steel:ThirdPartyOrigin ;
+    steel:annotationText "CONFIRM B3 SIZE?" ;
+    steel:evidencedBy ex:ev-annotation-query-note ;
+    steel:markupKind steel:QueryNote .
+
+ex:annotation-received-stamp a steel:Annotation ;
+    steel:annotationText "RECEIVED" ;
+    steel:evidencedBy ex:ev-annotation-received-stamp ;
+    steel:markupKind steel:ReceivedStamp ;
+    steel:stampDate "2030-03-20" .
+
+ex:annotation-revision-cloud a steel:Annotation ;
+    steel:annotates ex:beam-B3 ;
+    steel:annotationOrigin steel:EngineerOrigin ;
+    steel:evidencedBy ex:ev-annotation-revision-cloud ;
+    steel:markupKind steel:RevisionCloud .
+
+ex:annotation-takeoff-highlight a steel:Annotation ;
+    steel:annotates ex:beam-B1 ;
+    steel:annotationOrigin steel:ThirdPartyOrigin ;
+    steel:evidencedBy ex:ev-annotation-takeoff-highlight ;
+    steel:markupKind steel:TakeoffHighlight ;
+    steel:markupMeaningText "orange highlight = taken off" .
+
+ex:area-load-DeadLoad a steel:AreaLoad ;
+    steel:areaLoadFactored false ;
+    steel:areaLoadKPa 1.0 ;
+    steel:areaLoadType steel:DeadLoad ;
+    steel:evidencedBy ex:ev-area-load-DeadLoad .
+
+ex:area-load-LiveLoad a steel:AreaLoad ;
+    steel:areaLoadFactored false ;
+    steel:areaLoadKPa 4.8 ;
+    steel:areaLoadType steel:LiveLoad ;
+    steel:evidencedBy ex:ev-area-load-LiveLoad .
+
+ex:base-plate-BP2 a steel:BasePlateConnection ;
+    steel:connects ex:column-C2 ;
+    steel:evidencedBy ex:ev-base-plate-BP2 ;
+    steel:responsibility steel:ByEngineerOfRecord ;
+    steel:supports ex:column-C2 ;
+    steel:tag "BP2" ;
+    steel:weldPattern "8" .
+
+ex:beam-B2 a steel:Beam ;
+    steel:elementStatus steel:NewWork ;
+    steel:elevationKind "T/STEEL" ;
+    steel:elevationM 104.200 ;
+    steel:evidencedBy ex:ev-beam-B2 ;
+    steel:inZone ex:zone-platform ;
+    steel:requiredQuantity 3 ;
+    steel:responsibility steel:ByEngineerOfRecord ;
+    steel:sectionText "W250x33" ;
+    steel:tag "B2" .
+
+ex:cell-BP1-0 a steel:ScheduleCell ;
+    steel:cellText "BP1" ;
+    steel:cellValueKind steel:TextCell ;
+    steel:columnHeaderText "MARK" ;
+    steel:evidencedBy ex:ev-cell-BP1-0 .
+
+ex:cell-BP1-1 a steel:ScheduleCell ;
+    steel:cellText "PL20x300x300" ;
+    steel:cellUnitText "mm" ;
+    steel:cellValueKind steel:TextCell ;
+    steel:columnHeaderText "PLATE (mm)" ;
+    steel:evidencedBy ex:ev-cell-BP1-1 .
+
+ex:cell-BP1-2 a steel:ScheduleCell ;
+    steel:cellText "4 - 22 DIA." ;
+    steel:cellUnitText "mm" ;
+    steel:cellValueKind steel:TextCell ;
+    steel:columnHeaderText "HOLES" ;
+    steel:evidencedBy ex:ev-cell-BP1-2 .
+
+ex:cell-BP1-3 a steel:ScheduleCell ;
+    steel:cellText "BY FOUNDATION SUPPLIER" ;
+    steel:cellValueKind steel:BySupplierCell ;
+    steel:columnHeaderText "ANCHOR RODS" ;
+    steel:evidencedBy ex:ev-cell-BP1-3 .
+
+ex:cell-BP1-4 a steel:ScheduleCell ;
+    steel:cellText "6" ;
+    steel:cellUnitText "mm" ;
+    steel:cellValueKind steel:NumberCell ;
+    steel:columnHeaderText "WELD TO COLUMN (mm)" ;
+    steel:evidencedBy ex:ev-cell-BP1-4 .
+
+ex:cell-BP2-0 a steel:ScheduleCell ;
+    steel:cellText "BP2" ;
+    steel:cellValueKind steel:TextCell ;
+    steel:columnHeaderText "MARK" ;
+    steel:evidencedBy ex:ev-cell-BP2-0 .
+
+ex:cell-BP2-1 a steel:ScheduleCell ;
+    steel:cellText "PL25x350x350" ;
+    steel:cellUnitText "mm" ;
+    steel:cellValueKind steel:TextCell ;
+    steel:columnHeaderText "PLATE (mm)" ;
+    steel:evidencedBy ex:ev-cell-BP2-1 .
+
+ex:cell-BP2-2 a steel:ScheduleCell ;
+    steel:cellText "4 - 27 DIA." ;
+    steel:cellUnitText "mm" ;
+    steel:cellValueKind steel:TextCell ;
+    steel:columnHeaderText "HOLES" ;
+    steel:evidencedBy ex:ev-cell-BP2-2 .
+
+ex:cell-BP2-3 a steel:ScheduleCell ;
+    steel:cellText "BY FOUNDATION SUPPLIER" ;
+    steel:cellValueKind steel:BySupplierCell ;
+    steel:columnHeaderText "ANCHOR RODS" ;
+    steel:evidencedBy ex:ev-cell-BP2-3 .
+
+ex:cell-BP2-4 a steel:ScheduleCell ;
+    steel:cellText "8" ;
+    steel:cellUnitText "mm" ;
+    steel:cellValueKind steel:NumberCell ;
+    steel:columnHeaderText "WELD TO COLUMN (mm)" ;
+    steel:evidencedBy ex:ev-cell-BP2-4 .
+
+ex:cell-C1-0 a steel:ScheduleCell ;
+    steel:cellText "C1" ;
+    steel:cellValueKind steel:TextCell ;
+    steel:columnHeaderText "MARK" ;
+    steel:evidencedBy ex:ev-cell-C1-0 .
+
+ex:cell-C1-1 a steel:ScheduleCell ;
+    steel:cellText "W200x46" ;
+    steel:cellValueKind steel:TextCell ;
+    steel:columnHeaderText "SECTION" ;
+    steel:evidencedBy ex:ev-cell-C1-1 .
+
+ex:cell-C1-2 a steel:ScheduleCell ;
+    steel:cellText "4" ;
+    steel:cellValueKind steel:NumberCell ;
+    steel:columnHeaderText "QTY" ;
+    steel:evidencedBy ex:ev-cell-C1-2 .
+
+ex:cell-C1-3 a steel:ScheduleCell ;
+    steel:cellText "4200" ;
+    steel:cellUnitText "mm" ;
+    steel:cellValueKind steel:NumberCell ;
+    steel:columnHeaderText "LENGTH (mm)" ;
+    steel:evidencedBy ex:ev-cell-C1-3 .
+
+ex:cell-C1-4 a steel:ScheduleCell ;
+    steel:cellText "BP1" ;
+    steel:cellValueKind steel:TextCell ;
+    steel:columnHeaderText "BASE PLATE" ;
+    steel:evidencedBy ex:ev-cell-C1-4 .
+
+ex:cell-C1-5 a steel:ScheduleCell ;
+    steel:cellText "310" ;
+    steel:cellUnitText "kN" ;
+    steel:cellValueKind steel:NumberCell ;
+    steel:columnHeaderText "Cf (kN) FACTORED" ;
+    steel:evidencedBy ex:ev-cell-C1-5 .
+
+ex:cell-C1-6 a steel:ScheduleCell ;
+    steel:cellText "772.8" ;
+    steel:cellUnitText "kg" ;
+    steel:cellValueKind steel:NumberCell ;
+    steel:columnHeaderText "WEIGHT (kg)" ;
+    steel:evidencedBy ex:ev-cell-C1-6 .
+
+ex:cell-C2-0 a steel:ScheduleCell ;
+    steel:cellText "C2" ;
+    steel:cellValueKind steel:TextCell ;
+    steel:columnHeaderText "MARK" ;
+    steel:evidencedBy ex:ev-cell-C2-0 .
+
+ex:cell-C2-1 a steel:ScheduleCell ;
+    steel:cellText "W200x52" ;
+    steel:cellValueKind steel:TextCell ;
+    steel:columnHeaderText "SECTION" ;
+    steel:evidencedBy ex:ev-cell-C2-1 .
+
+ex:cell-C2-2 a steel:ScheduleCell ;
+    steel:cellText "2" ;
+    steel:cellValueKind steel:NumberCell ;
+    steel:columnHeaderText "QTY" ;
+    steel:evidencedBy ex:ev-cell-C2-2 .
+
+ex:cell-C2-3 a steel:ScheduleCell ;
+    steel:cellText "4200" ;
+    steel:cellUnitText "mm" ;
+    steel:cellValueKind steel:NumberCell ;
+    steel:columnHeaderText "LENGTH (mm)" ;
+    steel:evidencedBy ex:ev-cell-C2-3 .
+
+ex:cell-C2-4 a steel:ScheduleCell ;
+    steel:cellText "BP2" ;
+    steel:cellValueKind steel:TextCell ;
+    steel:columnHeaderText "BASE PLATE" ;
+    steel:evidencedBy ex:ev-cell-C2-4 .
+
+ex:cell-C2-5 a steel:ScheduleCell ;
+    steel:cellText "520" ;
+    steel:cellUnitText "kN" ;
+    steel:cellValueKind steel:NumberCell ;
+    steel:columnHeaderText "Cf (kN) FACTORED" ;
+    steel:evidencedBy ex:ev-cell-C2-5 .
+
+ex:cell-C2-6 a steel:ScheduleCell ;
+    steel:cellText "436.8" ;
+    steel:cellUnitText "kg" ;
+    steel:cellValueKind steel:NumberCell ;
+    steel:columnHeaderText "WEIGHT (kg)" ;
+    steel:evidencedBy ex:ev-cell-C2-6 .
+
+ex:cell-P1-0 a steel:ScheduleCell ;
+    steel:cellText "P1" ;
+    steel:cellValueKind steel:TextCell ;
+    steel:columnHeaderText "MARK" ;
+    steel:evidencedBy ex:ev-cell-P1-0 .
+
+ex:cell-P1-1 a steel:ScheduleCell ;
+    steel:cellText "HSS102x102x6.4" ;
+    steel:cellValueKind steel:TextCell ;
+    steel:columnHeaderText "SECTION" ;
+    steel:evidencedBy ex:ev-cell-P1-1 .
+
+ex:cell-P1-2 a steel:ScheduleCell ;
+    steel:cellText "2" ;
+    steel:cellValueKind steel:NumberCell ;
+    steel:columnHeaderText "QTY" ;
+    steel:evidencedBy ex:ev-cell-P1-2 .
+
+ex:cell-P1-3 a steel:ScheduleCell ;
+    steel:cellText "1100" ;
+    steel:cellUnitText "mm" ;
+    steel:cellValueKind steel:NumberCell ;
+    steel:columnHeaderText "LENGTH (mm)" ;
+    steel:evidencedBy ex:ev-cell-P1-3 .
+
+ex:cell-P1-4 a steel:ScheduleCell ;
+    steel:cellText "N/A" ;
+    steel:cellValueKind steel:NotApplicableCell ;
+    steel:columnHeaderText "BASE PLATE" ;
+    steel:evidencedBy ex:ev-cell-P1-4 .
+
+ex:cell-P1-5 a steel:ScheduleCell ;
+    steel:cellText "N/A" ;
+    steel:cellUnitText "kN" ;
+    steel:cellValueKind steel:NotApplicableCell ;
+    steel:columnHeaderText "Cf (kN) FACTORED" ;
+    steel:evidencedBy ex:ev-cell-P1-5 .
+
+ex:cell-P1-6 a steel:ScheduleCell ;
+    steel:cellText "40.0" ;
+    steel:cellUnitText "kg" ;
+    steel:cellValueKind steel:NumberCell ;
+    steel:columnHeaderText "WEIGHT (kg)" ;
+    steel:evidencedBy ex:ev-cell-P1-6 .
+
+ex:clause-1 a steel:RequirementClause ;
+    steel:citesStandard ex:standard-CSA-G40-21 ;
+    steel:clauseNumber "1" ;
+    steel:clauseText "W SHAPES AND HSS: CSA G40.21 GRADE 350W." ;
+    steel:clauseValue "350W" ;
+    steel:evidencedBy ex:ev-clause-1 ;
+    steel:requirementTopic steel:MaterialReq .
+
+ex:clause-2 a steel:RequirementClause ;
+    steel:citesStandard ex:standard-ASTM-F3125 ;
+    steel:clauseNumber "2" ;
+    steel:clauseText "BOLTS: ASTM F3125 GRADE A325, 20 mm DIAMETER, SNUG TIGHT UNLESS NOTED." ;
+    steel:clauseValue "20 mm A325" ;
+    steel:evidencedBy ex:ev-clause-2 ;
+    steel:requirementTopic steel:BoltingReq .
+
+ex:clause-3 a steel:RequirementClause ;
+    steel:citesStandard ex:standard-CSA-W59 ;
+    steel:clauseNumber "3" ;
+    steel:clauseText "WELDING TO CSA W59. MINIMUM FILLET WELD 6 mm." ;
+    steel:clauseValue "6 mm" ;
+    steel:evidencedBy ex:ev-clause-3 ;
+    steel:requirementTopic steel:WeldingReq .
+
+ex:clause-4 a steel:RequirementClause ;
+    steel:clauseNumber "4" ;
+    steel:clauseText "DO NOT FIELD CUT OR BURN HOLES IN BASE PLATES." ;
+    steel:evidencedBy ex:ev-clause-4 ;
+    steel:isProhibition true ;
+    steel:requirementTopic steel:ErectionReq .
+
+ex:clause-5 a steel:RequirementClause ;
+    steel:clauseNumber "5" ;
+    steel:clauseText "UNLESS NOTED OTHERWISE, DESIGN BRACE CONNECTIONS FOR 50% OF THE TENSILE YIELD RESISTANCE OF THE BRACE." ;
+    steel:clauseValue "50%" ;
+    steel:evidencedBy ex:ev-clause-5 ;
+    steel:isDefaultRuleClause true ;
+    steel:requirementTopic steel:ConnectionDesignReq .
+
+ex:clause-6 a steel:RequirementClause ;
+    steel:clauseNumber "6" ;
+    steel:clauseText "CONNECTIONS NOT DETAILED ON THESE DRAWINGS ARE TO BE DESIGNED BY THE FABRICATOR'S CONNECTION ENGINEER. SUBMIT SEALED CALCULATIONS." ;
+    steel:clauseValue "sealed calculations" ;
+    steel:evidencedBy ex:ev-clause-6 ;
+    steel:requirementTopic steel:SubmittalReq .
+
+ex:clause-7 a steel:RequirementClause ;
+    steel:clauseNumber "7" ;
+    steel:clauseText "ANCHOR RODS AND GROUT ARE SUPPLIED AND INSTALLED BY OTHERS." ;
+    steel:clauseValue "by others" ;
+    steel:evidencedBy ex:ev-clause-7 ;
+    steel:requirementTopic steel:ScopeExclusionReq .
+
+ex:clause-8 a steel:RequirementClause ;
+    steel:clauseNumber "8" ;
+    steel:clauseText "GRATING IS SUPPLIED BY THE GRATING SUPPLIER AND INSTALLED BY THE STEEL ERECTOR." ;
+    steel:clauseValue "supply by supplier" ;
+    steel:evidencedBy ex:ev-clause-8 ;
+    steel:requirementTopic steel:GratingReq .
+
+ex:clause-9 a steel:RequirementClause ;
+    steel:clauseNumber "9" ;
+    steel:clauseText "GIVE 48 HOURS NOTICE BEFORE EACH FIELD REVIEW." ;
+    steel:clauseValue "48 hours" ;
+    steel:evidencedBy ex:ev-clause-9 ;
+    steel:noticeHours 48 ;
+    steel:requirementTopic steel:InspectionReq .
+
+ex:connection-SC1 a steel:ShearConnection ;
+    steel:connects ex:beam-B1,
+        ex:column-C1 ;
+    steel:evidencedBy ex:ev-connection-SC1 ;
+    steel:responsibility steel:ByEngineerOfRecord ;
+    steel:tag "SC1" ;
+    steel:weldPattern "6" .
+
+ex:default-brace-connections a steel:DefaultRule ;
+    steel:appliesToProperty "brace connection design force" ;
+    steel:defaultPercent 500.0 ;
+    steel:defaultRuleKind steel:PercentOfYieldRule ;
+    steel:defaultRuleText "UNLESS NOTED OTHERWISE, DESIGN BRACE CONNECTIONS FOR 50% OF THE TENSILE YIELD RESISTANCE OF THE BRACE." ;
+    steel:defaultValueText "50% of the tensile yield resistance of the brace" ;
+    steel:evidencedBy ex:ev-default-brace-connections .
+
+ex:ev-anchor-rods a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-001 ;
+    steel:regionBox "0.050,0.400,0.332,0.414" .
+
+ex:ev-annotation-query-note a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-101 ;
+    steel:regionBox "0.311,0.428,0.388,0.442" .
+
+ex:ev-annotation-received-stamp a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-101 ;
+    steel:regionBox "0.739,0.095,0.874,0.166" .
+
+ex:ev-annotation-revision-cloud a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-101 ;
+    steel:regionBox "0.259,0.413,0.287,0.534" .
+
+ex:ev-annotation-takeoff-highlight a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-101 ;
+    steel:regionBox "0.228,0.312,0.549,0.614" .
+
+ex:ev-area-load-DeadLoad a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-001 ;
+    steel:regionBox "0.541,0.196,0.757,0.208" .
+
+ex:ev-area-load-LiveLoad a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-001 ;
+    steel:regionBox "0.541,0.172,0.757,0.184" .
+
+ex:ev-base-plate-BP1 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.054,0.355,0.444,0.367" .
+
+ex:ev-base-plate-BP2 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.054,0.379,0.444,0.391" .
+
+ex:ev-beam-B1 a steel:Evidence ;
+    steel:onSheet ex:sheet-S-101 ;
+    steel:regionBox "0.231,0.316,0.538,0.613" .
+
+ex:ev-beam-B2 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-101 ;
+    steel:regionBox "0.132,0.468,0.678,0.523" .
+
+ex:ev-beam-B3 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-101 ;
+    steel:regionBox "0.266,0.468,0.544,0.523" .
+
+ex:ev-brace-VB1 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-101 ;
+    steel:regionBox "0.155,0.441,0.701,0.582" .
+
+ex:ev-cell-BP1-0 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.054,0.355,0.066,0.367" .
+
+ex:ev-cell-BP1-1 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.104,0.355,0.149,0.367" .
+
+ex:ev-cell-BP1-2 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.205,0.355,0.237,0.367" .
+
+ex:ev-cell-BP1-3 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.289,0.355,0.379,0.367" .
+
+ex:ev-cell-BP1-4 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.440,0.355,0.444,0.367" .
+
+ex:ev-cell-BP2-0 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.054,0.379,0.066,0.391" .
+
+ex:ev-cell-BP2-1 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.104,0.379,0.149,0.391" .
+
+ex:ev-cell-BP2-2 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.205,0.379,0.237,0.391" .
+
+ex:ev-cell-BP2-3 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.289,0.379,0.379,0.391" .
+
+ex:ev-cell-BP2-4 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.440,0.379,0.444,0.391" .
+
+ex:ev-cell-C1-0 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.054,0.151,0.062,0.163" .
+
+ex:ev-cell-C1-1 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.104,0.151,0.133,0.163" .
+
+ex:ev-cell-C1-2 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.213,0.151,0.217,0.163" .
+
+ex:ev-cell-C1-3 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.255,0.151,0.270,0.163" .
+
+ex:ev-cell-C1-4 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.331,0.151,0.344,0.163" .
+
+ex:ev-cell-C1-5 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.407,0.151,0.418,0.163" .
+
+ex:ev-cell-C1-6 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.508,0.151,0.524,0.163" .
+
+ex:ev-cell-C2-0 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.054,0.175,0.062,0.186" .
+
+ex:ev-cell-C2-1 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.104,0.175,0.133,0.186" .
+
+ex:ev-cell-C2-2 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.213,0.175,0.217,0.186" .
+
+ex:ev-cell-C2-3 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.255,0.175,0.270,0.186" .
+
+ex:ev-cell-C2-4 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.331,0.175,0.344,0.186" .
+
+ex:ev-cell-C2-5 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.407,0.175,0.418,0.186" .
+
+ex:ev-cell-C2-6 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.508,0.175,0.524,0.186" .
+
+ex:ev-cell-P1-0 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.054,0.198,0.062,0.210" .
+
+ex:ev-cell-P1-1 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.104,0.198,0.157,0.210" .
+
+ex:ev-cell-P1-2 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.213,0.198,0.217,0.210" .
+
+ex:ev-cell-P1-3 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.255,0.198,0.270,0.210" .
+
+ex:ev-cell-P1-4 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.331,0.198,0.342,0.210" .
+
+ex:ev-cell-P1-5 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.407,0.198,0.418,0.210" .
+
+ex:ev-cell-P1-6 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.508,0.198,0.521,0.210" .
+
+ex:ev-clause-1 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-001 ;
+    steel:regionBox "0.050,0.141,0.236,0.155" .
+
+ex:ev-clause-2 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-001 ;
+    steel:regionBox "0.050,0.163,0.366,0.176" .
+
+ex:ev-clause-3 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-001 ;
+    steel:regionBox "0.050,0.184,0.256,0.197" .
+
+ex:ev-clause-4 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-001 ;
+    steel:regionBox "0.050,0.239,0.261,0.252" .
+
+ex:ev-clause-5 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-001 ;
+    steel:regionBox "0.050,0.293,0.473,0.322" .
+
+ex:ev-clause-6 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-001 ;
+    steel:regionBox "0.050,0.330,0.429,0.359" .
+
+ex:ev-clause-7 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-001 ;
+    steel:regionBox "0.050,0.400,0.332,0.414" .
+
+ex:ev-clause-8 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-001 ;
+    steel:regionBox "0.050,0.422,0.408,0.435" .
+
+ex:ev-clause-9 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-001 ;
+    steel:regionBox "0.050,0.476,0.264,0.490" .
+
+ex:ev-column-C1 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.054,0.151,0.524,0.163" .
+
+ex:ev-column-C2 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.054,0.175,0.524,0.186" .
+
+ex:ev-connection-SC1 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-301 ;
+    steel:regionBox "0.092,0.178,0.412,0.624" .
+
+ex:ev-connection-brace a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-001 ;
+    steel:regionBox "0.050,0.330,0.429,0.359" .
+
+ex:ev-default-brace-connections a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-001 ;
+    steel:regionBox "0.050,0.293,0.473,0.322" .
+
+ex:ev-force-C1-Cf a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.407,0.151,0.418,0.163" .
+
+ex:ev-force-C2-Cf a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.407,0.175,0.418,0.186" .
+
+ex:ev-force-VB1 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-101 ;
+    steel:regionBox "0.155,0.441,0.701,0.582" .
+
+ex:ev-grating a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-001 ;
+    steel:regionBox "0.050,0.422,0.408,0.435" .
+
+ex:ev-parameter-importance a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-001 ;
+    steel:regionBox "0.538,0.229,0.669,0.243" .
+
+ex:ev-post-P1 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.054,0.198,0.521,0.210" .
+
+ex:ev-revision-S-001-0 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-001 ;
+    steel:regionBox "0.667,0.840,0.853,0.850" .
+
+ex:ev-revision-S-001-A a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-001 ;
+    steel:regionBox "0.667,0.823,0.829,0.833" .
+
+ex:ev-revision-S-101-0 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-101 ;
+    steel:regionBox "0.667,0.840,0.853,0.850" .
+
+ex:ev-revision-S-101-A a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-101 ;
+    steel:regionBox "0.667,0.823,0.829,0.833" .
+
+ex:ev-revision-S-201-0 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.667,0.840,0.853,0.850" .
+
+ex:ev-revision-S-201-A a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.667,0.823,0.829,0.833" .
+
+ex:ev-revision-S-301-0 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-301 ;
+    steel:regionBox "0.667,0.840,0.853,0.850" .
+
+ex:ev-revision-S-301-A a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-301 ;
+    steel:regionBox "0.667,0.823,0.829,0.833" .
+
+ex:ev-row-BP1 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.054,0.355,0.444,0.367" .
+
+ex:ev-row-BP2 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.054,0.379,0.444,0.391" .
+
+ex:ev-row-C1 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.054,0.151,0.524,0.163" .
+
+ex:ev-row-C2 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.054,0.175,0.524,0.186" .
+
+ex:ev-row-P1 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.054,0.198,0.521,0.210" .
+
+ex:ev-schedule-base-plates a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.050,0.296,0.546,0.397" .
+
+ex:ev-schedule-columns a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.407,0.226,0.528,0.238" .
+
+ex:ev-sheet-S-001 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-001 ;
+    steel:regionBox "0.671,0.865,0.930,0.973" .
+
+ex:ev-sheet-S-101 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-101 ;
+    steel:regionBox "0.671,0.865,0.930,0.973" .
+
+ex:ev-sheet-S-201 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.671,0.865,0.930,0.973" .
+
+ex:ev-sheet-S-301 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-301 ;
+    steel:regionBox "0.671,0.865,0.930,0.973" .
+
+ex:ev-standard-ASTM-F3125 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-001 ;
+    steel:regionBox "0.050,0.163,0.366,0.176" .
+
+ex:ev-standard-CSA-G40-21 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-001 ;
+    steel:regionBox "0.050,0.141,0.236,0.155" .
+
+ex:ev-standard-CSA-W59 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-001 ;
+    steel:regionBox "0.050,0.184,0.256,0.197" .
+
+ex:ev-view-detail-1 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-301 ;
+    steel:regionBox "0.092,0.178,0.412,0.624" .
+
+ex:ev-view-detail-2 a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-301 ;
+    steel:regionBox "0.471,0.226,0.840,0.624" .
+
+ex:ev-view-framing-plan a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-101 ;
+    steel:regionBox "0.076,0.202,0.714,0.748" .
+
+ex:ev-view-schedules a steel:Evidence ;
+    steel:confidence steel:Verified ;
+    steel:onSheet ex:sheet-S-201 ;
+    steel:regionBox "0.050,0.091,0.580,0.240" .
+
+ex:force-C1-Cf a steel:ForceRecord ;
+    steel:compressionValue 310.0 ;
+    steel:evidencedBy ex:ev-force-C1-Cf ;
+    steel:forceUnit "kN" ;
+    steel:loadCase "Cf" ;
+    steel:loadDirection steel:Vertical ;
+    steel:loadType steel:LoadCombination .
+
+ex:force-C2-Cf a steel:ForceRecord ;
+    steel:compressionValue 520.0 ;
+    steel:evidencedBy ex:ev-force-C2-Cf ;
+    steel:forceUnit "kN" ;
+    steel:isFactored true ;
+    steel:loadCase "Cf" ;
+    steel:loadDirection steel:Vertical ;
+    steel:loadType steel:LoadCombination .
+
+ex:force-VB1 a steel:ForceRecord ;
+    steel:compressionValue 180.0 ;
+    steel:evidencedBy ex:ev-force-VB1 ;
+    steel:forceUnit "kN" ;
+    steel:isFactored true ;
+    steel:loadCase "Tf/Cf" ;
+    steel:loadDirection steel:AlongMemberAxis ;
+    steel:loadType steel:LoadCombination ;
+    steel:symmetricTensionCompression true ;
+    steel:tensionValue 180.0 .
+
+ex:parameter-importance a steel:DesignParameter ;
+    steel:evidencedBy ex:ev-parameter-importance ;
+    steel:parameterName "IMPORTANCE CATEGORY" ;
+    steel:parameterValueText "NORMAL" .
+
+ex:post-P1 a steel:Post ;
+    steel:cutLengthMm 1100.0 ;
+    steel:elementStatus steel:NewWork ;
+    steel:evidencedBy ex:ev-post-P1 ;
+    steel:inZone ex:zone-platform ;
+    steel:requiredQuantity 2 ;
+    steel:responsibility steel:ByEngineerOfRecord ;
+    steel:sectionText "HSS102x102x6.4" ;
+    steel:tag "P1" .
+
+ex:revision-S-001-0 a steel:Revision ;
+    steel:evidencedBy ex:ev-revision-S-001-0 ;
+    steel:issuePurpose steel:IssuedForConstruction ;
+    steel:revisionCode "0" ;
+    steel:revisionDate "2030-03-18" .
+
+ex:revision-S-001-A a steel:Revision ;
+    steel:evidencedBy ex:ev-revision-S-001-A ;
+    steel:issuePurpose steel:IssuedForReview ;
+    steel:revisionCode "A" ;
+    steel:revisionDate "2030-02-11" .
+
+ex:revision-S-101-0 a steel:Revision ;
+    steel:evidencedBy ex:ev-revision-S-101-0 ;
+    steel:issuePurpose steel:IssuedForConstruction ;
+    steel:revisionCode "0" ;
+    steel:revisionDate "2030-03-18" .
+
+ex:revision-S-101-A a steel:Revision ;
+    steel:evidencedBy ex:ev-revision-S-101-A ;
+    steel:issuePurpose steel:IssuedForReview ;
+    steel:revisionCode "A" ;
+    steel:revisionDate "2030-02-11" .
+
+ex:revision-S-201-0 a steel:Revision ;
+    steel:evidencedBy ex:ev-revision-S-201-0 ;
+    steel:issuePurpose steel:IssuedForConstruction ;
+    steel:revisionCode "0" ;
+    steel:revisionDate "2030-03-18" .
+
+ex:revision-S-201-A a steel:Revision ;
+    steel:evidencedBy ex:ev-revision-S-201-A ;
+    steel:issuePurpose steel:IssuedForReview ;
+    steel:revisionCode "A" ;
+    steel:revisionDate "2030-02-11" .
+
+ex:revision-S-301-0 a steel:Revision ;
+    steel:evidencedBy ex:ev-revision-S-301-0 ;
+    steel:issuePurpose steel:IssuedForConstruction ;
+    steel:revisionCode "0" ;
+    steel:revisionDate "2030-03-18" .
+
+ex:revision-S-301-A a steel:Revision ;
+    steel:evidencedBy ex:ev-revision-S-301-A ;
+    steel:issuePurpose steel:IssuedForReview ;
+    steel:revisionCode "A" ;
+    steel:revisionDate "2030-02-11" .
+
+ex:row-BP1 a steel:ElementRow ;
+    steel:describesElement ex:base-plate-BP1 ;
+    steel:evidencedBy ex:ev-row-BP1 ;
+    steel:hasCell ex:cell-BP1-0,
+        ex:cell-BP1-1,
+        ex:cell-BP1-2,
+        ex:cell-BP1-3,
+        ex:cell-BP1-4 .
+
+ex:row-BP2 a steel:ElementRow ;
+    steel:describesElement ex:base-plate-BP2 ;
+    steel:evidencedBy ex:ev-row-BP2 ;
+    steel:hasCell ex:cell-BP2-0,
+        ex:cell-BP2-1,
+        ex:cell-BP2-2,
+        ex:cell-BP2-3,
+        ex:cell-BP2-4 .
+
+ex:row-C1 a steel:ElementRow ;
+    steel:describesElement ex:column-C1 ;
+    steel:evidencedBy ex:ev-row-C1 ;
+    steel:hasCell ex:cell-C1-0,
+        ex:cell-C1-1,
+        ex:cell-C1-2,
+        ex:cell-C1-3,
+        ex:cell-C1-4,
+        ex:cell-C1-5,
+        ex:cell-C1-6 ;
+    steel:rowValue 772.8 .
+
+ex:row-C2 a steel:ElementRow ;
+    steel:describesElement ex:column-C2 ;
+    steel:evidencedBy ex:ev-row-C2 ;
+    steel:hasCell ex:cell-C2-0,
+        ex:cell-C2-1,
+        ex:cell-C2-2,
+        ex:cell-C2-3,
+        ex:cell-C2-4,
+        ex:cell-C2-5,
+        ex:cell-C2-6 ;
+    steel:rowValue 436.8 .
+
+ex:row-P1 a steel:ElementRow ;
+    steel:describesElement ex:post-P1 ;
+    steel:evidencedBy ex:ev-row-P1 ;
+    steel:hasCell ex:cell-P1-0,
+        ex:cell-P1-1,
+        ex:cell-P1-2,
+        ex:cell-P1-3,
+        ex:cell-P1-4,
+        ex:cell-P1-5,
+        ex:cell-P1-6 ;
+    steel:rowValue 40.0 .
+
+ex:schedule-base-plates a steel:Schedule ;
+    steel:evidencedBy ex:ev-schedule-base-plates ;
+    steel:hasRow ex:row-BP1,
+        ex:row-BP2 ;
+    steel:scheduleKind steel:BasePlateSchedule .
+
+ex:schedule-columns a steel:Schedule ;
+    steel:declaredTotal 1294.6 ;
+    steel:evidencedBy ex:ev-schedule-columns ;
+    steel:hasRow ex:row-C1,
+        ex:row-C2,
+        ex:row-P1 ;
+    steel:scheduleKind steel:ColumnSchedule .
+
+ex:standard-ASTM-F3125 a steel:Standard ;
+    steel:evidencedBy ex:ev-standard-ASTM-F3125 ;
+    steel:standardDesignation "ASTM F3125" .
+
+ex:standard-CSA-G40-21 a steel:Standard ;
+    steel:evidencedBy ex:ev-standard-CSA-G40-21 ;
+    steel:standardDesignation "CSA G40.21" .
+
+ex:standard-CSA-W59 a steel:Standard ;
+    steel:evidencedBy ex:ev-standard-CSA-W59 ;
+    steel:standardDesignation "CSA W59" .
+
+ex:view-detail-2 a steel:View ;
+    steel:evidencedBy ex:ev-view-detail-2 ;
+    steel:scaleText "1:10" ;
+    steel:showsElement ex:anchor-rods,
+        ex:base-plate-BP1 ;
+    steel:viewCode "2" ;
+    steel:viewKind steel:DetailView .
+
+ex:view-framing-plan a steel:View ;
+    steel:calloutTargetSheetText "S-301" ;
+    steel:calloutTo ex:view-detail-1 ;
+    steel:evidencedBy ex:ev-view-framing-plan ;
+    steel:scaleText "1:75" ;
+    steel:showsElement ex:beam-B1,
+        ex:beam-B2,
+        ex:beam-B3,
+        ex:brace-VB1,
+        ex:column-C1,
+        ex:column-C2 ;
+    steel:viewKind steel:PlanView .
+
+ex:view-schedules a steel:View ;
+    steel:evidencedBy ex:ev-view-schedules ;
+    steel:viewKind steel:ScheduleView .
+
+ex:base-plate-BP1 a steel:BasePlateConnection ;
+    steel:connects ex:column-C1 ;
+    steel:evidencedBy ex:ev-base-plate-BP1 ;
+    steel:responsibility steel:ByEngineerOfRecord ;
+    steel:supports ex:column-C1 ;
+    steel:tag "BP1" ;
+    steel:weldPattern "6" .
+
+ex:brace-VB1 a steel:Brace ;
+    steel:elementStatus steel:NewWork ;
+    steel:evidencedBy ex:ev-brace-VB1 ;
+    steel:hasForceRecord ex:force-VB1 ;
+    steel:requiredQuantity 2 ;
+    steel:responsibility steel:ByEngineerOfRecord ;
+    steel:sectionText "HSS102x102x6.4" ;
+    steel:tag "VB1" .
+
+ex:view-detail-1 a steel:View ;
+    steel:evidencedBy ex:ev-view-detail-1 ;
+    steel:isTypical true ;
+    steel:scaleText "1:10" ;
+    steel:showsElement ex:beam-B1,
+        ex:column-C1,
+        ex:connection-SC1 ;
+    steel:viewCode "1" ;
+    steel:viewKind steel:DetailView .
+
+ex:beam-B3 a steel:Beam ;
+    steel:elementStatus steel:NewWork ;
+    steel:elevationKind "T/STEEL" ;
+    steel:elevationM 104.200 ;
+    steel:evidencedBy ex:ev-beam-B3 ;
+    steel:inZone ex:zone-platform ;
+    steel:requiredQuantity 2 ;
+    steel:responsibility steel:ByEngineerOfRecord ;
+    steel:revisedInThisIssue true ;
+    steel:sectionText "W200x27" ;
+    steel:tag "B3" .
+
+ex:beam-B1 a steel:Beam ;
+    steel:elementStatus steel:NewWork ;
+    steel:elevationKind "T/STEEL" ;
+    steel:elevationM 104.200 ;
+    steel:evidencedBy ex:ev-beam-B1 ;
+    steel:inZone ex:zone-platform ;
+    steel:requiredQuantity 4 ;
+    steel:responsibility steel:ByEngineerOfRecord ;
+    steel:sectionText "W310x39" ;
+    steel:tag "B1" .
+
+ex:column-C2 a steel:Column ;
+    steel:cutLengthMm 4200.0 ;
+    steel:elementStatus steel:NewWork ;
+    steel:evidencedBy ex:ev-column-C2 ;
+    steel:gridLocationText "B/1",
+        "B/2" ;
+    steel:hasForceRecord ex:force-C2-Cf ;
+    steel:inZone ex:zone-platform ;
+    steel:requiredQuantity 2 ;
+    steel:responsibility steel:ByEngineerOfRecord ;
+    steel:sectionText "W200x52" ;
+    steel:tag "C2" .
+
+ex:column-C1 a steel:Column ;
+    steel:cutLengthMm 4200.0 ;
+    steel:elementStatus steel:NewWork ;
+    steel:evidencedBy ex:ev-column-C1 ;
+    steel:gridLocationText "A/1",
+        "A/2",
+        "C/1",
+        "C/2" ;
+    steel:hasForceRecord ex:force-C1-Cf ;
+    steel:inZone ex:zone-platform ;
+    steel:requiredQuantity 4 ;
+    steel:responsibility steel:ByEngineerOfRecord ;
+    steel:sectionText "W200x46" ;
+    steel:tag "C1" .
+
+ex:sheet-S-301 a steel:Sheet ;
+    steel:evidencedBy ex:ev-sheet-S-301 ;
+    steel:hasRevision ex:revision-S-301-0,
+        ex:revision-S-301-A ;
+    steel:hasView ex:view-detail-1,
+        ex:view-detail-2 ;
+    steel:pageIndex 4 ;
+    steel:projectNumber "EX-0417" ;
+    steel:sheetDiscipline steel:SteelDiscipline ;
+    steel:sheetNumber "S-301" ;
+    steel:sheetTitle "CONNECTION DETAILS" ;
+    steel:sheetTotal 4 .
+
+ex:zone-platform a steel:Zone ;
+    steel:hasAreaLoad ex:area-load-DeadLoad,
+        ex:area-load-LiveLoad ;
+    steel:zoneKind steel:LoadZoneKind ;
+    steel:zoneOnSheet ex:sheet-S-101 .
+
+ex:sheet-S-101 a steel:Sheet ;
+    steel:evidencedBy ex:ev-sheet-S-101 ;
+    steel:hasAnnotation ex:annotation-query-note,
+        ex:annotation-received-stamp,
+        ex:annotation-revision-cloud,
+        ex:annotation-takeoff-highlight ;
+    steel:hasRevision ex:revision-S-101-0,
+        ex:revision-S-101-A ;
+    steel:hasView ex:view-framing-plan ;
+    steel:pageIndex 2 ;
+    steel:projectNumber "EX-0417" ;
+    steel:sheetDiscipline steel:SteelDiscipline ;
+    steel:sheetKind steel:PlanSheet ;
+    steel:sheetNumber "S-101" ;
+    steel:sheetTitle "PLATFORM FRAMING PLAN" ;
+    steel:sheetTotal 4 .
+
+ex:sheet-S-001 a steel:Sheet ;
+    steel:evidencedBy ex:ev-sheet-S-001 ;
+    steel:hasDefaultRule ex:default-brace-connections ;
+    steel:hasDesignParameter ex:parameter-importance ;
+    steel:hasRequirement ex:clause-1,
+        ex:clause-2,
+        ex:clause-3,
+        ex:clause-4,
+        ex:clause-5,
+        ex:clause-6,
+        ex:clause-7,
+        ex:clause-8,
+        ex:clause-9 ;
+    steel:hasRevision ex:revision-S-001-0,
+        ex:revision-S-001-A ;
+    steel:pageIndex 1 ;
+    steel:projectNumber "EX-0417" ;
+    steel:sheetDiscipline steel:SteelDiscipline ;
+    steel:sheetKind steel:GeneralNotesSheet ;
+    steel:sheetNumber "S-001" ;
+    steel:sheetTitle "GENERAL NOTES" ;
+    steel:sheetTotal 4 .
+
+ex:sheet-S-201 a steel:Sheet ;
+    steel:evidencedBy ex:ev-sheet-S-201 ;
+    steel:hasRevision ex:revision-S-201-0,
+        ex:revision-S-201-A ;
+    steel:hasSchedule ex:schedule-base-plates,
+        ex:schedule-columns ;
+    steel:hasView ex:view-schedules ;
+    steel:pageIndex 3 ;
+    steel:projectNumber "EX-0417" ;
+    steel:sheetDiscipline steel:SteelDiscipline ;
+    steel:sheetKind steel:ScheduleSheet ;
+    steel:sheetNumber "S-201" ;
+    steel:sheetTitle "COLUMN AND BASE PLATE SCHEDULES" ;
+    steel:sheetTotal 4 .
+

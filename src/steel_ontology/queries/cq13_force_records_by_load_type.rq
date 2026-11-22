@@ -1,0 +1,15 @@
+# id: CQ13
+# title: Force records of one load type
+# question: Which force records belong to one load type (blast by default)?
+# param: loadType = BlastLoad
+
+PREFIX steel: <https://jaymirzaei.github.io/steel-drawing-ontology/core#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?record ?loadCase ?factored ?unit WHERE {
+    ?record steel:loadType ?loadType .
+    OPTIONAL { ?record steel:loadCase ?loadCase }
+    OPTIONAL { ?record steel:isFactored ?factored }
+    OPTIONAL { ?record steel:forceUnit ?unit }
+}
+ORDER BY ?record

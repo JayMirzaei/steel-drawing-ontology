@@ -1,0 +1,12 @@
+# id: CQ11
+# title: Members that reinforce existing ones
+# question: Which members strengthen an existing member, and under what installation constraint?
+
+PREFIX steel: <https://jaymirzaei.github.io/steel-drawing-ontology/core#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?member ?reinforced ?constraint WHERE {
+    ?member steel:reinforces ?reinforced .
+    OPTIONAL { ?member steel:installationConstraintText ?constraint }
+}
+ORDER BY ?member

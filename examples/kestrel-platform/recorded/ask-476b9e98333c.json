@@ -1,0 +1,9 @@
+{
+ "query": "requirement-clauses",
+ "params": [
+  {
+   "name": "topic",
+   "value": "InspectionReq"
+  }
+ ]
+}

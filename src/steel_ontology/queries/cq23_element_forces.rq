@@ -1,0 +1,23 @@
+# id: CQ23
+# title: Forces on each element
+# question: Which design forces does the set print for each element (axial, tension, shear, moment), factored or not, and in what unit?
+
+# Values are as printed; the unit columns say what they are in. Nothing is converted or added.
+
+PREFIX steel: <https://jaymirzaei.github.io/steel-drawing-ontology/core#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?element ?tag ?record ?loadCase ?factored ?axial ?compression ?tension ?shear ?moment ?forceUnit ?momentUnit WHERE {
+    ?element steel:hasForceRecord ?record .
+    OPTIONAL { ?element steel:tag ?tag }
+    OPTIONAL { ?record steel:loadCase ?loadCase }
+    OPTIONAL { ?record steel:isFactored ?factored }
+    OPTIONAL { ?record steel:axialValue ?axial }
+    OPTIONAL { ?record steel:compressionValue ?compression }
+    OPTIONAL { ?record steel:tensionValue ?tension }
+    OPTIONAL { ?record steel:shearMajorValue ?shear }
+    OPTIONAL { ?record steel:momentMajorValue ?moment }
+    OPTIONAL { ?record steel:forceUnit ?forceUnit }
+    OPTIONAL { ?record steel:momentUnit ?momentUnit }
+}
+ORDER BY ?tag ?element ?record

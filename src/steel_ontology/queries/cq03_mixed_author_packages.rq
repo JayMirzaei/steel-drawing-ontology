@@ -1,0 +1,14 @@
+# id: CQ03
+# title: Packages with sheets by different authors
+# question: Which drawing sets bundle sheets from authors in different roles?
+
+PREFIX steel: <https://jaymirzaei.github.io/steel-drawing-ontology/core#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?set WHERE {
+    ?set steel:hasSheet ?a , ?b .
+    ?a steel:authorRole ?roleA .
+    ?b steel:authorRole ?roleB .
+    FILTER(?roleA != ?roleB)
+}
+ORDER BY ?set

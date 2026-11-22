@@ -1,0 +1,16 @@
+# id: CQ21
+# title: Connections someone else designs
+# question: Which connections will another party design (a connection engineer), so detailing must wait for them?
+# reasoner: required
+
+# ConnectionToBeDesignedByOthers is a defined class: a connection whose responsibility is the
+# connection engineer. The reasoner classifies; the query only asks for the class.
+
+PREFIX steel: <https://jaymirzaei.github.io/steel-drawing-ontology/core#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?connection ?tag WHERE {
+    ?connection a steel:ConnectionToBeDesignedByOthers .
+    OPTIONAL { ?connection steel:tag ?tag }
+}
+ORDER BY ?connection

@@ -1,0 +1,74 @@
+[project]
+name = "steel-drawing-ontology"
+version = "1.0.6"
+description = "An OWL + SHACL vocabulary for steel fabrication drawings, with a pipeline from drawing to typed objects to a validated, queryable knowledge graph."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Jay Mirzaei" }]
+requires-python = ">=3.12"
+keywords = ["ontology", "owl", "shacl", "structural-steel", "knowledge-graph"]
+dependencies = [
+    "owlrl>=7.1",
+    "pillow>=10",
+    "pydantic>=2.7",
+    "pypdfium2>=4.30",
+    "pyshacl>=0.30",
+    "rdflib>=7.1",
+]
+
+[project.optional-dependencies]
+# HermiT (OWL 2 DL) through owlready2. Needs a Java runtime on the machine.
+hermit = ["owlready2>=0.47"]
+# One extra per LLM provider SDK. The "local" and "recorded" providers need none.
+anthropic = ["anthropic>=2.12"]
+openai = ["openai>=3.0"]
+gemini = ["google-genai>=3.0"]
+# The Streamlit explorer in app/.
+app = ["streamlit>=1.50"]
+all = ["steel-drawing-ontology[hermit,anthropic,openai,gemini,app]"]
+
+[project.scripts]
+steel-ontology = "steel_ontology.cli:main"
+
+[dependency-groups]
+# PyMuPDF (AGPL) is used only here, to draw the synthetic example PDF and to check it in tests.
+# The installed package never imports it.
+dev = [
+    "anthropic>=2.12",
+    "google-genai>=3.0",
+    "openai>=3.0",
+    "owlready2>=0.47",
+    "pymupdf>=1.24",
+    "pytest>=8",
+    "ruff>=0.8",
+    "streamlit>=1.50",
+]
+# Only for scripts/screenshots.py: uv sync --group screenshots && uv run playwright install chromium
+screenshots = ["playwright>=1.48"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/steel_ontology"]
+
+# The vocabulary lives at the repository root so it is easy to find and to publish.
+# A built wheel carries a copy inside the package (see steel_ontology.vocabulary).
+[tool.hatch.build.targets.wheel.force-include]
+"ontology" = "steel_ontology/ontology"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["examples"]
+addopts = "-ra"
+markers = ["java: needs a Java runtime (HermiT through owlready2)"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests", "examples", "app", "scripts"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "C4", "PTH", "RUF"]

@@ -1,0 +1,17 @@
+# id: CQ19
+# title: Notes, stamps and markup with their wording
+# question: What do the notes, stamps and markup on the sheets say, and who drew them?
+
+PREFIX steel: <https://jaymirzaei.github.io/steel-drawing-ontology/core#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?annotation ?sheetNumber ?markupKind ?origin ?text ?stampDate WHERE {
+    ?annotation a ?class .
+    ?class rdfs:subClassOf* steel:Annotation .
+    OPTIONAL { ?sheet steel:hasAnnotation ?annotation ; steel:sheetNumber ?sheetNumber }
+    OPTIONAL { ?annotation steel:markupKind ?markupKind }
+    OPTIONAL { ?annotation steel:annotationOrigin ?origin }
+    OPTIONAL { ?annotation steel:annotationText ?text }
+    OPTIONAL { ?annotation steel:stampDate ?stampDate }
+}
+ORDER BY ?sheetNumber ?annotation

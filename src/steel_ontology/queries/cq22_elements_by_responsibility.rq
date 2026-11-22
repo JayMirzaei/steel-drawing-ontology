@@ -1,0 +1,21 @@
+# id: CQ22
+# title: Elements by responsibility
+# question: Which elements does the drawing give to one party to design, supply or detail (BY OTHERS by default)?
+# param: responsibility = ByOthers
+# param: elementClass = Element
+
+PREFIX steel: <https://jaymirzaei.github.io/steel-drawing-ontology/core#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?element ?class ?tag WHERE {
+    ?element steel:responsibility ?responsibility ;
+             a ?class .
+    ?class rdfs:subClassOf* ?elementClass .
+    FILTER NOT EXISTS {
+        ?element a ?narrower .
+        ?narrower rdfs:subClassOf+ ?class .
+        FILTER(?narrower != ?class)
+    }
+    OPTIONAL { ?element steel:tag ?tag }
+}
+ORDER BY ?class ?tag ?element

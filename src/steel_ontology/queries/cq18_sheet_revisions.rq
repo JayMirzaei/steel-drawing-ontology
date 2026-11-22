@@ -1,0 +1,16 @@
+# id: CQ18
+# title: Sheet list with the revision history
+# question: Which sheets are in the set, and when was each one issued for what purpose?
+
+PREFIX steel: <https://jaymirzaei.github.io/steel-drawing-ontology/core#>
+
+SELECT ?revision ?sheetNumber ?sheetTitle ?code ?date ?purpose WHERE {
+    ?sheet a steel:Sheet ;
+           steel:hasRevision ?revision .
+    OPTIONAL { ?sheet steel:sheetNumber ?sheetNumber }
+    OPTIONAL { ?sheet steel:sheetTitle ?sheetTitle }
+    OPTIONAL { ?revision steel:revisionCode ?code }
+    OPTIONAL { ?revision steel:revisionDate ?date }
+    OPTIONAL { ?revision steel:issuePurpose ?purpose }
+}
+ORDER BY ?sheetNumber ?date ?revision

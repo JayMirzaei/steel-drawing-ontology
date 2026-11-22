@@ -1,0 +1,720 @@
+{
+ "objects": [
+  {
+   "id": "anchor-rods",
+   "type": "Fastener",
+   "fields": [
+    {
+     "name": "responsibility",
+     "values": [
+      "ByOthers"
+     ]
+    }
+   ],
+   "zone": "0.050,0.400,0.332,0.414",
+   "confidence": "Verified"
+  },
+  {
+   "id": "area-load-DeadLoad",
+   "type": "AreaLoad",
+   "fields": [
+    {
+     "name": "area_load_type",
+     "values": [
+      "DeadLoad"
+     ]
+    },
+    {
+     "name": "area_load_factored",
+     "values": [
+      "false"
+     ]
+    },
+    {
+     "name": "area_load_kpa",
+     "values": [
+      "1.0"
+     ]
+    }
+   ],
+   "zone": "0.541,0.196,0.757,0.208",
+   "confidence": "Verified"
+  },
+  {
+   "id": "area-load-LiveLoad",
+   "type": "AreaLoad",
+   "fields": [
+    {
+     "name": "area_load_type",
+     "values": [
+      "LiveLoad"
+     ]
+    },
+    {
+     "name": "area_load_factored",
+     "values": [
+      "false"
+     ]
+    },
+    {
+     "name": "area_load_kpa",
+     "values": [
+      "4.8"
+     ]
+    }
+   ],
+   "zone": "0.541,0.172,0.757,0.184",
+   "confidence": "Verified"
+  },
+  {
+   "id": "clause-1",
+   "type": "RequirementClause",
+   "fields": [
+    {
+     "name": "cites_standard",
+     "values": [
+      "standard-CSA-G40-21"
+     ]
+    },
+    {
+     "name": "requirement_topic",
+     "values": [
+      "MaterialReq"
+     ]
+    },
+    {
+     "name": "clause_number",
+     "values": [
+      "1"
+     ]
+    },
+    {
+     "name": "clause_text",
+     "values": [
+      "W SHAPES AND HSS: CSA G40.21 GRADE 350W."
+     ]
+    },
+    {
+     "name": "clause_value",
+     "values": [
+      "350W"
+     ]
+    }
+   ],
+   "zone": "0.050,0.141,0.236,0.155",
+   "confidence": "Verified"
+  },
+  {
+   "id": "clause-2",
+   "type": "RequirementClause",
+   "fields": [
+    {
+     "name": "cites_standard",
+     "values": [
+      "standard-ASTM-F3125"
+     ]
+    },
+    {
+     "name": "requirement_topic",
+     "values": [
+      "BoltingReq"
+     ]
+    },
+    {
+     "name": "clause_number",
+     "values": [
+      "2"
+     ]
+    },
+    {
+     "name": "clause_text",
+     "values": [
+      "BOLTS: ASTM F3125 GRADE A325, 20 mm DIAMETER, SNUG TIGHT UNLESS NOTED."
+     ]
+    },
+    {
+     "name": "clause_value",
+     "values": [
+      "20 mm A325"
+     ]
+    }
+   ],
+   "zone": "0.050,0.163,0.366,0.176",
+   "confidence": "Verified"
+  },
+  {
+   "id": "clause-3",
+   "type": "RequirementClause",
+   "fields": [
+    {
+     "name": "cites_standard",
+     "values": [
+      "standard-CSA-W59"
+     ]
+    },
+    {
+     "name": "requirement_topic",
+     "values": [
+      "WeldingReq"
+     ]
+    },
+    {
+     "name": "clause_number",
+     "values": [
+      "3"
+     ]
+    },
+    {
+     "name": "clause_text",
+     "values": [
+      "WELDING TO CSA W59. MINIMUM FILLET WELD 6 mm."
+     ]
+    },
+    {
+     "name": "clause_value",
+     "values": [
+      "6 mm"
+     ]
+    }
+   ],
+   "zone": "0.050,0.184,0.256,0.197",
+   "confidence": "Verified"
+  },
+  {
+   "id": "clause-4",
+   "type": "RequirementClause",
+   "fields": [
+    {
+     "name": "requirement_topic",
+     "values": [
+      "ErectionReq"
+     ]
+    },
+    {
+     "name": "clause_number",
+     "values": [
+      "4"
+     ]
+    },
+    {
+     "name": "clause_text",
+     "values": [
+      "DO NOT FIELD CUT OR BURN HOLES IN BASE PLATES."
+     ]
+    },
+    {
+     "name": "is_prohibition",
+     "values": [
+      "true"
+     ]
+    }
+   ],
+   "zone": "0.050,0.239,0.261,0.252",
+   "confidence": "Verified"
+  },
+  {
+   "id": "clause-5",
+   "type": "RequirementClause",
+   "fields": [
+    {
+     "name": "requirement_topic",
+     "values": [
+      "ConnectionDesignReq"
+     ]
+    },
+    {
+     "name": "clause_number",
+     "values": [
+      "5"
+     ]
+    },
+    {
+     "name": "clause_text",
+     "values": [
+      "UNLESS NOTED OTHERWISE, DESIGN BRACE CONNECTIONS FOR 50% OF THE TENSILE YIELD RESISTANCE OF THE BRACE."
+     ]
+    },
+    {
+     "name": "clause_value",
+     "values": [
+      "50%"
+     ]
+    },
+    {
+     "name": "is_default_rule_clause",
+     "values": [
+      "true"
+     ]
+    }
+   ],
+   "zone": "0.050,0.293,0.473,0.322",
+   "confidence": "Verified"
+  },
+  {
+   "id": "clause-6",
+   "type": "RequirementClause",
+   "fields": [
+    {
+     "name": "requirement_topic",
+     "values": [
+      "SubmittalReq"
+     ]
+    },
+    {
+     "name": "clause_number",
+     "values": [
+      "6"
+     ]
+    },
+    {
+     "name": "clause_text",
+     "values": [
+      "CONNECTIONS NOT DETAILED ON THESE DRAWINGS ARE TO BE DESIGNED BY THE FABRICATOR'S CONNECTION ENGINEER. SUBMIT SEALED CALCULATIONS."
+     ]
+    },
+    {
+     "name": "clause_value",
+     "values": [
+      "sealed calculations"
+     ]
+    }
+   ],
+   "zone": "0.050,0.330,0.429,0.359",
+   "confidence": "Verified"
+  },
+  {
+   "id": "clause-7",
+   "type": "RequirementClause",
+   "fields": [
+    {
+     "name": "requirement_topic",
+     "values": [
+      "ScopeExclusionReq"
+     ]
+    },
+    {
+     "name": "clause_number",
+     "values": [
+      "7"
+     ]
+    },
+    {
+     "name": "clause_text",
+     "values": [
+      "ANCHOR RODS AND GROUT ARE SUPPLIED AND INSTALLED BY OTHERS."
+     ]
+    },
+    {
+     "name": "clause_value",
+     "values": [
+      "by others"
+     ]
+    }
+   ],
+   "zone": "0.050,0.400,0.332,0.414",
+   "confidence": "Verified"
+  },
+  {
+   "id": "clause-8",
+   "type": "RequirementClause",
+   "fields": [
+    {
+     "name": "requirement_topic",
+     "values": [
+      "GratingReq"
+     ]
+    },
+    {
+     "name": "clause_number",
+     "values": [
+      "8"
+     ]
+    },
+    {
+     "name": "clause_text",
+     "values": [
+      "GRATING IS SUPPLIED BY THE GRATING SUPPLIER AND INSTALLED BY THE STEEL ERECTOR."
+     ]
+    },
+    {
+     "name": "clause_value",
+     "values": [
+      "supply by supplier"
+     ]
+    }
+   ],
+   "zone": "0.050,0.422,0.408,0.435",
+   "confidence": "Verified"
+  },
+  {
+   "id": "clause-9",
+   "type": "RequirementClause",
+   "fields": [
+    {
+     "name": "requirement_topic",
+     "values": [
+      "InspectionReq"
+     ]
+    },
+    {
+     "name": "clause_number",
+     "values": [
+      "9"
+     ]
+    },
+    {
+     "name": "clause_text",
+     "values": [
+      "GIVE 48 HOURS NOTICE BEFORE EACH FIELD REVIEW."
+     ]
+    },
+    {
+     "name": "clause_value",
+     "values": [
+      "48 hours"
+     ]
+    },
+    {
+     "name": "notice_hours",
+     "values": [
+      "48"
+     ]
+    }
+   ],
+   "zone": "0.050,0.476,0.264,0.490",
+   "confidence": "Verified"
+  },
+  {
+   "id": "connection-brace",
+   "type": "BraceConnection",
+   "fields": [
+    {
+     "name": "is_design_open",
+     "values": [
+      "true"
+     ]
+    },
+    {
+     "name": "responsibility",
+     "values": [
+      "ByConnectionEngineer"
+     ]
+    },
+    {
+     "name": "requires_sealed_design",
+     "values": [
+      "true"
+     ]
+    },
+    {
+     "name": "connects",
+     "values": [
+      "brace-VB1",
+      "column-C1"
+     ]
+    }
+   ],
+   "zone": "0.050,0.330,0.429,0.359",
+   "confidence": "Verified"
+  },
+  {
+   "id": "default-brace-connections",
+   "type": "DefaultRule",
+   "fields": [
+    {
+     "name": "default_rule_kind",
+     "values": [
+      "PercentOfYieldRule"
+     ]
+    },
+    {
+     "name": "applies_to_property",
+     "values": [
+      "brace connection design force"
+     ]
+    },
+    {
+     "name": "default_percent",
+     "values": [
+      "50"
+     ]
+    },
+    {
+     "name": "default_rule_text",
+     "values": [
+      "UNLESS NOTED OTHERWISE, DESIGN BRACE CONNECTIONS FOR 50% OF THE TENSILE YIELD RESISTANCE OF THE BRACE."
+     ]
+    },
+    {
+     "name": "default_value_text",
+     "values": [
+      "50% of the tensile yield resistance of the brace"
+     ]
+    }
+   ],
+   "zone": "0.050,0.293,0.473,0.322",
+   "confidence": "Verified"
+  },
+  {
+   "id": "drawing-set",
+   "type": "DrawingSet",
+   "fields": [
+    {
+     "name": "author_role",
+     "values": [
+      "EngineerOfRecordRole"
+     ]
+    },
+    {
+     "name": "has_sheet",
+     "values": [
+      "sheet-S-001"
+     ]
+    },
+    {
+     "name": "in_domain",
+     "values": [
+      "PlatformStairDomain"
+     ]
+    },
+    {
+     "name": "unit_system",
+     "values": [
+      "Metric"
+     ]
+    },
+    {
+     "name": "revision_code_scheme",
+     "values": [
+      "letters before the construction issue, then numbers"
+     ]
+    },
+    {
+     "name": "project_number",
+     "values": [
+      "EX-0417"
+     ]
+    }
+   ],
+   "zone": null,
+   "confidence": "Verified"
+  },
+  {
+   "id": "grating",
+   "type": "Grating",
+   "fields": [
+    {
+     "name": "responsibility",
+     "values": [
+      "BySupplier"
+     ]
+    },
+    {
+     "name": "work_kind",
+     "values": [
+      "InstallOnly"
+     ]
+    },
+    {
+     "name": "in_zone",
+     "values": [
+      "zone-platform"
+     ]
+    }
+   ],
+   "zone": "0.050,0.422,0.408,0.435",
+   "confidence": "Verified"
+  },
+  {
+   "id": "parameter-importance",
+   "type": "DesignParameter",
+   "fields": [
+    {
+     "name": "parameter_name",
+     "values": [
+      "IMPORTANCE CATEGORY"
+     ]
+    },
+    {
+     "name": "parameter_value_text",
+     "values": [
+      "NORMAL"
+     ]
+    }
+   ],
+   "zone": "0.538,0.229,0.669,0.243",
+   "confidence": "Verified"
+  },
+  {
+   "id": "revision-S-001-0",
+   "type": "Revision",
+   "fields": [
+    {
+     "name": "issue_purpose",
+     "values": [
+      "IssuedForConstruction"
+     ]
+    },
+    {
+     "name": "revision_code",
+     "values": [
+      "0"
+     ]
+    },
+    {
+     "name": "revision_date",
+     "values": [
+      "2030-03-18"
+     ]
+    }
+   ],
+   "zone": "0.667,0.840,0.853,0.850",
+   "confidence": "Verified"
+  },
+  {
+   "id": "revision-S-001-A",
+   "type": "Revision",
+   "fields": [
+    {
+     "name": "issue_purpose",
+     "values": [
+      "IssuedForReview"
+     ]
+    },
+    {
+     "name": "revision_code",
+     "values": [
+      "A"
+     ]
+    },
+    {
+     "name": "revision_date",
+     "values": [
+      "2030-02-11"
+     ]
+    }
+   ],
+   "zone": "0.667,0.823,0.829,0.833",
+   "confidence": "Verified"
+  },
+  {
+   "id": "sheet-S-001",
+   "type": "Sheet",
+   "fields": [
+    {
+     "name": "sheet_discipline",
+     "values": [
+      "SteelDiscipline"
+     ]
+    },
+    {
+     "name": "sheet_kind",
+     "values": [
+      "GeneralNotesSheet"
+     ]
+    },
+    {
+     "name": "project_number",
+     "values": [
+      "EX-0417"
+     ]
+    },
+    {
+     "name": "sheet_number",
+     "values": [
+      "S-001"
+     ]
+    },
+    {
+     "name": "sheet_title",
+     "values": [
+      "GENERAL NOTES"
+     ]
+    },
+    {
+     "name": "sheet_total",
+     "values": [
+      "4"
+     ]
+    },
+    {
+     "name": "has_revision",
+     "values": [
+      "revision-S-001-0",
+      "revision-S-001-A"
+     ]
+    },
+    {
+     "name": "has_design_parameter",
+     "values": [
+      "parameter-importance"
+     ]
+    },
+    {
+     "name": "has_default_rule",
+     "values": [
+      "default-brace-connections"
+     ]
+    },
+    {
+     "name": "has_requirement",
+     "values": [
+      "clause-1",
+      "clause-2",
+      "clause-3",
+      "clause-4",
+      "clause-5",
+      "clause-6",
+      "clause-7",
+      "clause-8",
+      "clause-9"
+     ]
+    }
+   ],
+   "zone": "0.671,0.865,0.930,0.973",
+   "confidence": "Verified"
+  },
+  {
+   "id": "standard-ASTM-F3125",
+   "type": "Standard",
+   "fields": [
+    {
+     "name": "standard_designation",
+     "values": [
+      "ASTM F3125"
+     ]
+    }
+   ],
+   "zone": "0.050,0.163,0.366,0.176",
+   "confidence": "Verified"
+  },
+  {
+   "id": "standard-CSA-G40-21",
+   "type": "Standard",
+   "fields": [
+    {
+     "name": "standard_designation",
+     "values": [
+      "CSA G40.21"
+     ]
+    }
+   ],
+   "zone": "0.050,0.141,0.236,0.155",
+   "confidence": "Verified"
+  },
+  {
+   "id": "standard-CSA-W59",
+   "type": "Standard",
+   "fields": [
+    {
+     "name": "standard_designation",
+     "values": [
+      "CSA W59"
+     ]
+    }
+   ],
+   "zone": "0.050,0.184,0.256,0.197",
+   "confidence": "Verified"
+  }
+ ]
+}

@@ -1,0 +1,15 @@
+# id: CQ12
+# title: Scope items by kind of work
+# question: Which scope-of-work items are of one kind of work (supply and install by default)?
+# param: workKind = SupplyAndInstall
+
+PREFIX steel: <https://jaymirzaei.github.io/steel-drawing-ontology/core#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?item ?itemId ?text WHERE {
+    ?item a steel:ScopeItem ;
+          steel:scopeItemWork ?workKind .
+    OPTIONAL { ?item steel:scopeItemId ?itemId }
+    OPTIONAL { ?item steel:scopeItemText ?text }
+}
+ORDER BY ?item

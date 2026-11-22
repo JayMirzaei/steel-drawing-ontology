@@ -1,0 +1,25 @@
+# id: CQ17
+# title: Elements of one class
+# question: Which elements of one class does the set show, with mark, section, quantity and each grid location (members by default)?
+# param: elementClass = Member
+
+# ?class is the most specific class of the element, so an element appears once even in a graph
+# where the reasoner has added its superclasses (a beam is also a member and an element).
+
+PREFIX steel: <https://jaymirzaei.github.io/steel-drawing-ontology/core#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?element ?class ?tag ?section ?quantity ?location WHERE {
+    ?element a ?class .
+    ?class rdfs:subClassOf* ?elementClass .
+    FILTER NOT EXISTS {
+        ?element a ?narrower .
+        ?narrower rdfs:subClassOf+ ?class .
+        FILTER(?narrower != ?class)
+    }
+    OPTIONAL { ?element steel:tag ?tag }
+    OPTIONAL { ?element steel:sectionText ?section }
+    OPTIONAL { ?element steel:requiredQuantity ?quantity }
+    OPTIONAL { ?element steel:gridLocationText ?location }
+}
+ORDER BY ?class ?tag ?element ?location

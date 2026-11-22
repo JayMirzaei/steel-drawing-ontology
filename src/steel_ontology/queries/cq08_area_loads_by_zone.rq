@@ -1,0 +1,18 @@
+# id: CQ08
+# title: Area loads of one type, per zone
+# question: What area load of one type (live load by default) does each zone carry, and is it factored?
+# param: loadType = LiveLoad
+
+# One row per zone and load. Pressures of different zones are never added: a sum of kPa over
+# zones is not a quantity anyone designs with (a total would need the zone areas).
+
+PREFIX steel: <https://jaymirzaei.github.io/steel-drawing-ontology/core#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?zone ?load ?kPa ?factored WHERE {
+    ?zone steel:hasAreaLoad ?load .
+    ?load steel:areaLoadType ?loadType ;
+          steel:areaLoadKPa ?kPa .
+    OPTIONAL { ?load steel:areaLoadFactored ?factored }
+}
+ORDER BY ?zone ?load

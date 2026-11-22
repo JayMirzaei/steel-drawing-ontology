@@ -1,0 +1,56 @@
+# One invented individual per reasoner-defined class. ex:<Class>_yes must be inferred to be a
+# member of <Class>; the ex:*_no individuals must not. Used by tests/test_reason.py.
+
+@prefix steel: <https://jaymirzaei.github.io/steel-drawing-ontology/core#> .
+@prefix ex:    <https://example.org/defined#> .
+
+ex:CommercialSheet_yes a steel:Sheet ; steel:pricingColumns true .
+ex:CommercialSheet_no a steel:Sheet ; steel:pricingColumns false .
+
+ex:ConnectionToBeDesignedByOthers_yes a steel:ShearConnection ; steel:responsibility steel:ByConnectionEngineer .
+ex:ConnectionToBeDesignedByOthers_no a steel:ShearConnection ; steel:responsibility steel:ByEngineerOfRecord .
+
+ex:ExistingElement_yes a steel:Beam ; steel:elementStatus steel:ExistingToRemain .
+ex:ExistingElement_demolished a steel:Column ; steel:elementStatus steel:ExistingToDemolish .
+ex:ExistingElement_modified a steel:Brace ; steel:elementStatus steel:ExistingToBeModified .
+ex:ExistingElement_no a steel:Beam ; steel:elementStatus steel:NewWork .
+ex:ExplicitNoHolds_yes a steel:Schedule ; steel:holdListIsExplicitlyEmpty true .
+ex:ExposedSteelElement_yes a steel:Column ; steel:exposureClass steel:AESS .
+
+ex:FabricatorDesignedSealed_yes a steel:Stair ; steel:responsibility steel:ByFabricator ; steel:requiresSealedDesign true .
+ex:FabricatorDesignedSealed_no a steel:Stair ; steel:responsibility steel:ByFabricator .
+
+ex:ThirdPartyMarkup_yes a steel:Annotation ; steel:annotationOrigin steel:ThirdPartyOrigin .
+ex:ThirdPartyMarkup_no a steel:Annotation ; steel:annotationOrigin steel:EngineerOrigin .
+ex:MarkedUpSheet_yes a steel:Sheet ; steel:hasAnnotation ex:ThirdPartyMarkup_yes .
+ex:MarkedUpSheet_no a steel:Sheet ; steel:hasAnnotation ex:ThirdPartyMarkup_no .
+ex:MarkedUpSet_yes a steel:DrawingSet ; steel:hasSheet ex:MarkedUpSheet_yes .
+ex:MarkedUpSet_no a steel:DrawingSet ; steel:hasSheet ex:MarkedUpSheet_no .
+
+ex:ModuleWithWeight_yes a steel:Assembly ; steel:assemblyWeightTonnes 12.5 .
+ex:ProhibitionClause_yes a steel:RequirementClause ; steel:isProhibition true .
+ex:ReferenceOnlySheet_yes a steel:Sheet ; steel:hasStatusStamp steel:ForReferenceOnly .
+ex:ReinforcementMember_yes a steel:Beam ; steel:reinforces ex:ExistingElement_yes .
+ex:ResponsibilityBoundary_yes a steel:Annotation ; steel:limitsDesignResponsibility true .
+
+ex:ReviewedVendorSheet_yes a steel:Sheet ; steel:hasAnnotation ex:stamp .
+ex:stamp a steel:Annotation ; steel:markupKind steel:VendorReviewStamp .
+
+ex:RowWithForces_yes a steel:ElementRow ; steel:describesElement ex:loaded .
+ex:loaded a steel:Column ; steel:hasForceRecord ex:UnverifiedForceRecord_yes .
+ex:RowWithForces_no a steel:ElementRow ; steel:describesElement ex:ExistingElement_yes .
+
+ex:ShopReadySet_yes a steel:DrawingSet ; steel:authorRole steel:FabricatorShopRole .
+ex:SteelRelevantSheet_yes a steel:Sheet ; steel:sheetDiscipline steel:SteelDiscipline .
+ex:SupplierDesignedSet_yes a steel:DrawingSet ; steel:authorRole steel:SupplierDesignRole .
+ex:SupplierValueCell_yes a steel:ScheduleCell ; steel:cellValueKind steel:BySupplierCell .
+ex:TemporaryElement_yes a steel:Brace ; steel:isTemporary true .
+ex:UnconfirmedElement_yes a steel:Pile ; steel:needsFieldConfirm true .
+
+ex:UnverifiedForceRecord_yes a steel:ForceRecord ; steel:evidencedBy ex:guess .
+ex:guess a steel:Evidence ; steel:onSheet ex:CommercialSheet_yes ; steel:confidence steel:Unverified .
+ex:UnverifiedForceRecord_no a steel:ForceRecord ; steel:evidencedBy ex:checked .
+ex:checked a steel:Evidence ; steel:onSheet ex:CommercialSheet_yes ; steel:confidence steel:Verified .
+
+ex:UntrustedRasterSheet_yes a steel:Sheet ; steel:derivedFromRaster true .
+ex:VoidedView_yes a steel:View ; steel:isVoided true .

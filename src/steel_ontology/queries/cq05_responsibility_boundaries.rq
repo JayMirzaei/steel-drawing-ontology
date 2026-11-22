@@ -1,0 +1,12 @@
+# id: CQ05
+# title: Annotations that limit design responsibility
+# question: Which clouds or boundaries limit what the engineer takes responsibility for?
+
+PREFIX steel: <https://jaymirzaei.github.io/steel-drawing-ontology/core#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?annotation ?markupKind WHERE {
+    ?annotation steel:limitsDesignResponsibility true .
+    OPTIONAL { ?annotation steel:markupKind ?markupKind }
+}
+ORDER BY ?annotation

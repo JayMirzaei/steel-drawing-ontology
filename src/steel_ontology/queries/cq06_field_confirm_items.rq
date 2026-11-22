@@ -1,0 +1,12 @@
+# id: CQ06
+# title: Items to confirm in the field
+# question: Which elements or views have dimensions to confirm on site before fabrication?
+
+PREFIX steel: <https://jaymirzaei.github.io/steel-drawing-ontology/core#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?item ?tag WHERE {
+    ?item steel:needsFieldConfirm true .
+    OPTIONAL { ?item steel:tag ?tag }
+}
+ORDER BY ?item

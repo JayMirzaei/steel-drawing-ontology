@@ -1,0 +1,1579 @@
+{
+ "objects": [
+  {
+   "id": "base-plate-BP1",
+   "type": "BasePlateConnection",
+   "fields": [
+    {
+     "name": "supports",
+     "values": [
+      "column-C1"
+     ]
+    },
+    {
+     "name": "tag",
+     "values": [
+      "BP1"
+     ]
+    },
+    {
+     "name": "responsibility",
+     "values": [
+      "ByEngineerOfRecord"
+     ]
+    },
+    {
+     "name": "connects",
+     "values": [
+      "column-C1"
+     ]
+    },
+    {
+     "name": "weld_pattern",
+     "values": [
+      "6"
+     ]
+    }
+   ],
+   "zone": "0.054,0.355,0.444,0.367",
+   "confidence": "Verified"
+  },
+  {
+   "id": "base-plate-BP2",
+   "type": "BasePlateConnection",
+   "fields": [
+    {
+     "name": "supports",
+     "values": [
+      "column-C2"
+     ]
+    },
+    {
+     "name": "tag",
+     "values": [
+      "BP2"
+     ]
+    },
+    {
+     "name": "responsibility",
+     "values": [
+      "ByEngineerOfRecord"
+     ]
+    },
+    {
+     "name": "connects",
+     "values": [
+      "column-C2"
+     ]
+    },
+    {
+     "name": "weld_pattern",
+     "values": [
+      "8"
+     ]
+    }
+   ],
+   "zone": "0.054,0.379,0.444,0.391",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-BP1-0",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "TextCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "BP1"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "MARK"
+     ]
+    }
+   ],
+   "zone": "0.054,0.355,0.066,0.367",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-BP1-1",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "TextCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "PL20x300x300"
+     ]
+    },
+    {
+     "name": "cell_unit_text",
+     "values": [
+      "mm"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "PLATE (mm)"
+     ]
+    }
+   ],
+   "zone": "0.104,0.355,0.149,0.367",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-BP1-2",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "TextCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "4 - 22 DIA."
+     ]
+    },
+    {
+     "name": "cell_unit_text",
+     "values": [
+      "mm"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "HOLES"
+     ]
+    }
+   ],
+   "zone": "0.205,0.355,0.237,0.367",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-BP1-3",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "BySupplierCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "BY FOUNDATION SUPPLIER"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "ANCHOR RODS"
+     ]
+    }
+   ],
+   "zone": "0.289,0.355,0.379,0.367",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-BP1-4",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "NumberCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "6"
+     ]
+    },
+    {
+     "name": "cell_unit_text",
+     "values": [
+      "mm"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "WELD TO COLUMN (mm)"
+     ]
+    }
+   ],
+   "zone": "0.440,0.355,0.444,0.367",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-BP2-0",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "TextCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "BP2"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "MARK"
+     ]
+    }
+   ],
+   "zone": "0.054,0.379,0.066,0.391",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-BP2-1",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "TextCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "PL25x350x350"
+     ]
+    },
+    {
+     "name": "cell_unit_text",
+     "values": [
+      "mm"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "PLATE (mm)"
+     ]
+    }
+   ],
+   "zone": "0.104,0.379,0.149,0.391",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-BP2-2",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "TextCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "4 - 27 DIA."
+     ]
+    },
+    {
+     "name": "cell_unit_text",
+     "values": [
+      "mm"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "HOLES"
+     ]
+    }
+   ],
+   "zone": "0.205,0.379,0.237,0.391",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-BP2-3",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "BySupplierCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "BY FOUNDATION SUPPLIER"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "ANCHOR RODS"
+     ]
+    }
+   ],
+   "zone": "0.289,0.379,0.379,0.391",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-BP2-4",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "NumberCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "8"
+     ]
+    },
+    {
+     "name": "cell_unit_text",
+     "values": [
+      "mm"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "WELD TO COLUMN (mm)"
+     ]
+    }
+   ],
+   "zone": "0.440,0.379,0.444,0.391",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-C1-0",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "TextCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "C1"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "MARK"
+     ]
+    }
+   ],
+   "zone": "0.054,0.151,0.062,0.163",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-C1-1",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "TextCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "W200x46"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "SECTION"
+     ]
+    }
+   ],
+   "zone": "0.104,0.151,0.133,0.163",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-C1-2",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "NumberCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "4"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "QTY"
+     ]
+    }
+   ],
+   "zone": "0.213,0.151,0.217,0.163",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-C1-3",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "NumberCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "4200"
+     ]
+    },
+    {
+     "name": "cell_unit_text",
+     "values": [
+      "mm"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "LENGTH (mm)"
+     ]
+    }
+   ],
+   "zone": "0.255,0.151,0.270,0.163",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-C1-4",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "TextCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "BP1"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "BASE PLATE"
+     ]
+    }
+   ],
+   "zone": "0.331,0.151,0.344,0.163",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-C1-5",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "NumberCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "310"
+     ]
+    },
+    {
+     "name": "cell_unit_text",
+     "values": [
+      "kN"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "Cf (kN) FACTORED"
+     ]
+    }
+   ],
+   "zone": "0.407,0.151,0.418,0.163",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-C1-6",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "NumberCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "772.8"
+     ]
+    },
+    {
+     "name": "cell_unit_text",
+     "values": [
+      "kg"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "WEIGHT (kg)"
+     ]
+    }
+   ],
+   "zone": "0.508,0.151,0.524,0.163",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-C2-0",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "TextCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "C2"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "MARK"
+     ]
+    }
+   ],
+   "zone": "0.054,0.175,0.062,0.186",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-C2-1",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "TextCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "W200x52"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "SECTION"
+     ]
+    }
+   ],
+   "zone": "0.104,0.175,0.133,0.186",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-C2-2",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "NumberCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "2"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "QTY"
+     ]
+    }
+   ],
+   "zone": "0.213,0.175,0.217,0.186",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-C2-3",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "NumberCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "4200"
+     ]
+    },
+    {
+     "name": "cell_unit_text",
+     "values": [
+      "mm"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "LENGTH (mm)"
+     ]
+    }
+   ],
+   "zone": "0.255,0.175,0.270,0.186",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-C2-4",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "TextCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "BP2"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "BASE PLATE"
+     ]
+    }
+   ],
+   "zone": "0.331,0.175,0.344,0.186",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-C2-5",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "NumberCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "520"
+     ]
+    },
+    {
+     "name": "cell_unit_text",
+     "values": [
+      "kN"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "Cf (kN) FACTORED"
+     ]
+    }
+   ],
+   "zone": "0.407,0.175,0.418,0.186",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-C2-6",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "NumberCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "436.8"
+     ]
+    },
+    {
+     "name": "cell_unit_text",
+     "values": [
+      "kg"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "WEIGHT (kg)"
+     ]
+    }
+   ],
+   "zone": "0.508,0.175,0.524,0.186",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-P1-0",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "TextCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "P1"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "MARK"
+     ]
+    }
+   ],
+   "zone": "0.054,0.198,0.062,0.210",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-P1-1",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "TextCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "HSS102x102x6.4"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "SECTION"
+     ]
+    }
+   ],
+   "zone": "0.104,0.198,0.157,0.210",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-P1-2",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "NumberCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "2"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "QTY"
+     ]
+    }
+   ],
+   "zone": "0.213,0.198,0.217,0.210",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-P1-3",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "NumberCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "1100"
+     ]
+    },
+    {
+     "name": "cell_unit_text",
+     "values": [
+      "mm"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "LENGTH (mm)"
+     ]
+    }
+   ],
+   "zone": "0.255,0.198,0.270,0.210",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-P1-4",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "NotApplicableCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "N/A"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "BASE PLATE"
+     ]
+    }
+   ],
+   "zone": "0.331,0.198,0.342,0.210",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-P1-5",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "NotApplicableCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "N/A"
+     ]
+    },
+    {
+     "name": "cell_unit_text",
+     "values": [
+      "kN"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "Cf (kN) FACTORED"
+     ]
+    }
+   ],
+   "zone": "0.407,0.198,0.418,0.210",
+   "confidence": "Verified"
+  },
+  {
+   "id": "cell-P1-6",
+   "type": "ScheduleCell",
+   "fields": [
+    {
+     "name": "cell_value_kind",
+     "values": [
+      "NumberCell"
+     ]
+    },
+    {
+     "name": "cell_text",
+     "values": [
+      "40.0"
+     ]
+    },
+    {
+     "name": "cell_unit_text",
+     "values": [
+      "kg"
+     ]
+    },
+    {
+     "name": "column_header_text",
+     "values": [
+      "WEIGHT (kg)"
+     ]
+    }
+   ],
+   "zone": "0.508,0.198,0.521,0.210",
+   "confidence": "Verified"
+  },
+  {
+   "id": "column-C1",
+   "type": "Column",
+   "fields": [
+    {
+     "name": "element_status",
+     "values": [
+      "NewWork"
+     ]
+    },
+    {
+     "name": "cut_length_mm",
+     "values": [
+      "4200"
+     ]
+    },
+    {
+     "name": "required_quantity",
+     "values": [
+      "4"
+     ]
+    },
+    {
+     "name": "tag",
+     "values": [
+      "C1"
+     ]
+    },
+    {
+     "name": "grid_location_text",
+     "values": [
+      "A/1",
+      "A/2",
+      "C/1",
+      "C/2"
+     ]
+    },
+    {
+     "name": "responsibility",
+     "values": [
+      "ByEngineerOfRecord"
+     ]
+    },
+    {
+     "name": "has_force_record",
+     "values": [
+      "force-C1-Cf"
+     ]
+    },
+    {
+     "name": "in_zone",
+     "values": [
+      "zone-platform"
+     ]
+    },
+    {
+     "name": "section_text",
+     "values": [
+      "W200x46"
+     ]
+    }
+   ],
+   "zone": "0.054,0.151,0.524,0.163",
+   "confidence": "Verified"
+  },
+  {
+   "id": "column-C2",
+   "type": "Column",
+   "fields": [
+    {
+     "name": "element_status",
+     "values": [
+      "NewWork"
+     ]
+    },
+    {
+     "name": "cut_length_mm",
+     "values": [
+      "4200"
+     ]
+    },
+    {
+     "name": "required_quantity",
+     "values": [
+      "2"
+     ]
+    },
+    {
+     "name": "tag",
+     "values": [
+      "C2"
+     ]
+    },
+    {
+     "name": "grid_location_text",
+     "values": [
+      "B/1",
+      "B/2"
+     ]
+    },
+    {
+     "name": "responsibility",
+     "values": [
+      "ByEngineerOfRecord"
+     ]
+    },
+    {
+     "name": "has_force_record",
+     "values": [
+      "force-C2-Cf"
+     ]
+    },
+    {
+     "name": "in_zone",
+     "values": [
+      "zone-platform"
+     ]
+    },
+    {
+     "name": "section_text",
+     "values": [
+      "W200x52"
+     ]
+    }
+   ],
+   "zone": "0.054,0.175,0.524,0.186",
+   "confidence": "Verified"
+  },
+  {
+   "id": "drawing-set",
+   "type": "DrawingSet",
+   "fields": [
+    {
+     "name": "has_sheet",
+     "values": [
+      "sheet-S-201"
+     ]
+    }
+   ],
+   "zone": null,
+   "confidence": "Verified"
+  },
+  {
+   "id": "force-C1-Cf",
+   "type": "ForceRecord",
+   "fields": [
+    {
+     "name": "load_direction",
+     "values": [
+      "Vertical"
+     ]
+    },
+    {
+     "name": "load_type",
+     "values": [
+      "LoadCombination"
+     ]
+    },
+    {
+     "name": "compression_value",
+     "values": [
+      "310"
+     ]
+    },
+    {
+     "name": "force_unit",
+     "values": [
+      "kN"
+     ]
+    },
+    {
+     "name": "is_factored",
+     "values": [
+      "true"
+     ]
+    },
+    {
+     "name": "load_case",
+     "values": [
+      "Cf"
+     ]
+    }
+   ],
+   "zone": "0.407,0.151,0.418,0.163",
+   "confidence": "Verified"
+  },
+  {
+   "id": "force-C2-Cf",
+   "type": "ForceRecord",
+   "fields": [
+    {
+     "name": "load_direction",
+     "values": [
+      "Vertical"
+     ]
+    },
+    {
+     "name": "load_type",
+     "values": [
+      "LoadCombination"
+     ]
+    },
+    {
+     "name": "compression_value",
+     "values": [
+      "520"
+     ]
+    },
+    {
+     "name": "force_unit",
+     "values": [
+      "kN"
+     ]
+    },
+    {
+     "name": "is_factored",
+     "values": [
+      "true"
+     ]
+    },
+    {
+     "name": "load_case",
+     "values": [
+      "Cf"
+     ]
+    }
+   ],
+   "zone": "0.407,0.175,0.418,0.186",
+   "confidence": "Verified"
+  },
+  {
+   "id": "post-P1",
+   "type": "Post",
+   "fields": [
+    {
+     "name": "element_status",
+     "values": [
+      "NewWork"
+     ]
+    },
+    {
+     "name": "cut_length_mm",
+     "values": [
+      "1100"
+     ]
+    },
+    {
+     "name": "required_quantity",
+     "values": [
+      "2"
+     ]
+    },
+    {
+     "name": "tag",
+     "values": [
+      "P1"
+     ]
+    },
+    {
+     "name": "responsibility",
+     "values": [
+      "ByEngineerOfRecord"
+     ]
+    },
+    {
+     "name": "in_zone",
+     "values": [
+      "zone-platform"
+     ]
+    },
+    {
+     "name": "section_text",
+     "values": [
+      "HSS102x102x6.4"
+     ]
+    }
+   ],
+   "zone": "0.054,0.198,0.521,0.210",
+   "confidence": "Verified"
+  },
+  {
+   "id": "revision-S-201-0",
+   "type": "Revision",
+   "fields": [
+    {
+     "name": "issue_purpose",
+     "values": [
+      "IssuedForConstruction"
+     ]
+    },
+    {
+     "name": "revision_code",
+     "values": [
+      "0"
+     ]
+    },
+    {
+     "name": "revision_date",
+     "values": [
+      "2030-03-18"
+     ]
+    }
+   ],
+   "zone": "0.667,0.840,0.853,0.850",
+   "confidence": "Verified"
+  },
+  {
+   "id": "revision-S-201-A",
+   "type": "Revision",
+   "fields": [
+    {
+     "name": "issue_purpose",
+     "values": [
+      "IssuedForReview"
+     ]
+    },
+    {
+     "name": "revision_code",
+     "values": [
+      "A"
+     ]
+    },
+    {
+     "name": "revision_date",
+     "values": [
+      "2030-02-11"
+     ]
+    }
+   ],
+   "zone": "0.667,0.823,0.829,0.833",
+   "confidence": "Verified"
+  },
+  {
+   "id": "row-BP1",
+   "type": "ElementRow",
+   "fields": [
+    {
+     "name": "has_cell",
+     "values": [
+      "cell-BP1-0",
+      "cell-BP1-1",
+      "cell-BP1-2",
+      "cell-BP1-3",
+      "cell-BP1-4"
+     ]
+    },
+    {
+     "name": "describes_element",
+     "values": [
+      "base-plate-BP1"
+     ]
+    }
+   ],
+   "zone": "0.054,0.355,0.444,0.367",
+   "confidence": "Verified"
+  },
+  {
+   "id": "row-BP2",
+   "type": "ElementRow",
+   "fields": [
+    {
+     "name": "has_cell",
+     "values": [
+      "cell-BP2-0",
+      "cell-BP2-1",
+      "cell-BP2-2",
+      "cell-BP2-3",
+      "cell-BP2-4"
+     ]
+    },
+    {
+     "name": "describes_element",
+     "values": [
+      "base-plate-BP2"
+     ]
+    }
+   ],
+   "zone": "0.054,0.379,0.444,0.391",
+   "confidence": "Verified"
+  },
+  {
+   "id": "row-C1",
+   "type": "ElementRow",
+   "fields": [
+    {
+     "name": "has_cell",
+     "values": [
+      "cell-C1-0",
+      "cell-C1-1",
+      "cell-C1-2",
+      "cell-C1-3",
+      "cell-C1-4",
+      "cell-C1-5",
+      "cell-C1-6"
+     ]
+    },
+    {
+     "name": "row_value",
+     "values": [
+      "772.8"
+     ]
+    },
+    {
+     "name": "describes_element",
+     "values": [
+      "column-C1"
+     ]
+    }
+   ],
+   "zone": "0.054,0.151,0.524,0.163",
+   "confidence": "Verified"
+  },
+  {
+   "id": "row-C2",
+   "type": "ElementRow",
+   "fields": [
+    {
+     "name": "has_cell",
+     "values": [
+      "cell-C2-0",
+      "cell-C2-1",
+      "cell-C2-2",
+      "cell-C2-3",
+      "cell-C2-4",
+      "cell-C2-5",
+      "cell-C2-6"
+     ]
+    },
+    {
+     "name": "row_value",
+     "values": [
+      "436.8"
+     ]
+    },
+    {
+     "name": "describes_element",
+     "values": [
+      "column-C2"
+     ]
+    }
+   ],
+   "zone": "0.054,0.175,0.524,0.186",
+   "confidence": "Verified"
+  },
+  {
+   "id": "row-P1",
+   "type": "ElementRow",
+   "fields": [
+    {
+     "name": "has_cell",
+     "values": [
+      "cell-P1-0",
+      "cell-P1-1",
+      "cell-P1-2",
+      "cell-P1-3",
+      "cell-P1-4",
+      "cell-P1-5",
+      "cell-P1-6"
+     ]
+    },
+    {
+     "name": "row_value",
+     "values": [
+      "40.0"
+     ]
+    },
+    {
+     "name": "describes_element",
+     "values": [
+      "post-P1"
+     ]
+    }
+   ],
+   "zone": "0.054,0.198,0.521,0.210",
+   "confidence": "Verified"
+  },
+  {
+   "id": "schedule-base-plates",
+   "type": "Schedule",
+   "fields": [
+    {
+     "name": "has_row",
+     "values": [
+      "row-BP1",
+      "row-BP2"
+     ]
+    },
+    {
+     "name": "schedule_kind",
+     "values": [
+      "BasePlateSchedule"
+     ]
+    }
+   ],
+   "zone": "0.050,0.296,0.546,0.397",
+   "confidence": "Verified"
+  },
+  {
+   "id": "schedule-columns",
+   "type": "Schedule",
+   "fields": [
+    {
+     "name": "has_row",
+     "values": [
+      "row-C1",
+      "row-C2",
+      "row-P1"
+     ]
+    },
+    {
+     "name": "schedule_kind",
+     "values": [
+      "ColumnSchedule"
+     ]
+    },
+    {
+     "name": "declared_total",
+     "values": [
+      "1249.6"
+     ]
+    }
+   ],
+   "zone": "0.407,0.226,0.528,0.238",
+   "confidence": "Verified"
+  },
+  {
+   "id": "sheet-S-201",
+   "type": "Sheet",
+   "fields": [
+    {
+     "name": "has_view",
+     "values": [
+      "view-schedules"
+     ]
+    },
+    {
+     "name": "sheet_discipline",
+     "values": [
+      "SteelDiscipline"
+     ]
+    },
+    {
+     "name": "sheet_kind",
+     "values": [
+      "ScheduleSheet"
+     ]
+    },
+    {
+     "name": "project_number",
+     "values": [
+      "EX-0417"
+     ]
+    },
+    {
+     "name": "sheet_number",
+     "values": [
+      "S-201"
+     ]
+    },
+    {
+     "name": "sheet_title",
+     "values": [
+      "COLUMN AND BASE PLATE SCHEDULES"
+     ]
+    },
+    {
+     "name": "sheet_total",
+     "values": [
+      "4"
+     ]
+    },
+    {
+     "name": "has_revision",
+     "values": [
+      "revision-S-201-0",
+      "revision-S-201-A"
+     ]
+    },
+    {
+     "name": "has_schedule",
+     "values": [
+      "schedule-base-plates",
+      "schedule-columns"
+     ]
+    }
+   ],
+   "zone": "0.671,0.865,0.930,0.973",
+   "confidence": "Verified"
+  },
+  {
+   "id": "view-schedules",
+   "type": "View",
+   "fields": [
+    {
+     "name": "view_kind",
+     "values": [
+      "ScheduleView"
+     ]
+    }
+   ],
+   "zone": "0.050,0.091,0.580,0.240",
+   "confidence": "Verified"
+  }
+ ]
+}

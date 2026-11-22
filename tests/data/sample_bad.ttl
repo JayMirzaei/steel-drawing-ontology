@@ -1,0 +1,39 @@
+# Invented data with one deliberate mistake per shape. Each line should trip a violation or a
+# warning; tests/test_validate.py lists what is expected.
+
+@prefix steel: <https://jaymirzaei.github.io/steel-drawing-ontology/core#> .
+@prefix ex:    <https://example.org/sample#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+ex:s1 a steel:Sheet ; steel:pageIndex 0 .
+ex:a1 a steel:Annotation .
+ex:f1 a steel:ForceRecord ; steel:axialValue 100.0 .
+ex:row1 a steel:ScheduleRow .
+ex:a3 a steel:Annotation ; steel:annotationOrigin steel:ThirdPartyOrigin ; steel:markupKind steel:VendorReviewStamp .
+ex:dl1 a steel:DrawingListRow .
+ex:m2 a steel:Assembly ; steel:assemblyWeightTonnes -3.0 .
+ex:p2 a steel:Plate ; steel:requiredQuantity 0 .
+ex:z2 a steel:Zone .
+ex:dr2 a steel:DefaultRule .
+ex:f8 a steel:ForceRecord ; steel:isFactored true ; steel:loadCase "x" ; steel:forceUnit "stone" .
+ex:s8 a steel:Sheet ; steel:pageIndex 9 ; steel:sheetTotal 4 ; steel:sheetKind steel:PlanSheet ; steel:titleBlockStatus steel:AsBuilt ; steel:hasRevision ex:rev8 .
+ex:rev8 a steel:Revision ; steel:issuePurpose steel:IssuedForConstruction .
+ex:rq2 a steel:RequirementClause .
+ex:c9 a steel:ScheduleCell .
+ex:sr9 a steel:SelectionRow .
+ex:lug9 a steel:LiftingLug ; steel:capacityTonnes 0 .
+ex:rm9 a steel:Beam ; steel:reinforces ex:b9 .
+
+# ---- scope items, watermarks, standards
+ex:sc9 a steel:ScopeItem ; steel:scopeItemId "S9" .
+ex:s12 a steel:Sheet ; steel:pageIndex 1 ; steel:sheetKind steel:PlanSheet ; steel:statusWatermarkText "PRELIMINARY NOT FOR CONSTRUCTION" ; steel:hasRevision ex:rev12 .
+ex:rev12 a steel:Revision ; steel:issuePurpose steel:IssuedForConstruction .
+ex:std9 a steel:StandardDocument .
+
+# ---- sequences, default rules, arithmetic, notice
+ex:seq9 a steel:ConstructionSequence ; steel:sequenceStepText "1. Shore" .
+ex:dr9 a steel:DefaultRule ; steel:defaultRuleText "x" ; steel:defaultPercent 250.0 .
+ex:sch9 a steel:Schedule ; steel:declaredTotal 1000.0 ; steel:hasRow ex:r91 , ex:r92 .
+ex:r91 a steel:ScheduleRow ; steel:rowValue 100.0 . ex:r92 a steel:ScheduleRow ; steel:rowValue 200.0 .
+ex:r93 a steel:ScheduleRow ; steel:componentValue 50.0 , 40.0 ; steel:rowTotal 120.0 .
+ex:rq9 a steel:RequirementClause ; steel:requirementTopic steel:InspectionReq ; steel:clauseNumber "R9" ; steel:clauseText "x" ; steel:noticeHours 0 .

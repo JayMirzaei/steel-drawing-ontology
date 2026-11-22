@@ -1,0 +1,1837 @@
+{
+  "base_iri": "https://example.org/kestrel-platform/",
+  "nodes": [
+    {
+      "id": "anchor-rods",
+      "evidenced_by": [
+        "ev-anchor-rods"
+      ],
+      "type": "Fastener",
+      "responsibility": [
+        "ByOthers"
+      ]
+    },
+    {
+      "id": "annotation-query-note",
+      "evidenced_by": [
+        "ev-annotation-query-note"
+      ],
+      "type": "Annotation",
+      "annotates": [
+        "beam-B3"
+      ],
+      "annotation_origin": "ThirdPartyOrigin",
+      "markup_kind": "QueryNote",
+      "annotation_text": "CONFIRM B3 SIZE?"
+    },
+    {
+      "id": "annotation-received-stamp",
+      "evidenced_by": [
+        "ev-annotation-received-stamp"
+      ],
+      "type": "Annotation",
+      "markup_kind": "ReceivedStamp",
+      "annotation_text": "RECEIVED",
+      "stamp_date": "2030-03-20"
+    },
+    {
+      "id": "annotation-revision-cloud",
+      "evidenced_by": [
+        "ev-annotation-revision-cloud"
+      ],
+      "type": "Annotation",
+      "annotates": [
+        "beam-B3"
+      ],
+      "annotation_origin": "EngineerOrigin",
+      "markup_kind": "RevisionCloud"
+    },
+    {
+      "id": "annotation-takeoff-highlight",
+      "evidenced_by": [
+        "ev-annotation-takeoff-highlight"
+      ],
+      "type": "Annotation",
+      "annotates": [
+        "beam-B1"
+      ],
+      "annotation_origin": "ThirdPartyOrigin",
+      "markup_kind": "TakeoffHighlight",
+      "markup_meaning_text": "orange highlight = taken off"
+    },
+    {
+      "id": "area-load-DeadLoad",
+      "evidenced_by": [
+        "ev-area-load-DeadLoad"
+      ],
+      "type": "AreaLoad",
+      "area_load_type": "DeadLoad",
+      "area_load_factored": false,
+      "area_load_kpa": "1.0"
+    },
+    {
+      "id": "area-load-LiveLoad",
+      "evidenced_by": [
+        "ev-area-load-LiveLoad"
+      ],
+      "type": "AreaLoad",
+      "area_load_type": "LiveLoad",
+      "area_load_factored": false,
+      "area_load_kpa": "4.8"
+    },
+    {
+      "id": "base-plate-BP1",
+      "evidenced_by": [
+        "ev-base-plate-BP1"
+      ],
+      "type": "BasePlateConnection",
+      "supports": [
+        "column-C1"
+      ],
+      "tag": "BP1",
+      "responsibility": [
+        "ByEngineerOfRecord"
+      ],
+      "connects": [
+        "column-C1"
+      ],
+      "weld_pattern": "6"
+    },
+    {
+      "id": "base-plate-BP2",
+      "evidenced_by": [
+        "ev-base-plate-BP2"
+      ],
+      "type": "BasePlateConnection",
+      "supports": [
+        "column-C2"
+      ],
+      "tag": "BP2",
+      "responsibility": [
+        "ByEngineerOfRecord"
+      ],
+      "connects": [
+        "column-C2"
+      ],
+      "weld_pattern": "8"
+    },
+    {
+      "id": "beam-B1",
+      "evidenced_by": [
+        "ev-beam-B1"
+      ],
+      "type": "Beam",
+      "element_status": "NewWork",
+      "elevation_kind": "T/STEEL",
+      "required_quantity": 4,
+      "tag": "B1",
+      "elevation_m": "104.200",
+      "responsibility": [
+        "ByEngineerOfRecord"
+      ],
+      "in_zone": "zone-platform",
+      "section_text": "W310x39"
+    },
+    {
+      "id": "beam-B2",
+      "evidenced_by": [
+        "ev-beam-B2"
+      ],
+      "type": "Beam",
+      "element_status": "NewWork",
+      "elevation_kind": "T/STEEL",
+      "required_quantity": 3,
+      "tag": "B2",
+      "elevation_m": "104.200",
+      "responsibility": [
+        "ByEngineerOfRecord"
+      ],
+      "in_zone": "zone-platform",
+      "section_text": "W250x33"
+    },
+    {
+      "id": "beam-B3",
+      "evidenced_by": [
+        "ev-beam-B3"
+      ],
+      "type": "Beam",
+      "element_status": "NewWork",
+      "elevation_kind": "T/STEEL",
+      "required_quantity": 2,
+      "revised_in_this_issue": true,
+      "tag": "B3",
+      "elevation_m": "104.200",
+      "responsibility": [
+        "ByEngineerOfRecord"
+      ],
+      "in_zone": "zone-platform",
+      "section_text": "W200x27"
+    },
+    {
+      "id": "brace-VB1",
+      "evidenced_by": [
+        "ev-brace-VB1"
+      ],
+      "type": "Brace",
+      "element_status": "NewWork",
+      "required_quantity": 2,
+      "tag": "VB1",
+      "responsibility": [
+        "ByEngineerOfRecord"
+      ],
+      "has_force_record": [
+        "force-VB1"
+      ],
+      "section_text": "HSS102x102x6.4"
+    },
+    {
+      "id": "cell-BP1-0",
+      "evidenced_by": [
+        "ev-cell-BP1-0"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "TextCell",
+      "cell_text": "BP1",
+      "column_header_text": "MARK"
+    },
+    {
+      "id": "cell-BP1-1",
+      "evidenced_by": [
+        "ev-cell-BP1-1"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "TextCell",
+      "cell_text": "PL20x300x300",
+      "cell_unit_text": "mm",
+      "column_header_text": "PLATE (mm)"
+    },
+    {
+      "id": "cell-BP1-2",
+      "evidenced_by": [
+        "ev-cell-BP1-2"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "TextCell",
+      "cell_text": "4 - 22 DIA.",
+      "cell_unit_text": "mm",
+      "column_header_text": "HOLES"
+    },
+    {
+      "id": "cell-BP1-3",
+      "evidenced_by": [
+        "ev-cell-BP1-3"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "BySupplierCell",
+      "cell_text": "BY FOUNDATION SUPPLIER",
+      "column_header_text": "ANCHOR RODS"
+    },
+    {
+      "id": "cell-BP1-4",
+      "evidenced_by": [
+        "ev-cell-BP1-4"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "NumberCell",
+      "cell_text": "6",
+      "cell_unit_text": "mm",
+      "column_header_text": "WELD TO COLUMN (mm)"
+    },
+    {
+      "id": "cell-BP2-0",
+      "evidenced_by": [
+        "ev-cell-BP2-0"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "TextCell",
+      "cell_text": "BP2",
+      "column_header_text": "MARK"
+    },
+    {
+      "id": "cell-BP2-1",
+      "evidenced_by": [
+        "ev-cell-BP2-1"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "TextCell",
+      "cell_text": "PL25x350x350",
+      "cell_unit_text": "mm",
+      "column_header_text": "PLATE (mm)"
+    },
+    {
+      "id": "cell-BP2-2",
+      "evidenced_by": [
+        "ev-cell-BP2-2"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "TextCell",
+      "cell_text": "4 - 27 DIA.",
+      "cell_unit_text": "mm",
+      "column_header_text": "HOLES"
+    },
+    {
+      "id": "cell-BP2-3",
+      "evidenced_by": [
+        "ev-cell-BP2-3"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "BySupplierCell",
+      "cell_text": "BY FOUNDATION SUPPLIER",
+      "column_header_text": "ANCHOR RODS"
+    },
+    {
+      "id": "cell-BP2-4",
+      "evidenced_by": [
+        "ev-cell-BP2-4"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "NumberCell",
+      "cell_text": "8",
+      "cell_unit_text": "mm",
+      "column_header_text": "WELD TO COLUMN (mm)"
+    },
+    {
+      "id": "cell-C1-0",
+      "evidenced_by": [
+        "ev-cell-C1-0"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "TextCell",
+      "cell_text": "C1",
+      "column_header_text": "MARK"
+    },
+    {
+      "id": "cell-C1-1",
+      "evidenced_by": [
+        "ev-cell-C1-1"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "TextCell",
+      "cell_text": "W200x46",
+      "column_header_text": "SECTION"
+    },
+    {
+      "id": "cell-C1-2",
+      "evidenced_by": [
+        "ev-cell-C1-2"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "NumberCell",
+      "cell_text": "4",
+      "column_header_text": "QTY"
+    },
+    {
+      "id": "cell-C1-3",
+      "evidenced_by": [
+        "ev-cell-C1-3"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "NumberCell",
+      "cell_text": "4200",
+      "cell_unit_text": "mm",
+      "column_header_text": "LENGTH (mm)"
+    },
+    {
+      "id": "cell-C1-4",
+      "evidenced_by": [
+        "ev-cell-C1-4"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "TextCell",
+      "cell_text": "BP1",
+      "column_header_text": "BASE PLATE"
+    },
+    {
+      "id": "cell-C1-5",
+      "evidenced_by": [
+        "ev-cell-C1-5"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "NumberCell",
+      "cell_text": "310",
+      "cell_unit_text": "kN",
+      "column_header_text": "Cf (kN) FACTORED"
+    },
+    {
+      "id": "cell-C1-6",
+      "evidenced_by": [
+        "ev-cell-C1-6"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "NumberCell",
+      "cell_text": "772.8",
+      "cell_unit_text": "kg",
+      "column_header_text": "WEIGHT (kg)"
+    },
+    {
+      "id": "cell-C2-0",
+      "evidenced_by": [
+        "ev-cell-C2-0"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "TextCell",
+      "cell_text": "C2",
+      "column_header_text": "MARK"
+    },
+    {
+      "id": "cell-C2-1",
+      "evidenced_by": [
+        "ev-cell-C2-1"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "TextCell",
+      "cell_text": "W200x52",
+      "column_header_text": "SECTION"
+    },
+    {
+      "id": "cell-C2-2",
+      "evidenced_by": [
+        "ev-cell-C2-2"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "NumberCell",
+      "cell_text": "2",
+      "column_header_text": "QTY"
+    },
+    {
+      "id": "cell-C2-3",
+      "evidenced_by": [
+        "ev-cell-C2-3"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "NumberCell",
+      "cell_text": "4200",
+      "cell_unit_text": "mm",
+      "column_header_text": "LENGTH (mm)"
+    },
+    {
+      "id": "cell-C2-4",
+      "evidenced_by": [
+        "ev-cell-C2-4"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "TextCell",
+      "cell_text": "BP2",
+      "column_header_text": "BASE PLATE"
+    },
+    {
+      "id": "cell-C2-5",
+      "evidenced_by": [
+        "ev-cell-C2-5"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "NumberCell",
+      "cell_text": "520",
+      "cell_unit_text": "kN",
+      "column_header_text": "Cf (kN) FACTORED"
+    },
+    {
+      "id": "cell-C2-6",
+      "evidenced_by": [
+        "ev-cell-C2-6"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "NumberCell",
+      "cell_text": "436.8",
+      "cell_unit_text": "kg",
+      "column_header_text": "WEIGHT (kg)"
+    },
+    {
+      "id": "cell-P1-0",
+      "evidenced_by": [
+        "ev-cell-P1-0"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "TextCell",
+      "cell_text": "P1",
+      "column_header_text": "MARK"
+    },
+    {
+      "id": "cell-P1-1",
+      "evidenced_by": [
+        "ev-cell-P1-1"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "TextCell",
+      "cell_text": "HSS102x102x6.4",
+      "column_header_text": "SECTION"
+    },
+    {
+      "id": "cell-P1-2",
+      "evidenced_by": [
+        "ev-cell-P1-2"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "NumberCell",
+      "cell_text": "2",
+      "column_header_text": "QTY"
+    },
+    {
+      "id": "cell-P1-3",
+      "evidenced_by": [
+        "ev-cell-P1-3"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "NumberCell",
+      "cell_text": "1100",
+      "cell_unit_text": "mm",
+      "column_header_text": "LENGTH (mm)"
+    },
+    {
+      "id": "cell-P1-4",
+      "evidenced_by": [
+        "ev-cell-P1-4"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "NotApplicableCell",
+      "cell_text": "N/A",
+      "column_header_text": "BASE PLATE"
+    },
+    {
+      "id": "cell-P1-5",
+      "evidenced_by": [
+        "ev-cell-P1-5"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "NotApplicableCell",
+      "cell_text": "N/A",
+      "cell_unit_text": "kN",
+      "column_header_text": "Cf (kN) FACTORED"
+    },
+    {
+      "id": "cell-P1-6",
+      "evidenced_by": [
+        "ev-cell-P1-6"
+      ],
+      "type": "ScheduleCell",
+      "cell_value_kind": "NumberCell",
+      "cell_text": "40.0",
+      "cell_unit_text": "kg",
+      "column_header_text": "WEIGHT (kg)"
+    },
+    {
+      "id": "clause-1",
+      "cites_standard": [
+        "standard-CSA-G40-21"
+      ],
+      "evidenced_by": [
+        "ev-clause-1"
+      ],
+      "type": "RequirementClause",
+      "requirement_topic": "MaterialReq",
+      "clause_number": "1",
+      "clause_text": "W SHAPES AND HSS: CSA G40.21 GRADE 350W.",
+      "clause_value": "350W"
+    },
+    {
+      "id": "clause-2",
+      "cites_standard": [
+        "standard-ASTM-F3125"
+      ],
+      "evidenced_by": [
+        "ev-clause-2"
+      ],
+      "type": "RequirementClause",
+      "requirement_topic": "BoltingReq",
+      "clause_number": "2",
+      "clause_text": "BOLTS: ASTM F3125 GRADE A325, 20 mm DIAMETER, SNUG TIGHT UNLESS NOTED.",
+      "clause_value": "20 mm A325"
+    },
+    {
+      "id": "clause-3",
+      "cites_standard": [
+        "standard-CSA-W59"
+      ],
+      "evidenced_by": [
+        "ev-clause-3"
+      ],
+      "type": "RequirementClause",
+      "requirement_topic": "WeldingReq",
+      "clause_number": "3",
+      "clause_text": "WELDING TO CSA W59. MINIMUM FILLET WELD 6 mm.",
+      "clause_value": "6 mm"
+    },
+    {
+      "id": "clause-4",
+      "evidenced_by": [
+        "ev-clause-4"
+      ],
+      "type": "RequirementClause",
+      "requirement_topic": "ErectionReq",
+      "clause_number": "4",
+      "clause_text": "DO NOT FIELD CUT OR BURN HOLES IN BASE PLATES.",
+      "is_prohibition": true
+    },
+    {
+      "id": "clause-5",
+      "evidenced_by": [
+        "ev-clause-5"
+      ],
+      "type": "RequirementClause",
+      "requirement_topic": "ConnectionDesignReq",
+      "clause_number": "5",
+      "clause_text": "UNLESS NOTED OTHERWISE, DESIGN BRACE CONNECTIONS FOR 50% OF THE TENSILE YIELD RESISTANCE OF THE BRACE.",
+      "clause_value": "50%",
+      "is_default_rule_clause": true
+    },
+    {
+      "id": "clause-6",
+      "evidenced_by": [
+        "ev-clause-6"
+      ],
+      "type": "RequirementClause",
+      "requirement_topic": "SubmittalReq",
+      "clause_number": "6",
+      "clause_text": "CONNECTIONS NOT DETAILED ON THESE DRAWINGS ARE TO BE DESIGNED BY THE FABRICATOR'S CONNECTION ENGINEER. SUBMIT SEALED CALCULATIONS.",
+      "clause_value": "sealed calculations"
+    },
+    {
+      "id": "clause-7",
+      "evidenced_by": [
+        "ev-clause-7"
+      ],
+      "type": "RequirementClause",
+      "requirement_topic": "ScopeExclusionReq",
+      "clause_number": "7",
+      "clause_text": "ANCHOR RODS AND GROUT ARE SUPPLIED AND INSTALLED BY OTHERS.",
+      "clause_value": "by others"
+    },
+    {
+      "id": "clause-8",
+      "evidenced_by": [
+        "ev-clause-8"
+      ],
+      "type": "RequirementClause",
+      "requirement_topic": "GratingReq",
+      "clause_number": "8",
+      "clause_text": "GRATING IS SUPPLIED BY THE GRATING SUPPLIER AND INSTALLED BY THE STEEL ERECTOR.",
+      "clause_value": "supply by supplier"
+    },
+    {
+      "id": "clause-9",
+      "evidenced_by": [
+        "ev-clause-9"
+      ],
+      "type": "RequirementClause",
+      "requirement_topic": "InspectionReq",
+      "clause_number": "9",
+      "clause_text": "GIVE 48 HOURS NOTICE BEFORE EACH FIELD REVIEW.",
+      "clause_value": "48 hours",
+      "notice_hours": 48
+    },
+    {
+      "id": "column-C1",
+      "evidenced_by": [
+        "ev-column-C1"
+      ],
+      "type": "Column",
+      "element_status": "NewWork",
+      "cut_length_mm": "4200",
+      "required_quantity": 4,
+      "tag": "C1",
+      "grid_location_text": [
+        "A/1",
+        "A/2",
+        "C/1",
+        "C/2"
+      ],
+      "responsibility": [
+        "ByEngineerOfRecord"
+      ],
+      "has_force_record": [
+        "force-C1-Cf"
+      ],
+      "in_zone": "zone-platform",
+      "section_text": "W200x46"
+    },
+    {
+      "id": "column-C2",
+      "evidenced_by": [
+        "ev-column-C2"
+      ],
+      "type": "Column",
+      "element_status": "NewWork",
+      "cut_length_mm": "4200",
+      "required_quantity": 2,
+      "tag": "C2",
+      "grid_location_text": [
+        "B/1",
+        "B/2"
+      ],
+      "responsibility": [
+        "ByEngineerOfRecord"
+      ],
+      "has_force_record": [
+        "force-C2-Cf"
+      ],
+      "in_zone": "zone-platform",
+      "section_text": "W200x52"
+    },
+    {
+      "id": "connection-SC1",
+      "evidenced_by": [
+        "ev-connection-SC1"
+      ],
+      "type": "ShearConnection",
+      "tag": "SC1",
+      "responsibility": [
+        "ByEngineerOfRecord"
+      ],
+      "connects": [
+        "beam-B1",
+        "column-C1"
+      ],
+      "weld_pattern": "6"
+    },
+    {
+      "id": "connection-brace",
+      "evidenced_by": [
+        "ev-connection-brace"
+      ],
+      "type": "BraceConnection",
+      "is_design_open": true,
+      "responsibility": [
+        "ByConnectionEngineer"
+      ],
+      "requires_sealed_design": true,
+      "connects": [
+        "brace-VB1",
+        "column-C1"
+      ]
+    },
+    {
+      "id": "default-brace-connections",
+      "evidenced_by": [
+        "ev-default-brace-connections"
+      ],
+      "type": "DefaultRule",
+      "default_rule_kind": "PercentOfYieldRule",
+      "applies_to_property": "brace connection design force",
+      "default_percent": "500",
+      "default_rule_text": "UNLESS NOTED OTHERWISE, DESIGN BRACE CONNECTIONS FOR 50% OF THE TENSILE YIELD RESISTANCE OF THE BRACE.",
+      "default_value_text": "50% of the tensile yield resistance of the brace"
+    },
+    {
+      "id": "drawing-set",
+      "type": "DrawingSet",
+      "author_role": [
+        "EngineerOfRecordRole"
+      ],
+      "has_sheet": [
+        "sheet-S-001",
+        "sheet-S-101",
+        "sheet-S-201",
+        "sheet-S-301"
+      ],
+      "in_domain": "PlatformStairDomain",
+      "unit_system": "Metric",
+      "revision_code_scheme": "letters before the construction issue, then numbers",
+      "project_number": "EX-0417"
+    },
+    {
+      "id": "ev-anchor-rods",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-001",
+      "region_box": "0.050,0.400,0.332,0.414"
+    },
+    {
+      "id": "ev-annotation-query-note",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-101",
+      "region_box": "0.311,0.428,0.388,0.442"
+    },
+    {
+      "id": "ev-annotation-received-stamp",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-101",
+      "region_box": "0.739,0.095,0.874,0.166"
+    },
+    {
+      "id": "ev-annotation-revision-cloud",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-101",
+      "region_box": "0.259,0.413,0.287,0.534"
+    },
+    {
+      "id": "ev-annotation-takeoff-highlight",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-101",
+      "region_box": "0.228,0.312,0.549,0.614"
+    },
+    {
+      "id": "ev-area-load-DeadLoad",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-001",
+      "region_box": "0.541,0.196,0.757,0.208"
+    },
+    {
+      "id": "ev-area-load-LiveLoad",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-001",
+      "region_box": "0.541,0.172,0.757,0.184"
+    },
+    {
+      "id": "ev-base-plate-BP1",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.054,0.355,0.444,0.367"
+    },
+    {
+      "id": "ev-base-plate-BP2",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.054,0.379,0.444,0.391"
+    },
+    {
+      "id": "ev-beam-B1",
+      "type": "Evidence",
+      "on_sheet": "sheet-S-101",
+      "region_box": "0.231,0.316,0.538,0.613"
+    },
+    {
+      "id": "ev-beam-B2",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-101",
+      "region_box": "0.132,0.468,0.678,0.523"
+    },
+    {
+      "id": "ev-beam-B3",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-101",
+      "region_box": "0.266,0.468,0.544,0.523"
+    },
+    {
+      "id": "ev-brace-VB1",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-101",
+      "region_box": "0.155,0.441,0.701,0.582"
+    },
+    {
+      "id": "ev-cell-BP1-0",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.054,0.355,0.066,0.367"
+    },
+    {
+      "id": "ev-cell-BP1-1",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.104,0.355,0.149,0.367"
+    },
+    {
+      "id": "ev-cell-BP1-2",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.205,0.355,0.237,0.367"
+    },
+    {
+      "id": "ev-cell-BP1-3",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.289,0.355,0.379,0.367"
+    },
+    {
+      "id": "ev-cell-BP1-4",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.440,0.355,0.444,0.367"
+    },
+    {
+      "id": "ev-cell-BP2-0",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.054,0.379,0.066,0.391"
+    },
+    {
+      "id": "ev-cell-BP2-1",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.104,0.379,0.149,0.391"
+    },
+    {
+      "id": "ev-cell-BP2-2",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.205,0.379,0.237,0.391"
+    },
+    {
+      "id": "ev-cell-BP2-3",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.289,0.379,0.379,0.391"
+    },
+    {
+      "id": "ev-cell-BP2-4",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.440,0.379,0.444,0.391"
+    },
+    {
+      "id": "ev-cell-C1-0",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.054,0.151,0.062,0.163"
+    },
+    {
+      "id": "ev-cell-C1-1",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.104,0.151,0.133,0.163"
+    },
+    {
+      "id": "ev-cell-C1-2",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.213,0.151,0.217,0.163"
+    },
+    {
+      "id": "ev-cell-C1-3",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.255,0.151,0.270,0.163"
+    },
+    {
+      "id": "ev-cell-C1-4",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.331,0.151,0.344,0.163"
+    },
+    {
+      "id": "ev-cell-C1-5",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.407,0.151,0.418,0.163"
+    },
+    {
+      "id": "ev-cell-C1-6",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.508,0.151,0.524,0.163"
+    },
+    {
+      "id": "ev-cell-C2-0",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.054,0.175,0.062,0.186"
+    },
+    {
+      "id": "ev-cell-C2-1",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.104,0.175,0.133,0.186"
+    },
+    {
+      "id": "ev-cell-C2-2",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.213,0.175,0.217,0.186"
+    },
+    {
+      "id": "ev-cell-C2-3",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.255,0.175,0.270,0.186"
+    },
+    {
+      "id": "ev-cell-C2-4",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.331,0.175,0.344,0.186"
+    },
+    {
+      "id": "ev-cell-C2-5",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.407,0.175,0.418,0.186"
+    },
+    {
+      "id": "ev-cell-C2-6",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.508,0.175,0.524,0.186"
+    },
+    {
+      "id": "ev-cell-P1-0",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.054,0.198,0.062,0.210"
+    },
+    {
+      "id": "ev-cell-P1-1",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.104,0.198,0.157,0.210"
+    },
+    {
+      "id": "ev-cell-P1-2",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.213,0.198,0.217,0.210"
+    },
+    {
+      "id": "ev-cell-P1-3",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.255,0.198,0.270,0.210"
+    },
+    {
+      "id": "ev-cell-P1-4",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.331,0.198,0.342,0.210"
+    },
+    {
+      "id": "ev-cell-P1-5",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.407,0.198,0.418,0.210"
+    },
+    {
+      "id": "ev-cell-P1-6",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.508,0.198,0.521,0.210"
+    },
+    {
+      "id": "ev-clause-1",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-001",
+      "region_box": "0.050,0.141,0.236,0.155"
+    },
+    {
+      "id": "ev-clause-2",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-001",
+      "region_box": "0.050,0.163,0.366,0.176"
+    },
+    {
+      "id": "ev-clause-3",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-001",
+      "region_box": "0.050,0.184,0.256,0.197"
+    },
+    {
+      "id": "ev-clause-4",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-001",
+      "region_box": "0.050,0.239,0.261,0.252"
+    },
+    {
+      "id": "ev-clause-5",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-001",
+      "region_box": "0.050,0.293,0.473,0.322"
+    },
+    {
+      "id": "ev-clause-6",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-001",
+      "region_box": "0.050,0.330,0.429,0.359"
+    },
+    {
+      "id": "ev-clause-7",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-001",
+      "region_box": "0.050,0.400,0.332,0.414"
+    },
+    {
+      "id": "ev-clause-8",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-001",
+      "region_box": "0.050,0.422,0.408,0.435"
+    },
+    {
+      "id": "ev-clause-9",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-001",
+      "region_box": "0.050,0.476,0.264,0.490"
+    },
+    {
+      "id": "ev-column-C1",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.054,0.151,0.524,0.163"
+    },
+    {
+      "id": "ev-column-C2",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.054,0.175,0.524,0.186"
+    },
+    {
+      "id": "ev-connection-SC1",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-301",
+      "region_box": "0.092,0.178,0.412,0.624"
+    },
+    {
+      "id": "ev-connection-brace",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-001",
+      "region_box": "0.050,0.330,0.429,0.359"
+    },
+    {
+      "id": "ev-default-brace-connections",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-001",
+      "region_box": "0.050,0.293,0.473,0.322"
+    },
+    {
+      "id": "ev-force-C1-Cf",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.407,0.151,0.418,0.163"
+    },
+    {
+      "id": "ev-force-C2-Cf",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.407,0.175,0.418,0.186"
+    },
+    {
+      "id": "ev-force-VB1",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-101",
+      "region_box": "0.155,0.441,0.701,0.582"
+    },
+    {
+      "id": "ev-grating",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-001",
+      "region_box": "0.050,0.422,0.408,0.435"
+    },
+    {
+      "id": "ev-parameter-importance",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-001",
+      "region_box": "0.538,0.229,0.669,0.243"
+    },
+    {
+      "id": "ev-post-P1",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.054,0.198,0.521,0.210"
+    },
+    {
+      "id": "ev-revision-S-001-0",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-001",
+      "region_box": "0.667,0.840,0.853,0.850"
+    },
+    {
+      "id": "ev-revision-S-001-A",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-001",
+      "region_box": "0.667,0.823,0.829,0.833"
+    },
+    {
+      "id": "ev-revision-S-101-0",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-101",
+      "region_box": "0.667,0.840,0.853,0.850"
+    },
+    {
+      "id": "ev-revision-S-101-A",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-101",
+      "region_box": "0.667,0.823,0.829,0.833"
+    },
+    {
+      "id": "ev-revision-S-201-0",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.667,0.840,0.853,0.850"
+    },
+    {
+      "id": "ev-revision-S-201-A",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.667,0.823,0.829,0.833"
+    },
+    {
+      "id": "ev-revision-S-301-0",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-301",
+      "region_box": "0.667,0.840,0.853,0.850"
+    },
+    {
+      "id": "ev-revision-S-301-A",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-301",
+      "region_box": "0.667,0.823,0.829,0.833"
+    },
+    {
+      "id": "ev-row-BP1",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.054,0.355,0.444,0.367"
+    },
+    {
+      "id": "ev-row-BP2",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.054,0.379,0.444,0.391"
+    },
+    {
+      "id": "ev-row-C1",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.054,0.151,0.524,0.163"
+    },
+    {
+      "id": "ev-row-C2",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.054,0.175,0.524,0.186"
+    },
+    {
+      "id": "ev-row-P1",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.054,0.198,0.521,0.210"
+    },
+    {
+      "id": "ev-schedule-base-plates",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.050,0.296,0.546,0.397"
+    },
+    {
+      "id": "ev-schedule-columns",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.407,0.226,0.528,0.238"
+    },
+    {
+      "id": "ev-sheet-S-001",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-001",
+      "region_box": "0.671,0.865,0.930,0.973"
+    },
+    {
+      "id": "ev-sheet-S-101",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-101",
+      "region_box": "0.671,0.865,0.930,0.973"
+    },
+    {
+      "id": "ev-sheet-S-201",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.671,0.865,0.930,0.973"
+    },
+    {
+      "id": "ev-sheet-S-301",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-301",
+      "region_box": "0.671,0.865,0.930,0.973"
+    },
+    {
+      "id": "ev-standard-ASTM-F3125",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-001",
+      "region_box": "0.050,0.163,0.366,0.176"
+    },
+    {
+      "id": "ev-standard-CSA-G40-21",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-001",
+      "region_box": "0.050,0.141,0.236,0.155"
+    },
+    {
+      "id": "ev-standard-CSA-W59",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-001",
+      "region_box": "0.050,0.184,0.256,0.197"
+    },
+    {
+      "id": "ev-view-detail-1",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-301",
+      "region_box": "0.092,0.178,0.412,0.624"
+    },
+    {
+      "id": "ev-view-detail-2",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-301",
+      "region_box": "0.471,0.226,0.840,0.624"
+    },
+    {
+      "id": "ev-view-framing-plan",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-101",
+      "region_box": "0.076,0.202,0.714,0.748"
+    },
+    {
+      "id": "ev-view-schedules",
+      "type": "Evidence",
+      "confidence": "Verified",
+      "on_sheet": "sheet-S-201",
+      "region_box": "0.050,0.091,0.580,0.240"
+    },
+    {
+      "id": "force-C1-Cf",
+      "evidenced_by": [
+        "ev-force-C1-Cf"
+      ],
+      "type": "ForceRecord",
+      "load_direction": "Vertical",
+      "load_type": "LoadCombination",
+      "compression_value": "310",
+      "force_unit": "kN",
+      "load_case": "Cf"
+    },
+    {
+      "id": "force-C2-Cf",
+      "evidenced_by": [
+        "ev-force-C2-Cf"
+      ],
+      "type": "ForceRecord",
+      "load_direction": "Vertical",
+      "load_type": "LoadCombination",
+      "compression_value": "520",
+      "force_unit": "kN",
+      "is_factored": true,
+      "load_case": "Cf"
+    },
+    {
+      "id": "force-VB1",
+      "evidenced_by": [
+        "ev-force-VB1"
+      ],
+      "type": "ForceRecord",
+      "load_direction": "AlongMemberAxis",
+      "load_type": "LoadCombination",
+      "compression_value": "180",
+      "force_unit": "kN",
+      "is_factored": true,
+      "load_case": "Tf/Cf",
+      "symmetric_tension_compression": true,
+      "tension_value": "180"
+    },
+    {
+      "id": "grating",
+      "evidenced_by": [
+        "ev-grating"
+      ],
+      "type": "Grating",
+      "responsibility": [
+        "BySupplier"
+      ],
+      "work_kind": "InstallOnly",
+      "in_zone": "zone-platform"
+    },
+    {
+      "id": "parameter-importance",
+      "evidenced_by": [
+        "ev-parameter-importance"
+      ],
+      "type": "DesignParameter",
+      "parameter_name": "IMPORTANCE CATEGORY",
+      "parameter_value_text": "NORMAL"
+    },
+    {
+      "id": "post-P1",
+      "evidenced_by": [
+        "ev-post-P1"
+      ],
+      "type": "Post",
+      "element_status": "NewWork",
+      "cut_length_mm": "1100",
+      "required_quantity": 2,
+      "tag": "P1",
+      "responsibility": [
+        "ByEngineerOfRecord"
+      ],
+      "in_zone": "zone-platform",
+      "section_text": "HSS102x102x6.4"
+    },
+    {
+      "id": "revision-S-001-0",
+      "evidenced_by": [
+        "ev-revision-S-001-0"
+      ],
+      "type": "Revision",
+      "issue_purpose": "IssuedForConstruction",
+      "revision_code": "0",
+      "revision_date": "2030-03-18"
+    },
+    {
+      "id": "revision-S-001-A",
+      "evidenced_by": [
+        "ev-revision-S-001-A"
+      ],
+      "type": "Revision",
+      "issue_purpose": "IssuedForReview",
+      "revision_code": "A",
+      "revision_date": "2030-02-11"
+    },
+    {
+      "id": "revision-S-101-0",
+      "evidenced_by": [
+        "ev-revision-S-101-0"
+      ],
+      "type": "Revision",
+      "issue_purpose": "IssuedForConstruction",
+      "revision_code": "0",
+      "revision_date": "2030-03-18"
+    },
+    {
+      "id": "revision-S-101-A",
+      "evidenced_by": [
+        "ev-revision-S-101-A"
+      ],
+      "type": "Revision",
+      "issue_purpose": "IssuedForReview",
+      "revision_code": "A",
+      "revision_date": "2030-02-11"
+    },
+    {
+      "id": "revision-S-201-0",
+      "evidenced_by": [
+        "ev-revision-S-201-0"
+      ],
+      "type": "Revision",
+      "issue_purpose": "IssuedForConstruction",
+      "revision_code": "0",
+      "revision_date": "2030-03-18"
+    },
+    {
+      "id": "revision-S-201-A",
+      "evidenced_by": [
+        "ev-revision-S-201-A"
+      ],
+      "type": "Revision",
+      "issue_purpose": "IssuedForReview",
+      "revision_code": "A",
+      "revision_date": "2030-02-11"
+    },
+    {
+      "id": "revision-S-301-0",
+      "evidenced_by": [
+        "ev-revision-S-301-0"
+      ],
+      "type": "Revision",
+      "issue_purpose": "IssuedForConstruction",
+      "revision_code": "0",
+      "revision_date": "2030-03-18"
+    },
+    {
+      "id": "revision-S-301-A",
+      "evidenced_by": [
+        "ev-revision-S-301-A"
+      ],
+      "type": "Revision",
+      "issue_purpose": "IssuedForReview",
+      "revision_code": "A",
+      "revision_date": "2030-02-11"
+    },
+    {
+      "id": "row-BP1",
+      "evidenced_by": [
+        "ev-row-BP1"
+      ],
+      "type": "ElementRow",
+      "has_cell": [
+        "cell-BP1-0",
+        "cell-BP1-1",
+        "cell-BP1-2",
+        "cell-BP1-3",
+        "cell-BP1-4"
+      ],
+      "describes_element": "base-plate-BP1"
+    },
+    {
+      "id": "row-BP2",
+      "evidenced_by": [
+        "ev-row-BP2"
+      ],
+      "type": "ElementRow",
+      "has_cell": [
+        "cell-BP2-0",
+        "cell-BP2-1",
+        "cell-BP2-2",
+        "cell-BP2-3",
+        "cell-BP2-4"
+      ],
+      "describes_element": "base-plate-BP2"
+    },
+    {
+      "id": "row-C1",
+      "evidenced_by": [
+        "ev-row-C1"
+      ],
+      "type": "ElementRow",
+      "has_cell": [
+        "cell-C1-0",
+        "cell-C1-1",
+        "cell-C1-2",
+        "cell-C1-3",
+        "cell-C1-4",
+        "cell-C1-5",
+        "cell-C1-6"
+      ],
+      "row_value": "772.8",
+      "describes_element": "column-C1"
+    },
+    {
+      "id": "row-C2",
+      "evidenced_by": [
+        "ev-row-C2"
+      ],
+      "type": "ElementRow",
+      "has_cell": [
+        "cell-C2-0",
+        "cell-C2-1",
+        "cell-C2-2",
+        "cell-C2-3",
+        "cell-C2-4",
+        "cell-C2-5",
+        "cell-C2-6"
+      ],
+      "row_value": "436.8",
+      "describes_element": "column-C2"
+    },
+    {
+      "id": "row-P1",
+      "evidenced_by": [
+        "ev-row-P1"
+      ],
+      "type": "ElementRow",
+      "has_cell": [
+        "cell-P1-0",
+        "cell-P1-1",
+        "cell-P1-2",
+        "cell-P1-3",
+        "cell-P1-4",
+        "cell-P1-5",
+        "cell-P1-6"
+      ],
+      "row_value": "40.0",
+      "describes_element": "post-P1"
+    },
+    {
+      "id": "schedule-base-plates",
+      "evidenced_by": [
+        "ev-schedule-base-plates"
+      ],
+      "type": "Schedule",
+      "has_row": [
+        "row-BP1",
+        "row-BP2"
+      ],
+      "schedule_kind": "BasePlateSchedule"
+    },
+    {
+      "id": "schedule-columns",
+      "evidenced_by": [
+        "ev-schedule-columns"
+      ],
+      "type": "Schedule",
+      "has_row": [
+        "row-C1",
+        "row-C2",
+        "row-P1"
+      ],
+      "schedule_kind": "ColumnSchedule",
+      "declared_total": "1294.6"
+    },
+    {
+      "id": "sheet-S-001",
+      "evidenced_by": [
+        "ev-sheet-S-001"
+      ],
+      "type": "Sheet",
+      "sheet_discipline": [
+        "SteelDiscipline"
+      ],
+      "sheet_kind": "GeneralNotesSheet",
+      "page_index": 1,
+      "project_number": "EX-0417",
+      "sheet_number": "S-001",
+      "sheet_title": "GENERAL NOTES",
+      "sheet_total": 4,
+      "has_revision": [
+        "revision-S-001-0",
+        "revision-S-001-A"
+      ],
+      "has_design_parameter": [
+        "parameter-importance"
+      ],
+      "has_default_rule": [
+        "default-brace-connections"
+      ],
+      "has_requirement": [
+        "clause-1",
+        "clause-2",
+        "clause-3",
+        "clause-4",
+        "clause-5",
+        "clause-6",
+        "clause-7",
+        "clause-8",
+        "clause-9"
+      ]
+    },
+    {
+      "id": "sheet-S-101",
+      "evidenced_by": [
+        "ev-sheet-S-101"
+      ],
+      "type": "Sheet",
+      "has_view": [
+        "view-framing-plan"
+      ],
+      "sheet_discipline": [
+        "SteelDiscipline"
+      ],
+      "sheet_kind": "PlanSheet",
+      "page_index": 2,
+      "project_number": "EX-0417",
+      "sheet_number": "S-101",
+      "sheet_title": "PLATFORM FRAMING PLAN",
+      "sheet_total": 4,
+      "has_revision": [
+        "revision-S-101-0",
+        "revision-S-101-A"
+      ],
+      "has_annotation": [
+        "annotation-query-note",
+        "annotation-received-stamp",
+        "annotation-revision-cloud",
+        "annotation-takeoff-highlight"
+      ]
+    },
+    {
+      "id": "sheet-S-201",
+      "evidenced_by": [
+        "ev-sheet-S-201"
+      ],
+      "type": "Sheet",
+      "has_view": [
+        "view-schedules"
+      ],
+      "sheet_discipline": [
+        "SteelDiscipline"
+      ],
+      "sheet_kind": "ScheduleSheet",
+      "page_index": 3,
+      "project_number": "EX-0417",
+      "sheet_number": "S-201",
+      "sheet_title": "COLUMN AND BASE PLATE SCHEDULES",
+      "sheet_total": 4,
+      "has_revision": [
+        "revision-S-201-0",
+        "revision-S-201-A"
+      ],
+      "has_schedule": [
+        "schedule-base-plates",
+        "schedule-columns"
+      ]
+    },
+    {
+      "id": "sheet-S-301",
+      "evidenced_by": [
+        "ev-sheet-S-301"
+      ],
+      "type": "Sheet",
+      "has_view": [
+        "view-detail-1",
+        "view-detail-2"
+      ],
+      "sheet_discipline": [
+        "SteelDiscipline"
+      ],
+      "page_index": 4,
+      "project_number": "EX-0417",
+      "sheet_number": "S-301",
+      "sheet_title": "CONNECTION DETAILS",
+      "sheet_total": 4,
+      "has_revision": [
+        "revision-S-301-0",
+        "revision-S-301-A"
+      ]
+    },
+    {
+      "id": "standard-ASTM-F3125",
+      "evidenced_by": [
+        "ev-standard-ASTM-F3125"
+      ],
+      "type": "Standard",
+      "standard_designation": "ASTM F3125"
+    },
+    {
+      "id": "standard-CSA-G40-21",
+      "evidenced_by": [
+        "ev-standard-CSA-G40-21"
+      ],
+      "type": "Standard",
+      "standard_designation": "CSA G40.21"
+    },
+    {
+      "id": "standard-CSA-W59",
+      "evidenced_by": [
+        "ev-standard-CSA-W59"
+      ],
+      "type": "Standard",
+      "standard_designation": "CSA W59"
+    },
+    {
+      "id": "view-detail-1",
+      "evidenced_by": [
+        "ev-view-detail-1"
+      ],
+      "type": "View",
+      "shows_element": [
+        "beam-B1",
+        "column-C1",
+        "connection-SC1"
+      ],
+      "view_kind": "DetailView",
+      "is_typical": true,
+      "scale_text": "1:10",
+      "view_code": "1"
+    },
+    {
+      "id": "view-detail-2",
+      "evidenced_by": [
+        "ev-view-detail-2"
+      ],
+      "type": "View",
+      "shows_element": [
+        "anchor-rods",
+        "base-plate-BP1"
+      ],
+      "view_kind": "DetailView",
+      "scale_text": "1:10",
+      "view_code": "2"
+    },
+    {
+      "id": "view-framing-plan",
+      "evidenced_by": [
+        "ev-view-framing-plan"
+      ],
+      "type": "View",
+      "callout_to": [
+        "view-detail-1"
+      ],
+      "shows_element": [
+        "beam-B1",
+        "beam-B2",
+        "beam-B3",
+        "brace-VB1",
+        "column-C1",
+        "column-C2"
+      ],
+      "view_kind": "PlanView",
+      "callout_target_sheet_text": "S-301",
+      "scale_text": "1:75"
+    },
+    {
+      "id": "view-schedules",
+      "evidenced_by": [
+        "ev-view-schedules"
+      ],
+      "type": "View",
+      "view_kind": "ScheduleView"
+    },
+    {
+      "id": "zone-platform",
+      "type": "Zone",
+      "has_area_load": [
+        "area-load-DeadLoad",
+        "area-load-LiveLoad"
+      ],
+      "zone_kind": "LoadZoneKind",
+      "zone_on_sheet": "sheet-S-101"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+build/
+dist/
+
+# Tools
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Secrets and local settings
+.env
+.env.*
+!.env.example
+
+# Editors and OS
+.idea/
+.vscode/
+.DS_Store
+
+# Built static site (steel-ontology docs --site site)
+/site/
+
+# Output of the README quickstart, step 5
+/out.json

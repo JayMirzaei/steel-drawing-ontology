@@ -1,0 +1,19 @@
+# id: CQ01
+# title: Sheets with third-party markup
+# question: Which sheets carry markup that a third party drew (take-off highlights, stamps, query notes)?
+# reasoner: required
+
+# MarkedUpSheet and ThirdPartyMarkup are defined classes: the reasoner works out which sheets and
+# annotations belong to them, so the rule lives once, in core.ttl, and not again here.
+
+PREFIX steel: <https://jaymirzaei.github.io/steel-drawing-ontology/core#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?sheet ?sheetNumber ?annotation ?markupKind WHERE {
+    ?sheet a steel:MarkedUpSheet ;
+           steel:hasAnnotation ?annotation .
+    ?annotation a steel:ThirdPartyMarkup .
+    OPTIONAL { ?sheet steel:sheetNumber ?sheetNumber }
+    OPTIONAL { ?annotation steel:markupKind ?markupKind }
+}
+ORDER BY ?sheet ?annotation

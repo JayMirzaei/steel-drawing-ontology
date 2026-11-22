@@ -1,0 +1,727 @@
+# Steel drawing ontology: SHACL shapes.
+#
+# The ontology (core.ttl) infers under the open world. These shapes are the closed-world data
+# checks: completeness of extracted facts, value ranges, and arithmetic that a drawing can be
+# checked against without any outside data.
+#
+# Severity is deliberate:
+#   sh:Violation  the fact cannot be used as it stands (a load with no factored/unfactored tag)
+#   sh:Warning    a person should look (a sheet with no number; a total that does not add up)
+# SHACL reads sh:severity from the shape, never from an sh:sparql constraint, so each SPARQL
+# check is its own node shape with its own severity.
+#
+# Every property shape carries an sh:message, so a report reads as a sentence, not as SHACL.
+# Values of closed vocabularies are checked against their lists with sh:in (last section).
+# Validate with the ontology merged into the data graph.
+
+@prefix steel:   <https://jaymirzaei.github.io/steel-drawing-ontology/core#> .
+@prefix steelsh: <https://jaymirzaei.github.io/steel-drawing-ontology/shapes#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:      <http://www.w3.org/ns/shacl#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+<https://jaymirzaei.github.io/steel-drawing-ontology/shapes> a owl:Ontology ;
+    rdfs:label "Steel drawing ontology (shapes)" ;
+    owl:imports <https://jaymirzaei.github.io/steel-drawing-ontology/core> ;
+    sh:declare [ sh:prefix "steel" ;
+                 sh:namespace "https://jaymirzaei.github.io/steel-drawing-ontology/core#"^^xsd:anyURI ] .
+
+# ================================================================================================
+# Sheets and revisions
+# ================================================================================================
+
+steelsh:SheetShape a sh:NodeShape ;
+    sh:targetClass steel:Sheet ;
+    sh:property [
+        sh:path steel:sheetNumber ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ;
+        sh:severity sh:Warning ;
+        sh:message "Sheet has no sheet number (some drawings genuinely lack one: flag, do not fail)." ] ;
+    sh:property [
+        sh:path steel:sheetKind ; sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Sheet has no sheet kind (plan, elevation, detail, notes ...): give one from the SheetKind list." ] ;
+    sh:property [
+        sh:path steel:pageIndex ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:integer ;
+        sh:minInclusive 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Sheet needs exactly one page index, a whole number from 1: the page of the PDF it was read from." ] .
+
+steelsh:SheetTotalShape a sh:NodeShape ;
+    sh:targetClass steel:Sheet ;
+    sh:severity sh:Violation ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "pageIndex is larger than sheetTotal ('sheet n of N')." ;
+        sh:prefixes <https://jaymirzaei.github.io/steel-drawing-ontology/shapes> ;
+        sh:select """
+            SELECT $this WHERE {
+                $this steel:pageIndex ?p ; steel:sheetTotal ?t .
+                FILTER(?p > ?t)
+            }""" ] .
+
+# The title block status field can be stale while the revision table moves on. Record both,
+# trust neither alone.
+steelsh:TitleBlockStatusConflictShape a sh:NodeShape ;
+    sh:targetClass steel:Sheet ;
+    sh:severity sh:Warning ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Title block status says AS BUILT but a revision row says issued for construction: check which is current." ;
+        sh:prefixes <https://jaymirzaei.github.io/steel-drawing-ontology/shapes> ;
+        sh:select """
+            SELECT $this WHERE {
+                $this steel:titleBlockStatus steel:AsBuilt ; steel:hasRevision ?r .
+                ?r steel:issuePurpose steel:IssuedForConstruction
+            }""" ] .
+
+# A sheet with an information-only watermark whose revision table says issued for construction:
+# the reader must not build from it without checking.
+steelsh:WatermarkConflictShape a sh:NodeShape ;
+    sh:targetClass steel:Sheet ;
+    sh:severity sh:Warning ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Sheet has an information-only or preliminary watermark but a revision row says issued for construction: confirm it may be built from." ;
+        sh:prefixes <https://jaymirzaei.github.io/steel-drawing-ontology/shapes> ;
+        sh:select """
+            SELECT $this WHERE {
+                $this steel:statusWatermarkText ?w ; steel:hasRevision ?r .
+                ?r steel:issuePurpose steel:IssuedForConstruction .
+                FILTER(CONTAINS(UCASE(STR(?w)), "INFORMATION ONLY") || CONTAINS(UCASE(STR(?w)), "PRELIMINARY"))
+            }""" ] .
+
+steelsh:RevisionShape a sh:NodeShape ;
+    sh:targetClass steel:Revision ;
+    sh:property [
+        sh:path steel:issuePurpose ; sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "Revision has no issue purpose (issued for construction, for review ...): the revision row should say why it was issued." ] .
+
+steelsh:InclusionRowShape a sh:NodeShape ;
+    sh:targetClass steel:InclusionRow ;
+    sh:property [
+        sh:path steel:inPackageRevision ; sh:minCount 1 ; sh:severity sh:Violation ;
+        sh:message "An inclusion row must name the package revision it belongs to." ] ;
+    sh:property [
+        sh:path steel:includesSheet ; sh:minCount 1 ; sh:severity sh:Violation ;
+        sh:message "An inclusion row must name the sheet it includes." ] .
+
+steelsh:StandardDocumentShape a sh:NodeShape ;
+    sh:targetClass steel:StandardDocument ;
+    sh:property [
+        sh:path steel:standardRevisionText ; sh:minCount 1 ; sh:severity sh:Warning ;
+        sh:message "A reproduced or cited standard should record its revision as printed (revisions differ between projects)." ] .
+
+# ================================================================================================
+# Schedules, rows and cells
+# ================================================================================================
+
+steelsh:ElementRowShape a sh:NodeShape ;
+    sh:targetClass steel:ElementRow ;
+    sh:property [
+        sh:path steel:describesElement ; sh:minCount 1 ; sh:severity sh:Violation ;
+        sh:message "An element row must name the element it tabulates." ] .
+
+steelsh:DrawingListRowShape a sh:NodeShape ;
+    sh:targetClass steel:DrawingListRow ;
+    sh:property [
+        sh:path steel:listsSheet ; sh:minCount 1 ; sh:severity sh:Violation ;
+        sh:message "A drawing list row must name the sheet it lists." ] .
+
+steelsh:ScheduleCellShape a sh:NodeShape ;
+    sh:targetClass steel:ScheduleCell ;
+    sh:property [
+        sh:path steel:cellText ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ;
+        sh:severity sh:Violation ;
+        sh:message "A schedule cell needs exactly one text, the cell as printed." ] ;
+    sh:property [
+        sh:path steel:cellValueKind ; sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "A schedule cell must say what kind of value it holds (number, text, BY SUPPLIER, N/A ...)." ] ;
+    sh:property [
+        sh:path steel:columnHeaderText ; sh:minCount 1 ; sh:severity sh:Warning ;
+        sh:message "A schedule cell should keep its column header, or its value has no meaning." ] .
+
+steelsh:SelectionRowShape a sh:NodeShape ;
+    sh:targetClass steel:SelectionRow ;
+    sh:property [
+        sh:path steel:rowKeyText ; sh:minCount 1 ; sh:severity sh:Violation ;
+        sh:message "A selection row must keep its key (the range it applies to)." ] ;
+    sh:property [
+        sh:path steel:rowValuesText ; sh:minCount 1 ; sh:severity sh:Violation ;
+        sh:message "A selection row must keep its values as printed." ] .
+
+# Schedule arithmetic: the printed total must equal the sum of the row values
+# (0.5 percent tolerance; line weights are rounded).
+steelsh:ScheduleTotalShape a sh:NodeShape ;
+    sh:targetClass steel:Schedule ;
+    sh:severity sh:Warning ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Printed schedule total differs from the sum of its rows by more than 0.5 percent: re-read the table before using the total." ;
+        sh:prefixes <https://jaymirzaei.github.io/steel-drawing-ontology/shapes> ;
+        sh:select """
+            SELECT $this WHERE {
+                $this steel:declaredTotal ?t .
+                { SELECT $this (SUM(?v) AS ?sum) WHERE {
+                    $this steel:hasRow ?r . ?r steel:rowValue ?v
+                  } GROUP BY $this }
+                FILTER(ABS(?t - ?sum) > 0.005 * ?t)
+            }""" ] .
+
+# Row arithmetic: the printed row total must equal the sum of its components
+# (pile friction + end bearing = total capacity).
+steelsh:RowTotalShape a sh:NodeShape ;
+    sh:targetClass steel:ScheduleRow ;
+    sh:severity sh:Warning ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Row total differs from the sum of its components: one of the printed numbers is misread or the table is wrong." ;
+        sh:prefixes <https://jaymirzaei.github.io/steel-drawing-ontology/shapes> ;
+        sh:select """
+            SELECT $this WHERE {
+                $this steel:rowTotal ?t .
+                { SELECT $this (SUM(?c) AS ?sum) WHERE {
+                    $this steel:componentValue ?c
+                  } GROUP BY $this }
+                FILTER(ABS(?t - ?sum) > 0.5)
+            }""" ] .
+
+# ================================================================================================
+# Elements
+# ================================================================================================
+
+steelsh:AssemblyShape a sh:NodeShape ;
+    sh:targetClass steel:Assembly ;
+    sh:property [
+        sh:path steel:assemblyWeightTonnes ; sh:maxCount 1 ; sh:datatype xsd:decimal ;
+        sh:minExclusive 0 ;
+        sh:severity sh:Violation ;
+        sh:message "An assembly weight must be one positive number (tonnes)." ] .
+
+steelsh:QuantityShape a sh:NodeShape ;
+    sh:targetSubjectsOf steel:requiredQuantity ;
+    sh:property [
+        sh:path steel:requiredQuantity ; sh:minInclusive 1 ; sh:datatype xsd:integer ;
+        sh:severity sh:Violation ;
+        sh:message "A required quantity must be a whole number of at least 1." ] .
+
+steelsh:PileCriteriaShape a sh:NodeShape ;
+    sh:targetClass steel:Pile ;
+    sh:property [
+        sh:path steel:minTorqueFtLbs ; sh:minExclusive 0 ; sh:severity sh:Violation ;
+        sh:message "A minimum installation torque must be positive." ] ;
+    sh:property [
+        sh:path steel:maxLateralDisplacementMm ; sh:minExclusive 0 ; sh:severity sh:Violation ;
+        sh:message "A maximum lateral displacement must be positive." ] ;
+    sh:property [
+        sh:path steel:designEmbedmentM ; sh:minExclusive 0 ; sh:severity sh:Violation ;
+        sh:message "A design embedment must be positive." ] .
+
+steelsh:LiftingLugShape a sh:NodeShape ;
+    sh:targetClass steel:LiftingLug ;
+    sh:property [
+        sh:path steel:capacityTonnes ; sh:minExclusive 0 ; sh:severity sh:Violation ;
+        sh:message "A lifting lug capacity must be positive." ] .
+
+steelsh:WorkPointShape a sh:NodeShape ;
+    sh:targetClass steel:WorkPoint ;
+    sh:property [
+        sh:path steel:northing ; sh:minCount 1 ; sh:severity sh:Warning ;
+        sh:message "A work point should give its northing." ] ;
+    sh:property [
+        sh:path steel:easting ; sh:minCount 1 ; sh:severity sh:Warning ;
+        sh:message "A work point should give its easting." ] .
+
+# Conditional, so a SPARQL constraint: only members that reinforce something are checked.
+steelsh:ReinforcesShape a sh:NodeShape ;
+    sh:targetSubjectsOf steel:reinforces ;
+    sh:severity sh:Warning ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "A reinforcing member should say how it must be installed (shoring, weld sequence) or be marked as having no constraint." ;
+        sh:prefixes <https://jaymirzaei.github.io/steel-drawing-ontology/shapes> ;
+        sh:select """
+            SELECT $this WHERE {
+                $this steel:reinforces ?t .
+                FILTER NOT EXISTS { $this steel:installationConstraintText ?c }
+            }""" ] .
+
+steelsh:ScopeItemShape a sh:NodeShape ;
+    sh:targetClass steel:ScopeItem ;
+    sh:property [
+        sh:path steel:scopeItemText ; sh:minCount 1 ; sh:datatype xsd:string ;
+        sh:severity sh:Violation ;
+        sh:message "A scope item must carry its text; an id alone does not say what is in scope." ] .
+
+# ================================================================================================
+# Forces, loads and zones
+# ================================================================================================
+
+steelsh:ForceRecordShape a sh:NodeShape ;
+    sh:targetClass steel:ForceRecord ;
+    sh:property [
+        sh:path steel:isFactored ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:boolean ;
+        sh:severity sh:Violation ;
+        sh:message "Loads must be tagged factored or unfactored; mixing them is a design error." ] ;
+    sh:property [
+        sh:path steel:loadCase ; sh:minCount 1 ; sh:datatype xsd:string ;
+        sh:severity sh:Warning ;
+        sh:message "Keep the load case label as printed (D, L, Cf, Tf ...)." ] ;
+    sh:property [
+        sh:path steel:loadType ; sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "Give a controlled load type (dead, live, snow, wind ...) so loads can be compared across sets." ] ;
+    sh:property [
+        sh:path steel:evidencedBy ; sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "Every extracted force needs evidence (sheet, region, confidence)." ] .
+
+# Force and moment values are stored as printed, so the unit travels with them: a value in kip
+# read as kN is wrong by a factor of 4.45.
+steelsh:ForceUnitShape a sh:NodeShape ;
+    sh:targetClass steel:ForceRecord ;
+    sh:property [
+        sh:path steel:forceUnit ; sh:maxCount 1 ;
+        sh:in ( "kN" "N" "kip" "lbf" "kN/m" "kip/ft" "kPa" "psf" ) ;
+        sh:severity sh:Warning ;
+        sh:message "forceUnit should be one printed force unit: kN, N, kip, lbf, kN/m, kip/ft, kPa or psf." ] ;
+    sh:property [
+        sh:path steel:momentUnit ; sh:maxCount 1 ;
+        sh:in ( "kN.m" "N.m" "kip.ft" "ft-kip" "kip.in" "lbf.ft" ) ;
+        sh:severity sh:Warning ;
+        sh:message "momentUnit should be one printed moment unit: kN.m, N.m, kip.ft, ft-kip, kip.in or lbf.ft." ] .
+
+steelsh:ForceValueUnitShape a sh:NodeShape ;
+    sh:targetClass steel:ForceRecord ;
+    sh:severity sh:Warning ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "A force value (axial, compression, tension, shear) needs its printed unit in forceUnit." ;
+        sh:prefixes <https://jaymirzaei.github.io/steel-drawing-ontology/shapes> ;
+        sh:select """
+            SELECT $this WHERE {
+                $this steel:axialValue|steel:compressionValue|steel:tensionValue|steel:shearMajorValue|steel:shearMinorValue ?v .
+                FILTER NOT EXISTS { $this steel:forceUnit ?u }
+            }""" ] .
+
+steelsh:MomentValueUnitShape a sh:NodeShape ;
+    sh:targetClass steel:ForceRecord ;
+    sh:severity sh:Warning ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "A moment or torsion value needs its printed unit in momentUnit." ;
+        sh:prefixes <https://jaymirzaei.github.io/steel-drawing-ontology/shapes> ;
+        sh:select """
+            SELECT $this WHERE {
+                $this steel:momentMajorValue|steel:momentMinorValue|steel:torsionValue ?v .
+                FILTER NOT EXISTS { $this steel:momentUnit ?u }
+            }""" ] .
+
+steelsh:ZoneShape a sh:NodeShape ;
+    sh:targetClass steel:Zone ;
+    sh:property [
+        sh:path steel:zoneKind ; sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "A zone must say what kind of zone it is (load zone, repair zone, plant area ...)." ] .
+
+steelsh:AreaLoadShape a sh:NodeShape ;
+    sh:targetClass steel:AreaLoad ;
+    sh:property [
+        sh:path steel:areaLoadKPa ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:decimal ;
+        sh:severity sh:Violation ;
+        sh:message "An area load needs exactly one value in kPa." ] ;
+    sh:property [
+        sh:path steel:areaLoadType ; sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "Give the area load a load type (dead, live, snow ...) so loads can be compared." ] ;
+    sh:property [
+        sh:path steel:areaLoadFactored ; sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "Area loads must say factored or unfactored." ] .
+
+steelsh:DesignParameterShape a sh:NodeShape ;
+    sh:targetClass steel:DesignParameter ;
+    sh:property [
+        sh:path steel:parameterName ; sh:minCount 1 ; sh:severity sh:Violation ;
+        sh:message "A design parameter must keep its printed name (q, Ss, Sa(0.2) ...)." ] ;
+    sh:property [
+        sh:path steel:parameterValueText ; sh:minCount 1 ; sh:severity sh:Violation ;
+        sh:message "A design parameter must keep its value as printed." ] .
+
+# ================================================================================================
+# Notes: requirement clauses and default rules
+# ================================================================================================
+
+steelsh:RequirementClauseShape a sh:NodeShape ;
+    sh:targetClass steel:RequirementClause ;
+    sh:property [
+        sh:path steel:requirementTopic ; sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "A requirement clause must have a topic (welding, bolting, coating ...)." ] ;
+    sh:property [
+        sh:path steel:clauseText ; sh:minCount 1 ; sh:datatype xsd:string ;
+        sh:severity sh:Violation ;
+        sh:message "A requirement clause must keep its text as printed." ] .
+
+# Conditional, so a SPARQL constraint: only a clause that prints a number is asked for its value.
+steelsh:ClauseValueShape a sh:NodeShape ;
+    sh:targetClass steel:RequirementClause ;
+    sh:severity sh:Warning ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "A clause with a number or percentage should keep the value with its unit as printed." ;
+        sh:prefixes <https://jaymirzaei.github.io/steel-drawing-ontology/shapes> ;
+        sh:select """
+            SELECT $this WHERE {
+                $this steel:clauseText ?text .
+                FILTER(REGEX(STR(?text), "[0-9%]"))
+                FILTER NOT EXISTS { $this steel:clauseValue ?value }
+            }""" ] .
+
+steelsh:NoticeHoursShape a sh:NodeShape ;
+    sh:targetClass steel:RequirementClause ;
+    sh:property [
+        sh:path steel:noticeHours ; sh:minExclusive 0 ; sh:severity sh:Violation ;
+        sh:message "Notice hours must be positive." ] .
+
+steelsh:DefaultRuleShape a sh:NodeShape ;
+    sh:targetClass steel:DefaultRule ;
+    sh:property [
+        sh:path steel:defaultRuleText ; sh:minCount 1 ; sh:datatype xsd:string ;
+        sh:severity sh:Violation ;
+        sh:message "A default rule must keep its text as printed." ] .
+
+steelsh:DefaultRuleKindShape a sh:NodeShape ;
+    sh:targetClass steel:DefaultRule ;
+    sh:property [
+        sh:path steel:defaultPercent ; sh:minExclusive 0 ; sh:maxInclusive 100 ;
+        sh:severity sh:Violation ;
+        sh:message "A default percentage must be above 0 and at most 100." ] ;
+    sh:property [
+        sh:path steel:defaultRuleKind ; sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "Say which kind of default this is so an agent can apply it." ] .
+
+# ================================================================================================
+# Annotations and markup
+# ================================================================================================
+
+steelsh:AnnotationShape a sh:NodeShape ;
+    sh:targetClass steel:Annotation ;
+    sh:property [
+        sh:path steel:annotationOrigin ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Every annotation must say whether the engineer or a third party drew it." ] .
+
+# A vendor review stamp is useless without its outcome. Conditional, so a SPARQL constraint.
+steelsh:VendorStampShape a sh:NodeShape ;
+    sh:targetClass steel:Annotation ;
+    sh:severity sh:Warning ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "A vendor review stamp should record its ticked outcome (reviewOutcome)." ;
+        sh:prefixes <https://jaymirzaei.github.io/steel-drawing-ontology/shapes> ;
+        sh:select """
+            SELECT $this WHERE {
+                $this steel:markupKind steel:VendorReviewStamp .
+                FILTER NOT EXISTS { $this steel:reviewOutcome ?o }
+            }""" ] .
+
+steelsh:ConstructionSequenceShape a sh:NodeShape ;
+    sh:targetClass steel:ConstructionSequence ;
+    sh:property [
+        sh:path steel:sequenceStepText ; sh:minCount 2 ;
+        sh:severity sh:Warning ;
+        sh:message "A construction sequence needs at least two steps; one step is a note, not a sequence." ] .
+
+# ================================================================================================
+# Evidence
+# ================================================================================================
+
+steelsh:EvidenceShape a sh:NodeShape ;
+    sh:targetClass steel:Evidence ;
+    sh:property [
+        sh:path steel:onSheet ; sh:minCount 1 ; sh:maxCount 1 ; sh:severity sh:Violation ;
+        sh:message "Evidence must name exactly one sheet it was read on." ] ;
+    sh:property [
+        sh:path steel:confidence ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "Evidence must give exactly one confidence: Verified, Probable or Unverified." ] .
+
+# ================================================================================================
+# Closed vocabularies
+# A value of a vocabulary property must be one of the members listed in core.ttl. sh:class alone
+# would accept a new individual typed as a member of the class, and OWL cannot reject it either
+# (under the open world it may be the same as a listed member), so the list is checked here.
+# tests/test_ontology.py keeps every sh:in list equal to its owl:oneOf list.
+# ================================================================================================
+
+steelsh:SheetKindValuesShape a sh:NodeShape ;
+    sh:targetSubjectsOf steel:sheetKind ;
+    sh:property [
+        sh:path steel:sheetKind ; sh:severity sh:Violation ;
+        sh:in ( steel:GeneralNotesSheet steel:SpecificationSheet steel:CoverSheet steel:IndexSheet
+            steel:PlanSheet steel:ElevationSheet steel:SectionSheet steel:DetailSheet
+            steel:ScheduleSheet steel:ThreeDSheet steel:TypicalDetailsSheet steel:IssueRecordSheet
+            steel:ScopeSheet steel:PhotoSheet steel:HandSketchSheet steel:PipingIsometricSheet
+            steel:StandardSheet steel:BlankSheet steel:WorkPackageSheet steel:ChangeNoticeSheet
+            steel:ManualSheet steel:TransmittalSheet steel:ReactionSheet steel:AnchorBoltPlanSheet
+            steel:FrameCrossSectionSheet steel:ConsultantListSheet ) ;
+        sh:message "sheetKind must be a member of the closed vocabulary SheetKind (see core.ttl)." ] .
+
+steelsh:ViewKindValuesShape a sh:NodeShape ;
+    sh:targetSubjectsOf steel:viewKind ;
+    sh:property [
+        sh:path steel:viewKind ; sh:severity sh:Violation ;
+        sh:in ( steel:PlanView steel:ElevationView steel:SectionView steel:DetailView steel:ThreeDView
+            steel:PhotoView steel:KeyPlanView steel:IsometricView steel:ScheduleView steel:NotesView ) ;
+        sh:message "viewKind must be a member of the closed vocabulary ViewKind (see core.ttl)." ] .
+
+steelsh:IssuePurposeValuesShape a sh:NodeShape ;
+    sh:targetSubjectsOf steel:appliesForPurpose ;
+    sh:targetSubjectsOf steel:hasStatusStamp ;
+    sh:targetSubjectsOf steel:issuePurpose ;
+    sh:targetSubjectsOf steel:titleBlockStatus ;
+    sh:property [
+        sh:path steel:appliesForPurpose ; sh:severity sh:Violation ;
+        sh:in ( steel:IssuedForConstruction steel:IssuedForReview steel:IssuedForTender
+            steel:IssuedForBid steel:IssuedForPricing steel:IssuedForPermit steel:Preliminary
+            steel:ControlledRelease steel:AsBuilt steel:ForReferenceOnly steel:ForInformationOnly
+            steel:ForImplementation steel:IssuedForErection steel:IssuedForApproval
+            steel:IssuedForCoordination steel:NonPublished steel:UncontrolledIfPrinted
+            steel:IssuedForDesign ) ;
+        sh:message "appliesForPurpose must be a member of the closed vocabulary IssuePurpose (see core.ttl)." ] ;
+    sh:property [
+        sh:path steel:hasStatusStamp ; sh:severity sh:Violation ;
+        sh:in ( steel:IssuedForConstruction steel:IssuedForReview steel:IssuedForTender
+            steel:IssuedForBid steel:IssuedForPricing steel:IssuedForPermit steel:Preliminary
+            steel:ControlledRelease steel:AsBuilt steel:ForReferenceOnly steel:ForInformationOnly
+            steel:ForImplementation steel:IssuedForErection steel:IssuedForApproval
+            steel:IssuedForCoordination steel:NonPublished steel:UncontrolledIfPrinted
+            steel:IssuedForDesign ) ;
+        sh:message "hasStatusStamp must be a member of the closed vocabulary IssuePurpose (see core.ttl)." ] ;
+    sh:property [
+        sh:path steel:issuePurpose ; sh:severity sh:Violation ;
+        sh:in ( steel:IssuedForConstruction steel:IssuedForReview steel:IssuedForTender
+            steel:IssuedForBid steel:IssuedForPricing steel:IssuedForPermit steel:Preliminary
+            steel:ControlledRelease steel:AsBuilt steel:ForReferenceOnly steel:ForInformationOnly
+            steel:ForImplementation steel:IssuedForErection steel:IssuedForApproval
+            steel:IssuedForCoordination steel:NonPublished steel:UncontrolledIfPrinted
+            steel:IssuedForDesign ) ;
+        sh:message "issuePurpose must be a member of the closed vocabulary IssuePurpose (see core.ttl)." ] ;
+    sh:property [
+        sh:path steel:titleBlockStatus ; sh:severity sh:Violation ;
+        sh:in ( steel:IssuedForConstruction steel:IssuedForReview steel:IssuedForTender
+            steel:IssuedForBid steel:IssuedForPricing steel:IssuedForPermit steel:Preliminary
+            steel:ControlledRelease steel:AsBuilt steel:ForReferenceOnly steel:ForInformationOnly
+            steel:ForImplementation steel:IssuedForErection steel:IssuedForApproval
+            steel:IssuedForCoordination steel:NonPublished steel:UncontrolledIfPrinted
+            steel:IssuedForDesign ) ;
+        sh:message "titleBlockStatus must be a member of the closed vocabulary IssuePurpose (see core.ttl)." ] .
+
+steelsh:UnitSystemValuesShape a sh:NodeShape ;
+    sh:targetSubjectsOf steel:unitSystem ;
+    sh:property [
+        sh:path steel:unitSystem ; sh:severity sh:Violation ;
+        sh:in ( steel:Metric steel:Imperial steel:MixedUnits steel:DualUnits ) ;
+        sh:message "unitSystem must be a member of the closed vocabulary UnitSystem (see core.ttl)." ] .
+
+steelsh:DisciplineValuesShape a sh:NodeShape ;
+    sh:targetSubjectsOf steel:issueScope ;
+    sh:targetSubjectsOf steel:sheetDiscipline ;
+    sh:property [
+        sh:path steel:issueScope ; sh:severity sh:Violation ;
+        sh:in ( steel:SteelDiscipline steel:ConcreteDiscipline steel:MasonryDiscipline
+            steel:TimberDiscipline steel:ArchitecturalDiscipline steel:PipingDiscipline
+            steel:CivilDiscipline steel:MechanicalElectricalDiscipline ) ;
+        sh:message "issueScope must be a member of the closed vocabulary Discipline (see core.ttl)." ] ;
+    sh:property [
+        sh:path steel:sheetDiscipline ; sh:severity sh:Violation ;
+        sh:in ( steel:SteelDiscipline steel:ConcreteDiscipline steel:MasonryDiscipline
+            steel:TimberDiscipline steel:ArchitecturalDiscipline steel:PipingDiscipline
+            steel:CivilDiscipline steel:MechanicalElectricalDiscipline ) ;
+        sh:message "sheetDiscipline must be a member of the closed vocabulary Discipline (see core.ttl)." ] .
+
+steelsh:AuthorRoleValuesShape a sh:NodeShape ;
+    sh:targetSubjectsOf steel:authorRole ;
+    sh:property [
+        sh:path steel:authorRole ; sh:severity sh:Violation ;
+        sh:in ( steel:EngineerOfRecordRole steel:SupplierDesignRole steel:FabricatorShopRole
+            steel:OwnerStandardRole steel:FieldPackageRole steel:ArchitectRole steel:DetailerRole ) ;
+        sh:message "authorRole must be a member of the closed vocabulary AuthorRole (see core.ttl)." ] .
+
+steelsh:DomainValuesShape a sh:NodeShape ;
+    sh:targetSubjectsOf steel:inDomain ;
+    sh:property [
+        sh:path steel:inDomain ; sh:severity sh:Violation ;
+        sh:in ( steel:BuildingDomain steel:IndustrialSkidDomain steel:PlatformStairDomain
+            steel:ParkingStructureDomain steel:ResidentialModularDomain steel:FieldRepairDomain
+            steel:PrecastBuildingDomain ) ;
+        sh:message "inDomain must be a member of the closed vocabulary Domain (see core.ttl)." ] .
+
+steelsh:ChangeReasonValuesShape a sh:NodeShape ;
+    sh:targetSubjectsOf steel:changeReason ;
+    sh:property [
+        sh:path steel:changeReason ; sh:severity sh:Violation ;
+        sh:in ( steel:ScopeChange steel:HoldsRemoved steel:VendorDocumentUpdate
+            steel:ExecutionStrategyChange steel:ConstructionRequest steel:DesignChange
+            steel:RegulatoryUpdate steel:DocumentCorrection steel:ClientRequest
+            steel:CoordinationChange ) ;
+        sh:message "changeReason must be a member of the closed vocabulary ChangeReason (see core.ttl)." ] .
+
+steelsh:SubmissionStageValuesShape a sh:NodeShape ;
+    sh:targetSubjectsOf steel:submissionStage ;
+    sh:property [
+        sh:path steel:submissionStage ; sh:severity sh:Violation ;
+        sh:in ( steel:PreliminaryReviewStage steel:Review60Stage steel:Review90Stage steel:BidStage
+            steel:BidAddendumStage steel:ConstructionIssueStage steel:Review50Stage
+            steel:Review95Stage steel:Review100Stage ) ;
+        sh:message "submissionStage must be a member of the closed vocabulary SubmissionStage (see core.ttl)." ] .
+
+steelsh:ScheduleKindValuesShape a sh:NodeShape ;
+    sh:targetSubjectsOf steel:scheduleKind ;
+    sh:property [
+        sh:path steel:scheduleKind ; sh:severity sh:Violation ;
+        sh:in ( steel:ColumnSchedule steel:BeamSchedule steel:PileSchedule steel:FootingSchedule
+            steel:BasePlateSchedule steel:MemberForceSchedule steel:ConnectionForceSchedule
+            steel:JoistSchedule steel:DeckSchedule steel:OpeningSchedule steel:PlateQuantitySchedule
+            steel:WallSchedule steel:DrawingListSchedule steel:BillOfMaterialSchedule
+            steel:HoldListSchedule steel:CutListSchedule steel:OtherSchedule ) ;
+        sh:message "scheduleKind must be a member of the closed vocabulary ScheduleKind (see core.ttl)." ] .
+
+steelsh:CellValueKindValuesShape a sh:NodeShape ;
+    sh:targetSubjectsOf steel:cellValueKind ;
+    sh:property [
+        sh:path steel:cellValueKind ; sh:severity sh:Violation ;
+        sh:in ( steel:NumberCell steel:TextCell steel:BySupplierCell steel:NotApplicableCell
+            steel:SeeNoteCell steel:BlankCell steel:LibraryRefCell ) ;
+        sh:message "cellValueKind must be a member of the closed vocabulary CellValueKind (see core.ttl)." ] .
+
+steelsh:ElementStatusValuesShape a sh:NodeShape ;
+    sh:targetSubjectsOf steel:elementStatus ;
+    sh:targetSubjectsOf steel:zoneStatus ;
+    sh:property [
+        sh:path steel:elementStatus ; sh:severity sh:Violation ;
+        sh:in ( steel:NewWork steel:ExistingToRemain steel:ExistingToDemolish steel:ExistingToBeModified
+            steel:FutureProvision ) ;
+        sh:message "elementStatus must be a member of the closed vocabulary ElementStatus (see core.ttl)." ] ;
+    sh:property [
+        sh:path steel:zoneStatus ; sh:severity sh:Violation ;
+        sh:in ( steel:NewWork steel:ExistingToRemain steel:ExistingToDemolish steel:ExistingToBeModified
+            steel:FutureProvision ) ;
+        sh:message "zoneStatus must be a member of the closed vocabulary ElementStatus (see core.ttl)." ] .
+
+steelsh:ExposureClassValuesShape a sh:NodeShape ;
+    sh:targetSubjectsOf steel:exposureClass ;
+    sh:property [
+        sh:path steel:exposureClass ; sh:severity sh:Violation ;
+        sh:in ( steel:AESS steel:StandardExposure ) ;
+        sh:message "exposureClass must be a member of the closed vocabulary ExposureClass (see core.ttl)." ] .
+
+steelsh:ResponsibilityTagValuesShape a sh:NodeShape ;
+    sh:targetSubjectsOf steel:responsibility ;
+    sh:property [
+        sh:path steel:responsibility ; sh:severity sh:Violation ;
+        sh:in ( steel:ByEngineerOfRecord steel:ByConnectionEngineer steel:ByFabricator steel:BySupplier
+            steel:ByOthers steel:ByOwner ) ;
+        sh:message "responsibility must be a member of the closed vocabulary ResponsibilityTag (see core.ttl)." ] .
+
+steelsh:WorkKindValuesShape a sh:NodeShape ;
+    sh:targetSubjectsOf steel:scopeItemWork ;
+    sh:targetSubjectsOf steel:workKind ;
+    sh:property [
+        sh:path steel:scopeItemWork ; sh:severity sh:Violation ;
+        sh:in ( steel:SupplyOnly steel:FabricateOnly steel:InstallOnly steel:SupplyAndInstall
+            steel:FieldWeldOnly steel:ShipLoose ) ;
+        sh:message "scopeItemWork must be a member of the closed vocabulary WorkKind (see core.ttl)." ] ;
+    sh:property [
+        sh:path steel:workKind ; sh:severity sh:Violation ;
+        sh:in ( steel:SupplyOnly steel:FabricateOnly steel:InstallOnly steel:SupplyAndInstall
+            steel:FieldWeldOnly steel:ShipLoose ) ;
+        sh:message "workKind must be a member of the closed vocabulary WorkKind (see core.ttl)." ] .
+
+steelsh:LoadTypeValuesShape a sh:NodeShape ;
+    sh:targetSubjectsOf steel:areaLoadType ;
+    sh:targetSubjectsOf steel:loadType ;
+    sh:property [
+        sh:path steel:areaLoadType ; sh:severity sh:Violation ;
+        sh:in ( steel:DeadLoad steel:LiveLoad steel:SnowLoad steel:WindLoad steel:SeismicLoad
+            steel:OtherLoad steel:TotalLoad steel:LoadCombination steel:BlastLoad steel:PondingLoad ) ;
+        sh:message "areaLoadType must be a member of the closed vocabulary LoadType (see core.ttl)." ] ;
+    sh:property [
+        sh:path steel:loadType ; sh:severity sh:Violation ;
+        sh:in ( steel:DeadLoad steel:LiveLoad steel:SnowLoad steel:WindLoad steel:SeismicLoad
+            steel:OtherLoad steel:TotalLoad steel:LoadCombination steel:BlastLoad steel:PondingLoad ) ;
+        sh:message "loadType must be a member of the closed vocabulary LoadType (see core.ttl)." ] .
+
+steelsh:LoadDirectionValuesShape a sh:NodeShape ;
+    sh:targetSubjectsOf steel:loadDirection ;
+    sh:property [
+        sh:path steel:loadDirection ; sh:severity sh:Violation ;
+        sh:in ( steel:Vertical steel:HorizontalNS steel:HorizontalEW steel:HorizontalGeneral
+            steel:UpliftDirection steel:AlongMemberAxis ) ;
+        sh:message "loadDirection must be a member of the closed vocabulary LoadDirection (see core.ttl)." ] .
+
+steelsh:ZoneKindValuesShape a sh:NodeShape ;
+    sh:targetSubjectsOf steel:zoneKind ;
+    sh:property [
+        sh:path steel:zoneKind ; sh:severity sh:Violation ;
+        sh:in ( steel:LoadZoneKind steel:RepairZoneKind steel:PlantAreaKind steel:BuildingSegmentKind
+            steel:FutureAreaKind steel:HoldAreaKind ) ;
+        sh:message "zoneKind must be a member of the closed vocabulary ZoneKind (see core.ttl)." ] .
+
+steelsh:RequirementTopicValuesShape a sh:NodeShape ;
+    sh:targetSubjectsOf steel:requirementTopic ;
+    sh:property [
+        sh:path steel:requirementTopic ; sh:severity sh:Violation ;
+        sh:in ( steel:WeldingReq steel:BoltingReq steel:CoatingReq steel:FireproofingReq
+            steel:InspectionReq steel:MaterialReq steel:ToleranceReq steel:GratingReq steel:UnitsReq
+            steel:ConnectionDesignReq steel:ErectionReq steel:ShopDrawingReq steel:LiftingReq
+            steel:PileInstallReq steel:ExistingStructureReq steel:ScopeExclusionReq
+            steel:SubmittalReq ) ;
+        sh:message "requirementTopic must be a member of the closed vocabulary RequirementTopic (see core.ttl)." ] .
+
+steelsh:DefaultRuleKindValuesShape a sh:NodeShape ;
+    sh:targetSubjectsOf steel:defaultRuleKind ;
+    sh:property [
+        sh:path steel:defaultRuleKind ; sh:severity sh:Violation ;
+        sh:in ( steel:PercentOfYieldRule steel:PercentOfShearTableRule steel:PercentOfUdlRule
+            steel:ShearFromMomentCapacityUdlRule steel:FullMomentRule steel:FullShearRule
+            steel:NamedLibraryDetailRule steel:ConnectionTypeByConditionRule ) ;
+        sh:message "defaultRuleKind must be a member of the closed vocabulary DefaultRuleKind (see core.ttl)." ] .
+
+steelsh:AnnotationOriginValuesShape a sh:NodeShape ;
+    sh:targetSubjectsOf steel:annotationOrigin ;
+    sh:property [
+        sh:path steel:annotationOrigin ; sh:severity sh:Violation ;
+        sh:in ( steel:EngineerOrigin steel:ThirdPartyOrigin ) ;
+        sh:message "annotationOrigin must be a member of the closed vocabulary AnnotationOrigin (see core.ttl)." ] .
+
+steelsh:MarkupKindValuesShape a sh:NodeShape ;
+    sh:targetSubjectsOf steel:markupKind ;
+    sh:property [
+        sh:path steel:markupKind ; sh:severity sh:Violation ;
+        sh:in ( steel:TakeoffHighlight steel:CheckedHighlight steel:QueryNote steel:RevisionCloud
+            steel:DemolitionCloud steel:HandwrittenNote steel:ReviewerComment
+            steel:VendorReviewStamp steel:ReaderHighlight steel:ReceivedStamp steel:HoldMarker
+            steel:DocumentControlStamp steel:SealedStamp steel:EngineerRedline
+            steel:AsBuiltCertificationStamp steel:StatusWatermark ) ;
+        sh:message "markupKind must be a member of the closed vocabulary MarkupKind (see core.ttl)." ] .
+
+steelsh:ReviewOutcomeValuesShape a sh:NodeShape ;
+    sh:targetSubjectsOf steel:reviewOutcome ;
+    sh:property [
+        sh:path steel:reviewOutcome ; sh:severity sh:Violation ;
+        sh:in ( steel:ReturnedForCorrection steel:ExceptionsNoted steel:ReviewComplete
+            steel:ReviewNotRequired steel:ApprovedForFabrication steel:NoExceptionsNoted
+            steel:ReviseAndResubmit steel:ReviewedForLimitedScope steel:NotReviewed ) ;
+        sh:message "reviewOutcome must be a member of the closed vocabulary ReviewOutcome (see core.ttl)." ] .
+
+steelsh:ExtractionConfidenceValuesShape a sh:NodeShape ;
+    sh:targetSubjectsOf steel:confidence ;
+    sh:property [
+        sh:path steel:confidence ; sh:severity sh:Violation ;
+        sh:in ( steel:Verified steel:Probable steel:Unverified ) ;
+        sh:message "confidence must be a member of the closed vocabulary ExtractionConfidence (see core.ttl)." ] .

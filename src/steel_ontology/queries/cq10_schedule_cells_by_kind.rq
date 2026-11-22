@@ -1,0 +1,14 @@
+# id: CQ10
+# title: Schedule cells of one kind
+# question: Which schedule cells hold a given kind of value (BY SUPPLIER by default: someone else's value, not missing data)?
+# param: cellKind = BySupplierCell
+
+PREFIX steel: <https://jaymirzaei.github.io/steel-drawing-ontology/core#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?cell ?header ?text WHERE {
+    ?cell steel:cellValueKind ?cellKind .
+    OPTIONAL { ?cell steel:columnHeaderText ?header }
+    OPTIONAL { ?cell steel:cellText ?text }
+}
+ORDER BY ?cell

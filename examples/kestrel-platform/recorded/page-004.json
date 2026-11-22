@@ -1,0 +1,234 @@
+{
+ "objects": [
+  {
+   "id": "connection-SC1",
+   "type": "ShearConnection",
+   "fields": [
+    {
+     "name": "tag",
+     "values": [
+      "SC1"
+     ]
+    },
+    {
+     "name": "responsibility",
+     "values": [
+      "ByEngineerOfRecord"
+     ]
+    },
+    {
+     "name": "connects",
+     "values": [
+      "beam-B1",
+      "column-C1"
+     ]
+    },
+    {
+     "name": "weld_pattern",
+     "values": [
+      "6"
+     ]
+    }
+   ],
+   "zone": "0.092,0.178,0.412,0.624",
+   "confidence": "Verified"
+  },
+  {
+   "id": "drawing-set",
+   "type": "DrawingSet",
+   "fields": [
+    {
+     "name": "has_sheet",
+     "values": [
+      "sheet-S-301"
+     ]
+    }
+   ],
+   "zone": null,
+   "confidence": "Verified"
+  },
+  {
+   "id": "revision-S-301-0",
+   "type": "Revision",
+   "fields": [
+    {
+     "name": "issue_purpose",
+     "values": [
+      "IssuedForConstruction"
+     ]
+    },
+    {
+     "name": "revision_code",
+     "values": [
+      "0"
+     ]
+    },
+    {
+     "name": "revision_date",
+     "values": [
+      "2030-03-18"
+     ]
+    }
+   ],
+   "zone": "0.667,0.840,0.853,0.850",
+   "confidence": "Verified"
+  },
+  {
+   "id": "revision-S-301-A",
+   "type": "Revision",
+   "fields": [
+    {
+     "name": "issue_purpose",
+     "values": [
+      "IssuedForReview"
+     ]
+    },
+    {
+     "name": "revision_code",
+     "values": [
+      "A"
+     ]
+    },
+    {
+     "name": "revision_date",
+     "values": [
+      "2030-02-11"
+     ]
+    }
+   ],
+   "zone": "0.667,0.823,0.829,0.833",
+   "confidence": "Verified"
+  },
+  {
+   "id": "sheet-S-301",
+   "type": "Sheet",
+   "fields": [
+    {
+     "name": "has_view",
+     "values": [
+      "view-detail-1",
+      "view-detail-2"
+     ]
+    },
+    {
+     "name": "sheet_discipline",
+     "values": [
+      "SteelDiscipline"
+     ]
+    },
+    {
+     "name": "sheet_kind",
+     "values": [
+      "DetailSheet"
+     ]
+    },
+    {
+     "name": "project_number",
+     "values": [
+      "EX-0417"
+     ]
+    },
+    {
+     "name": "sheet_number",
+     "values": [
+      "S-301"
+     ]
+    },
+    {
+     "name": "sheet_title",
+     "values": [
+      "CONNECTION DETAILS"
+     ]
+    },
+    {
+     "name": "sheet_total",
+     "values": [
+      "4"
+     ]
+    },
+    {
+     "name": "has_revision",
+     "values": [
+      "revision-S-301-0",
+      "revision-S-301-A"
+     ]
+    }
+   ],
+   "zone": "0.671,0.865,0.930,0.973",
+   "confidence": "Verified"
+  },
+  {
+   "id": "view-detail-1",
+   "type": "View",
+   "fields": [
+    {
+     "name": "shows_element",
+     "values": [
+      "beam-B1",
+      "column-C1",
+      "connection-SC1"
+     ]
+    },
+    {
+     "name": "view_kind",
+     "values": [
+      "DetailView"
+     ]
+    },
+    {
+     "name": "is_typical",
+     "values": [
+      "true"
+     ]
+    },
+    {
+     "name": "scale_text",
+     "values": [
+      "1:10"
+     ]
+    },
+    {
+     "name": "view_code",
+     "values": [
+      "1"
+     ]
+    }
+   ],
+   "zone": "0.092,0.178,0.412,0.624",
+   "confidence": "Verified"
+  },
+  {
+   "id": "view-detail-2",
+   "type": "View",
+   "fields": [
+    {
+     "name": "shows_element",
+     "values": [
+      "anchor-rods",
+      "base-plate-BP1"
+     ]
+    },
+    {
+     "name": "view_kind",
+     "values": [
+      "DetailView"
+     ]
+    },
+    {
+     "name": "scale_text",
+     "values": [
+      "1:10"
+     ]
+    },
+    {
+     "name": "view_code",
+     "values": [
+      "2"
+     ]
+    }
+   ],
+   "zone": "0.471,0.226,0.840,0.624",
+   "confidence": "Verified"
+  }
+ ]
+}

@@ -1,0 +1,10 @@
+# docker compose up  ->  the explorer on http://localhost:8501
+# Provider keys (only needed for live extraction) come from .env; copy .env.example first.
+services:
+  explorer:
+    build: .
+    ports:
+      - "8501:8501"
+    env_file:
+      - path: .env
+        required: false

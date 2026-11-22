@@ -1,0 +1,15 @@
+# id: CQ02
+# title: Reference-only sheets
+# question: Which sheets are stamped FOR REFERENCE ONLY and must not be built from?
+# reasoner: required
+
+# ReferenceOnlySheet is a defined class; the reasoner classifies the sheets.
+
+PREFIX steel: <https://jaymirzaei.github.io/steel-drawing-ontology/core#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?sheet ?sheetNumber WHERE {
+    ?sheet a steel:ReferenceOnlySheet .
+    OPTIONAL { ?sheet steel:sheetNumber ?sheetNumber }
+}
+ORDER BY ?sheet

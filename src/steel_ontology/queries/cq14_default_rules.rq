@@ -1,0 +1,14 @@
+# id: CQ14
+# title: Default rules of one kind
+# question: Which default rules of one kind does the set print, and with what percentage (shear from moment capacity by default)?
+# param: ruleKind = ShearFromMomentCapacityUdlRule
+
+PREFIX steel: <https://jaymirzaei.github.io/steel-drawing-ontology/core#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?rule ?percent ?text WHERE {
+    ?rule steel:defaultRuleKind ?ruleKind .
+    OPTIONAL { ?rule steel:defaultPercent ?percent }
+    OPTIONAL { ?rule steel:defaultRuleText ?text }
+}
+ORDER BY ?rule

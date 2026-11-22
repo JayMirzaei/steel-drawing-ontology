@@ -1,0 +1,602 @@
+{
+ "objects": [
+  {
+   "id": "annotation-query-note",
+   "type": "Annotation",
+   "fields": [
+    {
+     "name": "annotates",
+     "values": [
+      "beam-B3"
+     ]
+    },
+    {
+     "name": "annotation_origin",
+     "values": [
+      "ThirdPartyOrigin"
+     ]
+    },
+    {
+     "name": "markup_kind",
+     "values": [
+      "QueryNote"
+     ]
+    },
+    {
+     "name": "annotation_text",
+     "values": [
+      "CONFIRM B3 SIZE?"
+     ]
+    }
+   ],
+   "zone": "0.311,0.428,0.388,0.442",
+   "confidence": "Verified"
+  },
+  {
+   "id": "annotation-received-stamp",
+   "type": "Annotation",
+   "fields": [
+    {
+     "name": "annotation_origin",
+     "values": [
+      "ThirdPartyOrigin"
+     ]
+    },
+    {
+     "name": "markup_kind",
+     "values": [
+      "ReceivedStamp"
+     ]
+    },
+    {
+     "name": "annotation_text",
+     "values": [
+      "RECEIVED"
+     ]
+    },
+    {
+     "name": "stamp_date",
+     "values": [
+      "2030-03-20"
+     ]
+    }
+   ],
+   "zone": "0.739,0.095,0.874,0.166",
+   "confidence": "Verified"
+  },
+  {
+   "id": "annotation-revision-cloud",
+   "type": "Annotation",
+   "fields": [
+    {
+     "name": "annotates",
+     "values": [
+      "beam-B3"
+     ]
+    },
+    {
+     "name": "annotation_origin",
+     "values": [
+      "EngineerOrigin"
+     ]
+    },
+    {
+     "name": "markup_kind",
+     "values": [
+      "RevisionCloud"
+     ]
+    }
+   ],
+   "zone": "0.259,0.413,0.287,0.534",
+   "confidence": "Verified"
+  },
+  {
+   "id": "annotation-takeoff-highlight",
+   "type": "Annotation",
+   "fields": [
+    {
+     "name": "annotates",
+     "values": [
+      "beam-B1"
+     ]
+    },
+    {
+     "name": "annotation_origin",
+     "values": [
+      "ThirdPartyOrigin"
+     ]
+    },
+    {
+     "name": "markup_kind",
+     "values": [
+      "TakeoffHighlight"
+     ]
+    },
+    {
+     "name": "markup_meaning_text",
+     "values": [
+      "orange highlight = taken off"
+     ]
+    }
+   ],
+   "zone": "0.228,0.312,0.549,0.614",
+   "confidence": "Verified"
+  },
+  {
+   "id": "beam-B1",
+   "type": "Beam",
+   "fields": [
+    {
+     "name": "element_status",
+     "values": [
+      "NewWork"
+     ]
+    },
+    {
+     "name": "elevation_kind",
+     "values": [
+      "T/STEEL"
+     ]
+    },
+    {
+     "name": "required_quantity",
+     "values": [
+      "4"
+     ]
+    },
+    {
+     "name": "tag",
+     "values": [
+      "B1"
+     ]
+    },
+    {
+     "name": "elevation_m",
+     "values": [
+      "104.200"
+     ]
+    },
+    {
+     "name": "responsibility",
+     "values": [
+      "ByEngineerOfRecord"
+     ]
+    },
+    {
+     "name": "in_zone",
+     "values": [
+      "zone-platform"
+     ]
+    },
+    {
+     "name": "section_text",
+     "values": [
+      "W310x39"
+     ]
+    }
+   ],
+   "zone": "0.231,0.316,0.538,0.613",
+   "confidence": "Verified"
+  },
+  {
+   "id": "beam-B2",
+   "type": "Beam",
+   "fields": [
+    {
+     "name": "element_status",
+     "values": [
+      "NewWork"
+     ]
+    },
+    {
+     "name": "elevation_kind",
+     "values": [
+      "T/STEEL"
+     ]
+    },
+    {
+     "name": "required_quantity",
+     "values": [
+      "3"
+     ]
+    },
+    {
+     "name": "tag",
+     "values": [
+      "B2"
+     ]
+    },
+    {
+     "name": "elevation_m",
+     "values": [
+      "104.200"
+     ]
+    },
+    {
+     "name": "responsibility",
+     "values": [
+      "ByEngineerOfRecord"
+     ]
+    },
+    {
+     "name": "in_zone",
+     "values": [
+      "zone-platform"
+     ]
+    },
+    {
+     "name": "section_text",
+     "values": [
+      "W250x33"
+     ]
+    }
+   ],
+   "zone": "0.132,0.468,0.678,0.523",
+   "confidence": "Verified"
+  },
+  {
+   "id": "beam-B3",
+   "type": "Beam",
+   "fields": [
+    {
+     "name": "element_status",
+     "values": [
+      "NewWork"
+     ]
+    },
+    {
+     "name": "elevation_kind",
+     "values": [
+      "T/STEEL"
+     ]
+    },
+    {
+     "name": "required_quantity",
+     "values": [
+      "2"
+     ]
+    },
+    {
+     "name": "revised_in_this_issue",
+     "values": [
+      "true"
+     ]
+    },
+    {
+     "name": "tag",
+     "values": [
+      "B3"
+     ]
+    },
+    {
+     "name": "elevation_m",
+     "values": [
+      "104.200"
+     ]
+    },
+    {
+     "name": "responsibility",
+     "values": [
+      "ByEngineerOfRecord"
+     ]
+    },
+    {
+     "name": "in_zone",
+     "values": [
+      "zone-platform"
+     ]
+    },
+    {
+     "name": "section_text",
+     "values": [
+      "W200x27"
+     ]
+    }
+   ],
+   "zone": "0.266,0.468,0.544,0.523",
+   "confidence": "Verified"
+  },
+  {
+   "id": "brace-VB1",
+   "type": "Brace",
+   "fields": [
+    {
+     "name": "element_status",
+     "values": [
+      "NewWork"
+     ]
+    },
+    {
+     "name": "required_quantity",
+     "values": [
+      "2"
+     ]
+    },
+    {
+     "name": "tag",
+     "values": [
+      "VB1"
+     ]
+    },
+    {
+     "name": "responsibility",
+     "values": [
+      "ByEngineerOfRecord"
+     ]
+    },
+    {
+     "name": "has_force_record",
+     "values": [
+      "force-VB1"
+     ]
+    },
+    {
+     "name": "section_text",
+     "values": [
+      "HSS102x102x6.4"
+     ]
+    }
+   ],
+   "zone": "0.155,0.441,0.701,0.582",
+   "confidence": "Verified"
+  },
+  {
+   "id": "drawing-set",
+   "type": "DrawingSet",
+   "fields": [
+    {
+     "name": "has_sheet",
+     "values": [
+      "sheet-S-101"
+     ]
+    }
+   ],
+   "zone": null,
+   "confidence": "Verified"
+  },
+  {
+   "id": "force-VB1",
+   "type": "ForceRecord",
+   "fields": [
+    {
+     "name": "load_direction",
+     "values": [
+      "AlongMemberAxis"
+     ]
+    },
+    {
+     "name": "load_type",
+     "values": [
+      "LoadCombination"
+     ]
+    },
+    {
+     "name": "compression_value",
+     "values": [
+      "180"
+     ]
+    },
+    {
+     "name": "force_unit",
+     "values": [
+      "kN"
+     ]
+    },
+    {
+     "name": "is_factored",
+     "values": [
+      "true"
+     ]
+    },
+    {
+     "name": "load_case",
+     "values": [
+      "Tf/Cf"
+     ]
+    },
+    {
+     "name": "symmetric_tension_compression",
+     "values": [
+      "true"
+     ]
+    },
+    {
+     "name": "tension_value",
+     "values": [
+      "180"
+     ]
+    }
+   ],
+   "zone": "0.155,0.441,0.701,0.582",
+   "confidence": "Verified"
+  },
+  {
+   "id": "revision-S-101-0",
+   "type": "Revision",
+   "fields": [
+    {
+     "name": "issue_purpose",
+     "values": [
+      "IssuedForConstruction"
+     ]
+    },
+    {
+     "name": "revision_code",
+     "values": [
+      "0"
+     ]
+    },
+    {
+     "name": "revision_date",
+     "values": [
+      "2030-03-18"
+     ]
+    }
+   ],
+   "zone": "0.667,0.840,0.853,0.850",
+   "confidence": "Verified"
+  },
+  {
+   "id": "revision-S-101-A",
+   "type": "Revision",
+   "fields": [
+    {
+     "name": "issue_purpose",
+     "values": [
+      "IssuedForReview"
+     ]
+    },
+    {
+     "name": "revision_code",
+     "values": [
+      "A"
+     ]
+    },
+    {
+     "name": "revision_date",
+     "values": [
+      "2030-02-11"
+     ]
+    }
+   ],
+   "zone": "0.667,0.823,0.829,0.833",
+   "confidence": "Verified"
+  },
+  {
+   "id": "sheet-S-101",
+   "type": "Sheet",
+   "fields": [
+    {
+     "name": "has_view",
+     "values": [
+      "view-framing-plan"
+     ]
+    },
+    {
+     "name": "sheet_discipline",
+     "values": [
+      "SteelDiscipline"
+     ]
+    },
+    {
+     "name": "sheet_kind",
+     "values": [
+      "PlanSheet"
+     ]
+    },
+    {
+     "name": "project_number",
+     "values": [
+      "EX-0417"
+     ]
+    },
+    {
+     "name": "sheet_number",
+     "values": [
+      "S-101"
+     ]
+    },
+    {
+     "name": "sheet_title",
+     "values": [
+      "PLATFORM FRAMING PLAN"
+     ]
+    },
+    {
+     "name": "sheet_total",
+     "values": [
+      "4"
+     ]
+    },
+    {
+     "name": "has_revision",
+     "values": [
+      "revision-S-101-0",
+      "revision-S-101-A"
+     ]
+    },
+    {
+     "name": "has_annotation",
+     "values": [
+      "annotation-query-note",
+      "annotation-received-stamp",
+      "annotation-revision-cloud",
+      "annotation-takeoff-highlight"
+     ]
+    }
+   ],
+   "zone": "0.671,0.865,0.930,0.973",
+   "confidence": "Verified"
+  },
+  {
+   "id": "view-framing-plan",
+   "type": "View",
+   "fields": [
+    {
+     "name": "callout_to",
+     "values": [
+      "view-detail-1"
+     ]
+    },
+    {
+     "name": "shows_element",
+     "values": [
+      "beam-B1",
+      "beam-B2",
+      "beam-B3",
+      "brace-VB1",
+      "column-C1",
+      "column-C2"
+     ]
+    },
+    {
+     "name": "view_kind",
+     "values": [
+      "PlanView"
+     ]
+    },
+    {
+     "name": "callout_target_sheet_text",
+     "values": [
+      "S-301"
+     ]
+    },
+    {
+     "name": "scale_text",
+     "values": [
+      "1:75"
+     ]
+    }
+   ],
+   "zone": "0.076,0.202,0.714,0.748",
+   "confidence": "Verified"
+  },
+  {
+   "id": "zone-platform",
+   "type": "Zone",
+   "fields": [
+    {
+     "name": "has_area_load",
+     "values": [
+      "area-load-DeadLoad",
+      "area-load-LiveLoad"
+     ]
+    },
+    {
+     "name": "zone_kind",
+     "values": [
+      "LoadZoneKind"
+     ]
+    },
+    {
+     "name": "zone_on_sheet",
+     "values": [
+      "sheet-S-101"
+     ]
+    }
+   ],
+   "zone": null,
+   "confidence": "Verified"
+  }
+ ]
+}

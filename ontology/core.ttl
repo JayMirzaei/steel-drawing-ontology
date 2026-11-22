@@ -1,0 +1,1437 @@
+# Steel drawing ontology: core vocabulary (OWL 2).
+#
+# What it describes: structural steel fabrication drawings as a fabricator reads them.
+# Drawing sets, sheets and views; elements (members, connections, supports, plates, piles);
+# schedules, rows and cells; annotations and third-party markup; requirement clauses and
+# typed default rules; responsibility and scope split; revisions; evidence and confidence.
+#
+# Conventions
+#   - The ontology infers, the SHACL shapes (shapes.ttl) validate. Mandatory fields are shapes,
+#     not OWL cardinalities.
+#   - Text is stored as printed (dates, marks, cell and clause text). Nothing is silently parsed.
+#   - Numbers: a numeric property whose name ends in a unit (elevationM, cutLengthMm,
+#     areaLoadKPa) holds the number in that unit, a normalised value for arithmetic. A numeric
+#     property without a unit in its name (axialValue, momentMajorValue) holds the number as
+#     printed, and its unit as printed is in a companion property (forceUnit, momentUnit).
+#   - Controlled vocabularies are closed: owl:oneOf plus owl:AllDifferent.
+#   - Defined classes (owl:equivalentClass) each answer a question a fabricator asks.
+#   - Vocabulary only. No project, company or drawing content.
+
+@prefix steel: <https://jaymirzaei.github.io/steel-drawing-ontology/core#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+<https://jaymirzaei.github.io/steel-drawing-ontology/core> a owl:Ontology ;
+    owl:versionIRI <https://jaymirzaei.github.io/steel-drawing-ontology/core/1.0.6> ;
+    owl:versionInfo "1.0.6" ;
+    rdfs:label "Steel drawing ontology (core)" ;
+    rdfs:comment "A vocabulary for structural steel fabrication drawings: drawing sets, sheets, views, elements, schedules, annotations and third-party markup, requirement clauses, typed default rules, responsibility and scope split, revisions, evidence and confidence. Text is stored as printed; numbers either name their unit or carry the printed one. The file holds vocabulary only: no project, company or drawing content." .
+
+# ================================================================================================
+# Drawing sets, sheets and views
+# One PDF is a package: sheets can differ in author, discipline and status.
+# ================================================================================================
+
+# ---- classes
+steel:DrawingSet a owl:Class ;
+    rdfs:comment "A bundle of sheets issued together (one PDF or one issue of a project drawing package)." .
+steel:Sheet a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ; owl:onProperty steel:sheetKind ; owl:someValuesFrom steel:SheetKind ] ;
+    rdfs:comment "One drawing sheet (page) with its own sheet number and title block." .
+steel:View a owl:Class ;
+    rdfs:comment "A drawn region on a sheet: plan, elevation, section, detail, 3D view, schedule area, notes block." .
+steel:Party a owl:Class ;
+    rdfs:comment "A company or professional named on the drawing (consultant, owner, supplier, fabricator, architect)." .
+steel:Standard a owl:Class ;
+    rdfs:comment "A code or specification cited (CSA, ASTM, building code, owner standard)." .
+steel:StandardDocument a owl:Class ;
+    rdfs:comment "An owner or firm standard reproduced or cited by a set, with its revision (a standard-notes sheet reproduced across projects)." .
+
+# ---- controlled vocabularies (closed lists)
+steel:SheetKind a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf (
+        steel:GeneralNotesSheet steel:SpecificationSheet steel:CoverSheet steel:IndexSheet
+        steel:PlanSheet steel:ElevationSheet steel:SectionSheet steel:DetailSheet
+        steel:ScheduleSheet steel:ThreeDSheet steel:TypicalDetailsSheet steel:IssueRecordSheet
+        steel:ScopeSheet steel:PhotoSheet steel:HandSketchSheet steel:PipingIsometricSheet
+        steel:StandardSheet steel:BlankSheet steel:WorkPackageSheet steel:ChangeNoticeSheet
+        steel:ManualSheet steel:TransmittalSheet steel:ReactionSheet steel:AnchorBoltPlanSheet
+        steel:FrameCrossSectionSheet steel:ConsultantListSheet ) ] .
+steel:GeneralNotesSheet a steel:SheetKind . steel:SpecificationSheet a steel:SheetKind .
+steel:CoverSheet a steel:SheetKind . steel:IndexSheet a steel:SheetKind .
+steel:PlanSheet a steel:SheetKind . steel:ElevationSheet a steel:SheetKind .
+steel:SectionSheet a steel:SheetKind . steel:DetailSheet a steel:SheetKind .
+steel:ScheduleSheet a steel:SheetKind . steel:ThreeDSheet a steel:SheetKind .
+steel:TypicalDetailsSheet a steel:SheetKind . steel:IssueRecordSheet a steel:SheetKind .
+steel:ScopeSheet a steel:SheetKind . steel:PhotoSheet a steel:SheetKind .
+steel:HandSketchSheet a steel:SheetKind . steel:PipingIsometricSheet a steel:SheetKind .
+steel:StandardSheet a steel:SheetKind . steel:BlankSheet a steel:SheetKind .
+steel:WorkPackageSheet a steel:SheetKind . steel:ChangeNoticeSheet a steel:SheetKind .
+steel:ManualSheet a steel:SheetKind . steel:TransmittalSheet a steel:SheetKind .
+steel:ReactionSheet a steel:SheetKind . steel:AnchorBoltPlanSheet a steel:SheetKind .
+steel:FrameCrossSectionSheet a steel:SheetKind . steel:ConsultantListSheet a steel:SheetKind .
+[] a owl:AllDifferent ; owl:distinctMembers (
+    steel:GeneralNotesSheet steel:SpecificationSheet steel:CoverSheet steel:IndexSheet
+    steel:PlanSheet steel:ElevationSheet steel:SectionSheet steel:DetailSheet
+    steel:ScheduleSheet steel:ThreeDSheet steel:TypicalDetailsSheet steel:IssueRecordSheet
+    steel:ScopeSheet steel:PhotoSheet steel:HandSketchSheet steel:PipingIsometricSheet
+    steel:StandardSheet steel:BlankSheet steel:WorkPackageSheet steel:ChangeNoticeSheet
+    steel:ManualSheet steel:TransmittalSheet steel:ReactionSheet steel:AnchorBoltPlanSheet
+    steel:FrameCrossSectionSheet steel:ConsultantListSheet ) .
+
+steel:ViewKind a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf (
+        steel:PlanView steel:ElevationView steel:SectionView steel:DetailView steel:ThreeDView
+        steel:PhotoView steel:KeyPlanView steel:IsometricView steel:ScheduleView steel:NotesView ) ] .
+steel:PlanView a steel:ViewKind . steel:ElevationView a steel:ViewKind .
+steel:SectionView a steel:ViewKind . steel:DetailView a steel:ViewKind .
+steel:ThreeDView a steel:ViewKind . steel:PhotoView a steel:ViewKind .
+steel:KeyPlanView a steel:ViewKind . steel:IsometricView a steel:ViewKind .
+steel:ScheduleView a steel:ViewKind . steel:NotesView a steel:ViewKind .
+[] a owl:AllDifferent ; owl:distinctMembers (
+    steel:PlanView steel:ElevationView steel:SectionView steel:DetailView steel:ThreeDView
+    steel:PhotoView steel:KeyPlanView steel:IsometricView steel:ScheduleView steel:NotesView ) .
+
+steel:IssuePurpose a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf (
+        steel:IssuedForConstruction steel:IssuedForReview steel:IssuedForTender
+        steel:IssuedForBid steel:IssuedForPricing steel:IssuedForPermit steel:Preliminary
+        steel:ControlledRelease steel:AsBuilt steel:ForReferenceOnly steel:ForInformationOnly
+        steel:ForImplementation steel:IssuedForErection steel:IssuedForApproval
+        steel:IssuedForCoordination steel:NonPublished steel:UncontrolledIfPrinted
+        steel:IssuedForDesign ) ] .
+steel:IssuedForConstruction a steel:IssuePurpose . steel:IssuedForReview a steel:IssuePurpose .
+steel:IssuedForTender a steel:IssuePurpose . steel:IssuedForBid a steel:IssuePurpose .
+steel:IssuedForPricing a steel:IssuePurpose . steel:IssuedForPermit a steel:IssuePurpose .
+steel:Preliminary a steel:IssuePurpose . steel:ControlledRelease a steel:IssuePurpose .
+steel:AsBuilt a steel:IssuePurpose . steel:ForReferenceOnly a steel:IssuePurpose .
+steel:ForInformationOnly a steel:IssuePurpose . steel:ForImplementation a steel:IssuePurpose .
+steel:IssuedForErection a steel:IssuePurpose . steel:IssuedForApproval a steel:IssuePurpose .
+steel:IssuedForCoordination a steel:IssuePurpose . steel:NonPublished a steel:IssuePurpose .
+steel:UncontrolledIfPrinted a steel:IssuePurpose . steel:IssuedForDesign a steel:IssuePurpose .
+[] a owl:AllDifferent ; owl:distinctMembers (
+    steel:IssuedForConstruction steel:IssuedForReview steel:IssuedForTender steel:IssuedForBid
+    steel:IssuedForPricing steel:IssuedForPermit steel:Preliminary steel:ControlledRelease
+    steel:AsBuilt steel:ForReferenceOnly steel:ForInformationOnly steel:ForImplementation
+    steel:IssuedForErection steel:IssuedForApproval steel:IssuedForCoordination
+    steel:NonPublished steel:UncontrolledIfPrinted steel:IssuedForDesign ) .
+
+steel:UnitSystem a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf ( steel:Metric steel:Imperial steel:MixedUnits steel:DualUnits ) ] .
+steel:Metric a steel:UnitSystem . steel:Imperial a steel:UnitSystem .
+steel:MixedUnits a steel:UnitSystem . steel:DualUnits a steel:UnitSystem .
+[] a owl:AllDifferent ; owl:distinctMembers ( steel:Metric steel:Imperial steel:MixedUnits steel:DualUnits ) .
+
+steel:Discipline a owl:Class ;
+    rdfs:comment "Trade/discipline a sheet or view belongs to; a folder of structural drawings can still contain non-structural sheets." ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf (
+        steel:SteelDiscipline steel:ConcreteDiscipline steel:MasonryDiscipline
+        steel:TimberDiscipline steel:ArchitecturalDiscipline steel:PipingDiscipline
+        steel:CivilDiscipline steel:MechanicalElectricalDiscipline ) ] .
+steel:SteelDiscipline a steel:Discipline . steel:ConcreteDiscipline a steel:Discipline .
+steel:MasonryDiscipline a steel:Discipline . steel:TimberDiscipline a steel:Discipline .
+steel:ArchitecturalDiscipline a steel:Discipline . steel:PipingDiscipline a steel:Discipline .
+steel:CivilDiscipline a steel:Discipline . steel:MechanicalElectricalDiscipline a steel:Discipline .
+[] a owl:AllDifferent ; owl:distinctMembers (
+    steel:SteelDiscipline steel:ConcreteDiscipline steel:MasonryDiscipline
+    steel:TimberDiscipline steel:ArchitecturalDiscipline steel:PipingDiscipline
+    steel:CivilDiscipline steel:MechanicalElectricalDiscipline ) .
+
+steel:AuthorRole a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf (
+        steel:EngineerOfRecordRole steel:SupplierDesignRole steel:FabricatorShopRole
+        steel:OwnerStandardRole steel:FieldPackageRole steel:ArchitectRole steel:DetailerRole ) ] .
+steel:EngineerOfRecordRole a steel:AuthorRole . steel:SupplierDesignRole a steel:AuthorRole .
+steel:FabricatorShopRole a steel:AuthorRole . steel:OwnerStandardRole a steel:AuthorRole .
+steel:FieldPackageRole a steel:AuthorRole . steel:ArchitectRole a steel:AuthorRole .
+steel:DetailerRole a steel:AuthorRole .
+[] a owl:AllDifferent ; owl:distinctMembers (
+    steel:EngineerOfRecordRole steel:SupplierDesignRole steel:FabricatorShopRole
+    steel:OwnerStandardRole steel:FieldPackageRole steel:ArchitectRole steel:DetailerRole ) .
+
+steel:Domain a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf (
+        steel:BuildingDomain steel:IndustrialSkidDomain steel:PlatformStairDomain
+        steel:ParkingStructureDomain steel:ResidentialModularDomain steel:FieldRepairDomain
+        steel:PrecastBuildingDomain ) ] .
+steel:BuildingDomain a steel:Domain . steel:IndustrialSkidDomain a steel:Domain .
+steel:PlatformStairDomain a steel:Domain . steel:ParkingStructureDomain a steel:Domain .
+steel:ResidentialModularDomain a steel:Domain . steel:FieldRepairDomain a steel:Domain .
+steel:PrecastBuildingDomain a steel:Domain .
+[] a owl:AllDifferent ; owl:distinctMembers (
+    steel:BuildingDomain steel:IndustrialSkidDomain steel:PlatformStairDomain
+    steel:ParkingStructureDomain steel:ResidentialModularDomain steel:FieldRepairDomain
+    steel:PrecastBuildingDomain ) .
+
+# ---- object properties
+steel:authoredBy a owl:ObjectProperty ; rdfs:domain steel:DrawingSet ; rdfs:range steel:Party .
+steel:authorRole a owl:ObjectProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( steel:DrawingSet steel:Sheet ) ] ;
+    rdfs:range steel:AuthorRole ;
+    rdfs:comment "Not functional: one PDF can be a package whose sheets have different authors (an owner drawing list, engineer sheets, a vendor drawing), so the domain is the union of set and sheet." .
+steel:hasSheet a owl:ObjectProperty ;
+    owl:inverseOf steel:isSheetOf ;
+    rdfs:domain steel:DrawingSet ;
+    rdfs:range steel:Sheet .
+steel:inDomain a owl:ObjectProperty ; rdfs:domain steel:DrawingSet ; rdfs:range steel:Domain .
+steel:ownedBy a owl:ObjectProperty ; rdfs:domain steel:DrawingSet ; rdfs:range steel:Party .
+steel:unitSystem a owl:ObjectProperty ; rdfs:domain steel:DrawingSet ; rdfs:range steel:UnitSystem .
+steel:citesStandardNotes a owl:ObjectProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( steel:Sheet steel:DrawingSet ) ] ;
+    rdfs:range steel:StandardDocument ;
+    rdfs:comment "The set refers to an owner standard-notes sheet instead of reproducing it; its clauses apply by reference." .
+steel:consultant a owl:ObjectProperty ; rdfs:domain steel:Sheet ; rdfs:range steel:Party .
+steel:enlargementOf a owl:ObjectProperty ;
+    rdfs:domain steel:Sheet ;
+    rdfs:range steel:Sheet ;
+    rdfs:comment "An enlarged-plan sheet (S-201B) of an overall sheet (S-201A)." .
+steel:hasStatusStamp a owl:ObjectProperty ;
+    rdfs:domain steel:Sheet ;
+    rdfs:range steel:IssuePurpose ;
+    rdfs:comment "Stamp printed on the sheet (FOR REFERENCE ONLY, FOR INFORMATION ONLY ...), distinct from the revision table." .
+steel:hasView a owl:ObjectProperty ;
+    owl:inverseOf steel:isViewOn ;
+    rdfs:domain steel:Sheet ;
+    rdfs:range steel:View .
+steel:refersToDocument a owl:ObjectProperty ;
+    rdfs:domain steel:Sheet ;
+    rdfs:range steel:Sheet ;
+    rdfs:comment "Change notice or instruction pointing at the sheets/documents it changes." .
+steel:reproducesStandard a owl:ObjectProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( steel:Sheet steel:DrawingSet ) ] ;
+    rdfs:range steel:StandardDocument .
+steel:sheetDiscipline a owl:ObjectProperty ; rdfs:domain steel:Sheet ; rdfs:range steel:Discipline .
+steel:sheetKind a owl:ObjectProperty ; rdfs:domain steel:Sheet ; rdfs:range steel:SheetKind .
+steel:titleBlockStatus a owl:ObjectProperty ;
+    rdfs:domain steel:Sheet ;
+    rdfs:range steel:IssuePurpose ;
+    rdfs:comment "Status FIELD printed in the title block; can disagree with the revision table (AS BUILT on an IFC sheet): flag, do not resolve silently." .
+steel:calloutTo a owl:ObjectProperty ;
+    rdfs:domain steel:View ;
+    rdfs:range steel:View ;
+    rdfs:comment "A section/detail marker in one view pointing to another view (possibly on another sheet)." .
+steel:showsElement a owl:ObjectProperty ; rdfs:domain steel:View ; rdfs:range steel:Element .
+steel:viewKind a owl:ObjectProperty ; rdfs:domain steel:View ; rdfs:range steel:ViewKind .
+steel:citesStandard a owl:ObjectProperty ; rdfs:range steel:Standard .
+steel:isSheetOf a owl:ObjectProperty .
+steel:isViewOn a owl:ObjectProperty .
+
+# ---- datatype properties
+steel:standardDesignation a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Standard ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Designation of the cited code or specification as printed (CSA W59, ASTM F3125)." .
+steel:datumNote a owl:DatatypeProperty ;
+    rdfs:domain steel:DrawingSet ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Printed datum statement: which drawing elevation equals which surveyed (geodetic) elevation." .
+steel:fabricatorJobNumber a owl:DatatypeProperty ;
+    rdfs:domain steel:DrawingSet ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Number the fabricator stamps on every page (the job number of the file); a file property, not design content." .
+steel:issueScopeText a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( steel:DrawingSet steel:Revision ) ] ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Which work package or area an issue covers (a named work package; foundations and steel pricing)." .
+steel:numberingScheme a owl:DatatypeProperty ;
+    rdfs:domain steel:DrawingSet ;
+    rdfs:range xsd:string ;
+    rdfs:comment "How the owner encodes unit/type/serial/sheet/rev in drawing numbers (a decode aid)." .
+steel:reviewScopeText a owl:DatatypeProperty ;
+    rdfs:domain steel:DrawingSet ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Clause limiting what the engineer's shop-drawing review covers." .
+steel:revisionCodeScheme a owl:DatatypeProperty ;
+    rdfs:domain steel:DrawingSet ;
+    rdfs:range xsd:string ;
+    rdfs:comment "How revision codes are built in this set (letters before permit then numbers; number.letter; a numbered issue series per purpose)." .
+steel:transmittalNumber a owl:DatatypeProperty ; rdfs:domain steel:DrawingSet ; rdfs:range xsd:string .
+steel:partyRoleText a owl:DatatypeProperty ;
+    rdfs:domain steel:Party ;
+    rdfs:range xsd:string ;
+    rdfs:comment "structural, architectural, mechanical, ... as printed." .
+steel:consultantSheetNumber a owl:DatatypeProperty ;
+    rdfs:domain steel:Sheet ;
+    rdfs:range xsd:string ;
+    rdfs:comment "The engineering firm's own sheet number when the owner's drawing number is the one in the title block." .
+steel:derivedFromRaster a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Sheet ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "Sheet states it was created from raster images and may be inaccurate." .
+steel:drawingNumberSegmentsText a owl:DatatypeProperty ;
+    rdfs:domain steel:Sheet ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Owner drawing number split into its named segments (plant unit, originator, group, type, serial, sheet, revision) as printed." .
+steel:isSealed a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Sheet ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "Sheet bears a professional engineer's seal. A sheet number prefix S does not imply a seal or an engineer of record." .
+steel:leadTimeText a owl:DatatypeProperty ;
+    rdfs:domain steel:Sheet ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Delivery lead time printed on a transmittal ('3 weeks after approval')." .
+steel:pageIndex a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Sheet ;
+    rdfs:range xsd:integer .
+steel:pricingColumns a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Sheet ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "Sheet carries credit/extra price columns (change notices): commercial, not design content." .
+steel:projectNumber a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( steel:Sheet steel:DrawingSet ) ] ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Per-sheet because multi-discipline packages carry different project numbers per discipline." .
+steel:sealJurisdictionText a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( steel:Sheet steel:Annotation ) ] ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Licensing body printed on the seal (a seal from another jurisdiction on a local project)." .
+steel:sealScopeText a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( steel:Sheet steel:Annotation ) ] ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Statement that the seal or design responsibility covers only part of the sheet (e.g. only the clouded revision)." .
+steel:sheetNumber a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Sheet ;
+    rdfs:range xsd:string .
+steel:sheetTitle a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Sheet ;
+    rdfs:range xsd:string .
+steel:sheetTotal a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Sheet ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "N in 'sheet n of N': lets extraction check completeness." .
+steel:statusWatermarkText a owl:DatatypeProperty ;
+    rdfs:domain steel:Sheet ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Diagonal or margin watermark as printed (FOR INFORMATION ONLY, PRELIMINARY NOT FOR CONSTRUCTION)." .
+steel:unitConflictText a owl:DatatypeProperty ;
+    rdfs:domain steel:Sheet ;
+    rdfs:range xsd:string ;
+    rdfs:comment "A note states one unit system while the printed values use another (a note says metres, the elevations are printed in feet-inches); record both, do not resolve." .
+steel:standardRevisionText a owl:DatatypeProperty ;
+    rdfs:domain steel:StandardDocument ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Revision of the standard as printed (revisions per standard can differ between projects)." .
+steel:standardTitleText a owl:DatatypeProperty ;
+    rdfs:domain steel:StandardDocument ;
+    rdfs:range xsd:string .
+steel:calloutTargetSheetText a owl:DatatypeProperty ;
+    rdfs:domain steel:View ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Target sheet number printed in a detail bubble (for example S-301)." .
+steel:isGuideOnly a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( steel:View steel:Schedule steel:Element ) ] ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "Shown as a guide only; another document governs (embeds shown as guide only, dimensions not for fabrication)." .
+steel:isTypical a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:View ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "True for typical details referenced from many places." .
+steel:isVoided a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( steel:View steel:Annotation ) ] ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "A view stamped NOT USED, or a stamp crossed out (superseded stamp on a re-issued sheet)." .
+steel:scaleText a owl:DatatypeProperty ; rdfs:domain steel:View ; rdfs:range xsd:string .
+steel:viewCode a owl:DatatypeProperty ;
+    rdfs:domain steel:View ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Code of a typical detail (such as D12 or SD-04) used by callouts; typical details are a reusable library." .
+
+# ================================================================================================
+# Revisions and issue records
+# ================================================================================================
+
+# ---- classes
+steel:Revision a owl:Class ; rdfs:comment "One entry in a sheet's revision/issue table." .
+steel:InclusionRow a owl:Class ;
+    rdfs:comment "Which document revision a package revision includes (work package revision matrix)." .
+
+# ---- controlled vocabularies (closed lists)
+steel:ChangeReason a owl:Class ;
+    rdfs:comment "Why a revision was made (owner change-reason codes and common free-text reasons)." ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf (
+        steel:ScopeChange steel:HoldsRemoved steel:VendorDocumentUpdate
+        steel:ExecutionStrategyChange steel:ConstructionRequest steel:DesignChange
+        steel:RegulatoryUpdate steel:DocumentCorrection steel:ClientRequest
+        steel:CoordinationChange ) ] .
+steel:ScopeChange a steel:ChangeReason . steel:HoldsRemoved a steel:ChangeReason .
+steel:VendorDocumentUpdate a steel:ChangeReason .
+steel:ExecutionStrategyChange a steel:ChangeReason .
+steel:ConstructionRequest a steel:ChangeReason . steel:DesignChange a steel:ChangeReason .
+steel:RegulatoryUpdate a steel:ChangeReason . steel:DocumentCorrection a steel:ChangeReason .
+steel:ClientRequest a steel:ChangeReason . steel:CoordinationChange a steel:ChangeReason .
+[] a owl:AllDifferent ; owl:distinctMembers (
+    steel:ScopeChange steel:HoldsRemoved steel:VendorDocumentUpdate
+    steel:ExecutionStrategyChange steel:ConstructionRequest steel:DesignChange
+    steel:RegulatoryUpdate steel:DocumentCorrection steel:ClientRequest steel:CoordinationChange ) .
+
+steel:SubmissionStage a owl:Class ;
+    rdfs:comment "Stage of the owner's review cycle recorded on an issue record (finer than issue purpose)." ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf (
+        steel:PreliminaryReviewStage steel:Review60Stage steel:Review90Stage steel:BidStage
+        steel:BidAddendumStage steel:ConstructionIssueStage steel:Review50Stage
+        steel:Review95Stage steel:Review100Stage ) ] .
+steel:PreliminaryReviewStage a steel:SubmissionStage . steel:Review60Stage a steel:SubmissionStage .
+steel:Review90Stage a steel:SubmissionStage . steel:BidStage a steel:SubmissionStage .
+steel:BidAddendumStage a steel:SubmissionStage .
+steel:ConstructionIssueStage a steel:SubmissionStage . steel:Review50Stage a steel:SubmissionStage .
+steel:Review95Stage a steel:SubmissionStage . steel:Review100Stage a steel:SubmissionStage .
+[] a owl:AllDifferent ; owl:distinctMembers (
+    steel:PreliminaryReviewStage steel:Review60Stage steel:Review90Stage steel:BidStage
+    steel:BidAddendumStage steel:ConstructionIssueStage steel:Review50Stage steel:Review95Stage
+    steel:Review100Stage ) .
+
+# ---- object properties
+steel:includesSheet a owl:ObjectProperty ; rdfs:domain steel:InclusionRow ; rdfs:range steel:Sheet .
+steel:inPackageRevision a owl:ObjectProperty ;
+    rdfs:domain steel:InclusionRow ;
+    rdfs:range steel:Revision .
+steel:changeReason a owl:ObjectProperty ; rdfs:domain steel:Revision ; rdfs:range steel:ChangeReason .
+steel:issuePurpose a owl:ObjectProperty ; rdfs:domain steel:Revision ; rdfs:range steel:IssuePurpose .
+steel:issueScope a owl:ObjectProperty ;
+    rdfs:domain steel:Revision ;
+    rdfs:range steel:Discipline ;
+    rdfs:comment "One sheet can have separate issue tracks per trade (foundation permit / steel tender / timber tender)." .
+steel:submissionStage a owl:ObjectProperty ;
+    rdfs:domain steel:Revision ;
+    rdfs:range steel:SubmissionStage .
+steel:hasRevision a owl:ObjectProperty ; rdfs:domain steel:Sheet ; rdfs:range steel:Revision .
+
+# ---- datatype properties
+steel:includedRevisionCode a owl:DatatypeProperty ;
+    rdfs:domain steel:InclusionRow ;
+    rdfs:range xsd:string .
+steel:revisionCode a owl:DatatypeProperty ; rdfs:domain steel:Revision ; rdfs:range xsd:string .
+steel:revisionDate a owl:DatatypeProperty ;
+    rdfs:domain steel:Revision ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Date exactly as printed: formats differ (2021.03.07, 07/03/21, March 7 2021). xsd:date is not in the OWL 2 datatype map, and silent parsing of ambiguous formats is a risk." .
+
+# ================================================================================================
+# Schedules, rows and cells
+# Tables are first-class. Cells keep the printed text; totals can be checked by arithmetic (see shapes.ttl).
+# ================================================================================================
+
+# ---- classes
+steel:Schedule a owl:Class ;
+    rdfs:comment "A table on a sheet (column, pile, baseplate, member forces, lap splice, plate quantity ...)." .
+steel:ScheduleRow a owl:Class ; rdfs:comment "One row of a schedule." .
+steel:ElementRow a owl:Class ;
+    rdfs:subClassOf steel:ScheduleRow ;
+    rdfs:subClassOf [ a owl:Restriction ; owl:onProperty steel:describesElement ; owl:someValuesFrom steel:Element ] ;
+    rdfs:comment "A row that tabulates one tagged element (column, pile, joist ...)." .
+steel:DrawingListRow a owl:Class ;
+    rdfs:subClassOf steel:ScheduleRow ;
+    rdfs:subClassOf [ a owl:Restriction ; owl:onProperty steel:listsSheet ; owl:someValuesFrom steel:Sheet ] ;
+    rdfs:comment "A row of a drawing list / master drawing list: names a sheet and its status per issue." .
+steel:ScheduleCell a owl:Class .
+steel:SelectionTable a owl:Class ;
+    rdfs:comment "A reusable lookup table printed on a standard drawing: key range -> values." .
+steel:SelectionRow a owl:Class .
+
+# ---- controlled vocabularies (closed lists)
+steel:ScheduleKind a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf (
+        steel:ColumnSchedule steel:BeamSchedule steel:PileSchedule steel:FootingSchedule
+        steel:BasePlateSchedule steel:MemberForceSchedule steel:ConnectionForceSchedule
+        steel:JoistSchedule steel:DeckSchedule steel:OpeningSchedule steel:PlateQuantitySchedule
+        steel:WallSchedule steel:DrawingListSchedule steel:BillOfMaterialSchedule
+        steel:HoldListSchedule steel:CutListSchedule steel:OtherSchedule ) ] .
+steel:ColumnSchedule a steel:ScheduleKind . steel:BeamSchedule a steel:ScheduleKind .
+steel:PileSchedule a steel:ScheduleKind . steel:FootingSchedule a steel:ScheduleKind .
+steel:BasePlateSchedule a steel:ScheduleKind . steel:MemberForceSchedule a steel:ScheduleKind .
+steel:ConnectionForceSchedule a steel:ScheduleKind . steel:JoistSchedule a steel:ScheduleKind .
+steel:DeckSchedule a steel:ScheduleKind . steel:OpeningSchedule a steel:ScheduleKind .
+steel:PlateQuantitySchedule a steel:ScheduleKind . steel:WallSchedule a steel:ScheduleKind .
+steel:DrawingListSchedule a steel:ScheduleKind . steel:BillOfMaterialSchedule a steel:ScheduleKind .
+steel:HoldListSchedule a steel:ScheduleKind . steel:CutListSchedule a steel:ScheduleKind .
+steel:OtherSchedule a steel:ScheduleKind .
+[] a owl:AllDifferent ; owl:distinctMembers (
+    steel:ColumnSchedule steel:BeamSchedule steel:PileSchedule steel:FootingSchedule
+    steel:BasePlateSchedule steel:MemberForceSchedule steel:ConnectionForceSchedule
+    steel:JoistSchedule steel:DeckSchedule steel:OpeningSchedule steel:PlateQuantitySchedule
+    steel:WallSchedule steel:DrawingListSchedule steel:BillOfMaterialSchedule
+    steel:HoldListSchedule steel:CutListSchedule steel:OtherSchedule ) .
+
+steel:CellValueKind a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf (
+        steel:NumberCell steel:TextCell steel:BySupplierCell steel:NotApplicableCell
+        steel:SeeNoteCell steel:BlankCell steel:LibraryRefCell ) ] .
+steel:NumberCell a steel:CellValueKind . steel:TextCell a steel:CellValueKind .
+steel:BySupplierCell a steel:CellValueKind . steel:NotApplicableCell a steel:CellValueKind .
+steel:SeeNoteCell a steel:CellValueKind . steel:BlankCell a steel:CellValueKind .
+steel:LibraryRefCell a steel:CellValueKind .
+[] a owl:AllDifferent ; owl:distinctMembers (
+    steel:NumberCell steel:TextCell steel:BySupplierCell steel:NotApplicableCell
+    steel:SeeNoteCell steel:BlankCell steel:LibraryRefCell ) .
+
+# ---- object properties
+steel:listsSheet a owl:ObjectProperty ; rdfs:domain steel:DrawingListRow ; rdfs:range steel:Sheet .
+steel:describesElement a owl:ObjectProperty ;
+    rdfs:domain steel:ElementRow ;
+    rdfs:range steel:Element ;
+    rdfs:comment "Schedule row -> the element it tabulates (tag-based)." .
+steel:hasRow a owl:ObjectProperty ; rdfs:domain steel:Schedule ; rdfs:range steel:ScheduleRow .
+steel:scheduleKind a owl:ObjectProperty ; rdfs:domain steel:Schedule ; rdfs:range steel:ScheduleKind .
+steel:cellValueKind a owl:ObjectProperty ;
+    rdfs:domain steel:ScheduleCell ;
+    rdfs:range steel:CellValueKind .
+steel:hasCell a owl:ObjectProperty ; rdfs:domain steel:ScheduleRow ; rdfs:range steel:ScheduleCell .
+steel:rowRefersToSheet a owl:ObjectProperty ;
+    rdfs:domain steel:ScheduleRow ;
+    rdfs:range steel:Sheet ;
+    rdfs:comment "Detail or location sheet that a schedule row points to." .
+steel:hasSelectionRow a owl:ObjectProperty ;
+    rdfs:domain steel:SelectionTable ;
+    rdfs:range steel:SelectionRow .
+steel:selectionTableOf a owl:ObjectProperty ; rdfs:domain steel:SelectionTable ; rdfs:range steel:Sheet .
+steel:hasSchedule a owl:ObjectProperty ; rdfs:domain steel:Sheet ; rdfs:range steel:Schedule .
+
+# ---- datatype properties
+steel:legacySheetNote a owl:DatatypeProperty ;
+    rdfs:domain steel:DrawingListRow ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Per-row tag showing the sheet was inherited from another author or earlier project (BY <firm>, FOR REFERENCE ONLY, REMOVED)." .
+steel:stageRevisionText a owl:DatatypeProperty ;
+    rdfs:domain steel:DrawingListRow ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Revision of the listed sheet at one submission stage, as printed per stage column (60% rev A, 90% rev B, IFC rev 0)." .
+steel:assemblyCount a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Schedule ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "Number of assemblies the quantities of a bill of materials cover (the quantities shown are for a stated number of assemblies)." .
+steel:declaredTotal a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Schedule ;
+    rdfs:range xsd:decimal ;
+    rdfs:comment "Total printed under a schedule (total approximate weight)." .
+steel:holdListIsExplicitlyEmpty a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Schedule ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "An empty HOLD table printed on the sheet means no holds (closed-world reading of a table that exists)." .
+steel:isInformationOnly a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Schedule ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "The table says it is for information only (material take-off list on a design sheet): the fabricator builds their own bill of materials." .
+steel:cellText a owl:DatatypeProperty ;
+    rdfs:domain steel:ScheduleCell ;
+    rdfs:range xsd:string ;
+    rdfs:comment "The cell exactly as printed; never silently parsed." .
+steel:cellUnitText a owl:DatatypeProperty ;
+    rdfs:domain steel:ScheduleCell ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Unit of THIS column (units can differ per column in one table: kN beside ft-lbs, mm beside in)." .
+steel:columnHeaderText a owl:DatatypeProperty ; rdfs:domain steel:ScheduleCell ; rdfs:range xsd:string .
+steel:isTenderOnly a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( steel:ScheduleCell steel:ScheduleRow ) ] ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "Value is for tender only (pile length); the actual value is set later by someone else." .
+steel:componentValue a owl:DatatypeProperty ;
+    rdfs:domain steel:ScheduleRow ;
+    rdfs:range xsd:decimal ;
+    rdfs:comment "One printed component of a row total (friction capacity, end bearing)." .
+steel:isVoidedRow a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:ScheduleRow ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "Row marked NOT USED." .
+steel:libraryDrawingNumber a owl:DatatypeProperty ;
+    rdfs:domain steel:ScheduleRow ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Standard/library drawing cited by a row (not part of this set)." .
+steel:libraryDrawingRev a owl:DatatypeProperty ; rdfs:domain steel:ScheduleRow ; rdfs:range xsd:string .
+steel:rowTotal a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:ScheduleRow ;
+    rdfs:range xsd:decimal ;
+    rdfs:comment "Total printed on the row; checked against the sum of its components." .
+steel:rowValue a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:ScheduleRow ;
+    rdfs:range xsd:decimal ;
+    rdfs:comment "The additive value of the row that the schedule total sums (line weight)." .
+steel:rowKeyText a owl:DatatypeProperty ; rdfs:domain steel:SelectionRow ; rdfs:range xsd:string .
+steel:rowValuesText a owl:DatatypeProperty ; rdfs:domain steel:SelectionRow ; rdfs:range xsd:string .
+steel:tableTitle a owl:DatatypeProperty ; rdfs:domain steel:SelectionTable ; rdfs:range xsd:string .
+
+# ================================================================================================
+# Elements
+# Physical items. The taxonomy passes the is-a test (every Girt is a Beam, every Beam is a Member).
+# ================================================================================================
+
+# ---- classes
+steel:Element a owl:Class ; rdfs:comment "A physical item shown or specified on the drawing." .
+steel:ElementType a owl:Class ;
+    rdfs:comment "A reusable type printed on drawings (base plate BP3, support type 2A, pile type A): the type/instance pattern. Types are placed many times with different locations." .
+steel:Member a owl:Class ;
+    rdfs:subClassOf steel:Element ;
+    rdfs:comment "A linear structural member (beam, column, brace, joist, stringer, post)." .
+steel:Beam a owl:Class ; rdfs:subClassOf steel:Member .
+steel:Girt a owl:Class ;
+    rdfs:subClassOf steel:Beam ;
+    rdfs:comment "Horizontal wall-framing member (cold-formed or HSS girt); is-a test: a girt is a beam that carries wall cladding load." .
+steel:Column a owl:Class ; rdfs:subClassOf steel:Member .
+steel:Brace a owl:Class ; rdfs:subClassOf steel:Member .
+steel:Joist a owl:Class ; rdfs:subClassOf steel:Member .
+steel:JoistGirder a owl:Class ; rdfs:subClassOf steel:Joist .
+steel:Stringer a owl:Class ; rdfs:subClassOf steel:Member .
+steel:Post a owl:Class ; rdfs:subClassOf steel:Member .
+steel:Connection a owl:Class ;
+    rdfs:subClassOf steel:Element ;
+    rdfs:comment "A joint between members or between a member and a support (shear, moment, brace, base plate, splice)." .
+steel:BasePlateConnection a owl:Class ; rdfs:subClassOf steel:Connection .
+steel:ShearConnection a owl:Class ; rdfs:subClassOf steel:Connection .
+steel:MomentConnection a owl:Class ; rdfs:subClassOf steel:Connection .
+steel:BraceConnection a owl:Class ; rdfs:subClassOf steel:Connection .
+steel:Support a owl:Class ;
+    rdfs:subClassOf steel:Element ;
+    rdfs:comment "Foundation or existing structure that carries the steel (pile, footing, pedestal, existing wall or column)." .
+steel:Pile a owl:Class ; rdfs:subClassOf steel:Support .
+steel:Footing a owl:Class ; rdfs:subClassOf steel:Support .
+steel:Bearing a owl:Class ;
+    rdfs:subClassOf steel:Support ;
+    rdfs:comment "Truss/beam bearing (fixed, sliding, elastomeric)." .
+steel:Plate a owl:Class ; rdfs:subClassOf steel:Element .
+steel:LiftingLug a owl:Class ; rdfs:subClassOf steel:Plate .
+steel:KeeperPlate a owl:Class ;
+    rdfs:subClassOf steel:Plate ;
+    rdfs:comment "Plate welded to a cantilever pipe support to keep the pipe in place; is-a test: a keeper plate is a plate." .
+steel:Fastener a owl:Class ; rdfs:subClassOf steel:Element .
+steel:Assembly a owl:Class ;
+    rdfs:subClassOf steel:Element ;
+    rdfs:comment "A shippable/liftable unit made of members, plates, connections and smaller assemblies: module, skid, frame, support tower." .
+steel:Truss a owl:Class ; rdfs:subClassOf steel:Assembly .
+steel:Accessory a owl:Class ;
+    rdfs:subClassOf steel:Element ;
+    rdfs:comment "Non-primary steel: grating, handrail, guardrail, stair, ladder, deck, kick plate." .
+steel:Grating a owl:Class ; rdfs:subClassOf steel:Accessory .
+steel:Handrail a owl:Class ; rdfs:subClassOf steel:Accessory .
+steel:Stair a owl:Class ; rdfs:subClassOf steel:Accessory .
+steel:Ladder a owl:Class ; rdfs:subClassOf steel:Accessory .
+steel:SafetyGate a owl:Class ; rdfs:subClassOf steel:Accessory .
+steel:Deck a owl:Class ; rdfs:subClassOf steel:Accessory .
+steel:WorkPoint a owl:Class ;
+    rdfs:comment "Survey control or work point with coordinates and elevation (work point tables, pile coordinates)." .
+
+# ---- controlled vocabularies (closed lists)
+steel:ElementStatus a owl:Class ;
+    rdfs:comment "Whether the element is new, existing, to be removed, or future (separate from who designs it)." ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf (
+        steel:NewWork steel:ExistingToRemain steel:ExistingToDemolish steel:ExistingToBeModified
+        steel:FutureProvision ) ] .
+steel:NewWork a steel:ElementStatus . steel:ExistingToRemain a steel:ElementStatus .
+steel:ExistingToDemolish a steel:ElementStatus . steel:ExistingToBeModified a steel:ElementStatus .
+steel:FutureProvision a steel:ElementStatus .
+[] a owl:AllDifferent ; owl:distinctMembers (
+    steel:NewWork steel:ExistingToRemain steel:ExistingToDemolish steel:ExistingToBeModified
+    steel:FutureProvision ) .
+
+steel:ExposureClass a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf ( steel:AESS steel:StandardExposure ) ] .
+steel:AESS a steel:ExposureClass . steel:StandardExposure a steel:ExposureClass .
+[] a owl:AllDifferent ; owl:distinctMembers ( steel:AESS steel:StandardExposure ) .
+
+# ---- object properties
+steel:hasPart a owl:ObjectProperty ;
+    owl:inverseOf steel:partOfAssembly ;
+    rdfs:domain steel:Assembly ;
+    rdfs:range steel:Element ;
+    rdfs:comment "Anything an assembly is made of: members, plates, lugs, connections and smaller assemblies (a skid holds a sub-frame)." .
+steel:connects a owl:ObjectProperty ; rdfs:domain steel:Connection ; rdfs:range steel:Element .
+steel:elementStatus a owl:ObjectProperty ; rdfs:domain steel:Element ; rdfs:range steel:ElementStatus .
+steel:exposureClass a owl:ObjectProperty ;
+    rdfs:domain steel:Element ;
+    rdfs:range steel:ExposureClass ;
+    rdfs:comment "Architecturally exposed structural steel has stricter fabrication and finish rules (cost driver)." .
+steel:hasType a owl:ObjectProperty ; rdfs:domain steel:Element ; rdfs:range steel:ElementType .
+steel:reinforces a owl:ObjectProperty ;
+    rdfs:domain steel:Element ;
+    rdfs:range steel:Element ;
+    rdfs:comment "New member that strengthens an existing one (added web angle, chord rod, chord plate)." .
+steel:supports a owl:ObjectProperty ;
+    owl:inverseOf steel:supportedBy ;
+    rdfs:domain steel:Element ;
+    rdfs:range steel:Element .
+steel:partOfAssembly a owl:ObjectProperty .
+steel:supportedBy a owl:ObjectProperty .
+
+# ---- datatype properties
+steel:catalogueText a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( steel:Accessory steel:Plate steel:Fastener ) ] ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Supplier catalogue reference printed on the drawing (grating by catalogue name, a post-base catalogue number)." .
+steel:assemblyWeightTonnes a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Assembly ;
+    rdfs:range xsd:decimal .
+steel:cogX a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Assembly ;
+    rdfs:range xsd:decimal .
+steel:cogY a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Assembly ;
+    rdfs:range xsd:decimal .
+steel:cogZ a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Assembly ;
+    rdfs:range xsd:decimal .
+steel:weightText a owl:DatatypeProperty ;
+    rdfs:domain steel:Assembly ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Weight exactly as printed with its unit (kg, tonnes, lbs)." .
+steel:camberMm a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( steel:Beam steel:Joist steel:Truss ) ] ;
+    rdfs:range xsd:decimal ;
+    rdfs:comment "Camber in millimetres; beams, joists and trusses are cambered." .
+steel:isTransportBeam a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Beam ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "Beam marked to sit on the trailer or skid during transport; may carry its own no-projection rules." .
+steel:studCount a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( steel:Beam steel:Joist ) ] ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "Number of shear studs on a composite beam or joist." .
+steel:weldPattern a owl:DatatypeProperty ;
+    rdfs:domain steel:Connection ;
+    rdfs:range xsd:string ;
+    rdfs:comment "As printed: a fillet size alone, or size with length and pitch for an intermittent weld." .
+steel:baseplateTypeText a owl:DatatypeProperty ;
+    rdfs:domain steel:Element ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Base plate type letter carried inside a composite column tag (C1-C = column C-1 on base plate type C)." .
+steel:cutLengthMm a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Element ;
+    rdfs:range xsd:decimal .
+steel:elevationKind a owl:DatatypeProperty ;
+    rdfs:domain steel:Element ;
+    rdfs:range xsd:string ;
+    rdfs:comment "What the elevation means: TOS, U/S base plate, T/pile cap, cutoff." .
+steel:existingMarkerText a owl:DatatypeProperty ;
+    rdfs:domain steel:Element ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Printed marker of existing work: [E], EXIST., (REF)." .
+steel:heatNumber a owl:DatatypeProperty ;
+    rdfs:domain steel:Element ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Mill heat number printed on shop cut lists (traceability)." .
+steel:installationConstraintText a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( steel:Element steel:Annotation ) ] ;
+    rdfs:range xsd:string ;
+    rdfs:comment "How the work must be done, as printed: shoring before welding, a weld sequence, a time limit." .
+steel:isAbandoned a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Element ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "Existing item left in place and not used (abandoned pile); not demolished, not carrying load." .
+steel:isDesignOpen a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Element ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "The drawing says this connection or item will be designed later." .
+steel:isShippedLoose a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Element ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "Shipped loose / by others / stick built rather than inside a module." .
+steel:isStickBuilt a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Element ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "Built piece by piece in the field, not part of a shop-built module." .
+steel:isTemporary a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Element ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "Temporary support or bracing shown on the drawing (to be removed)." .
+steel:markClassText a owl:DatatypeProperty ;
+    rdfs:domain steel:Element ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Class of a piece mark taken from its prefix (a angle, c channel, p plate, w wide flange)." .
+steel:needsFieldConfirm a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( steel:Element steel:View ) ] ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "Dimension/elevation marked (FIELD VERIFY), V, or 'to be confirmed': do not fabricate before confirming." .
+steel:qtyPerAssembly a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Element ;
+    rdfs:range xsd:integer .
+steel:requiredQuantity a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Element ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "Quantity stated on the drawing ('12 required', 'ONE REQ'D')." .
+steel:revisedInThisIssue a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( steel:Element steel:ScheduleRow ) ] ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "Inside the latest revision cloud (changed row or element)." .
+steel:tag a owl:DatatypeProperty ;
+    rdfs:domain steel:Element ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Mark printed on the drawing (C12, B4, BP3)." .
+steel:gridLocationText a owl:DatatypeProperty ;
+    rdfs:domain steel:Element ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Grid intersection or grid line where the element sits, as printed (A/1, B/2-3); one value per place, because one mark is placed many times." .
+steel:tagPrefix a owl:DatatypeProperty ;
+    rdfs:domain steel:ElementType ;
+    rdfs:range xsd:string ;
+    rdfs:comment "P-, BM, C: the prefix tells which family a tag belongs to." .
+steel:typeTag a owl:DatatypeProperty ; rdfs:domain steel:ElementType ; rdfs:range xsd:string .
+steel:camberPercentDeadLoad a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Joist ;
+    rdfs:range xsd:decimal .
+steel:deflectionLimitText a owl:DatatypeProperty ;
+    rdfs:domain steel:Joist ;
+    rdfs:range xsd:string ;
+    rdfs:comment "L/240, L/360, L/720 as printed." .
+steel:depthMm a owl:DatatypeProperty ; rdfs:domain steel:Joist ; rdfs:range xsd:decimal .
+steel:extraPointLoadKN a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Joist ;
+    rdfs:range xsd:decimal .
+steel:productLineText a owl:DatatypeProperty ;
+    rdfs:domain steel:Joist ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Supplier product line named in notes (a proprietary composite joist series)." .
+steel:capacityTonnes a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:LiftingLug ;
+    rdfs:range xsd:decimal .
+steel:handednessText a owl:DatatypeProperty ;
+    rdfs:domain steel:Member ;
+    rdfs:range xsd:string ;
+    rdfs:comment "AS SHOWN / OPPOSITE HAND quantities on a cut list." .
+steel:materialText a owl:DatatypeProperty ;
+    rdfs:domain steel:Member ;
+    rdfs:range xsd:string ;
+    rdfs:comment "steel, LSL timber, concrete ... for discipline filtering." .
+steel:sectionText a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( steel:Member steel:Plate ) ] ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Printed profile or plate designation, e.g. W200x46 or PL10x200; stored as text because notations differ by region." .
+steel:topOfSteelOffsetMm a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Member ;
+    rdfs:range xsd:decimal ;
+    rdfs:comment "Offset in brackets after the size, e.g. W250x49 (+500)." .
+steel:designEmbedmentM a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Pile ;
+    rdfs:range xsd:decimal .
+steel:driveEnergyJ a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Pile ;
+    rdfs:range xsd:decimal .
+steel:embedmentRuleText a owl:DatatypeProperty ; rdfs:domain steel:Pile ; rdfs:range xsd:string .
+steel:maxLateralDisplacementMm a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Pile ;
+    rdfs:range xsd:decimal .
+steel:minTorqueFtLbs a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Pile ;
+    rdfs:range xsd:decimal .
+steel:easting a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( steel:Support steel:WorkPoint steel:Assembly ) ] ;
+    rdfs:range xsd:decimal .
+steel:eastingText a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( steel:Support steel:WorkPoint steel:Assembly ) ] ;
+    rdfs:range xsd:string .
+steel:elevationM a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( steel:Support steel:WorkPoint steel:Element ) ] ;
+    rdfs:range xsd:decimal ;
+    rdfs:comment "Top of steel / top of cap / finished grade elevation in metres (converted when the sheet prints feet and inches)." .
+steel:northing a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( steel:Support steel:WorkPoint steel:Assembly ) ] ;
+    rdfs:range xsd:decimal .
+steel:northingText a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( steel:Support steel:WorkPoint steel:Assembly ) ] ;
+    rdfs:range xsd:string ;
+    rdfs:comment "As printed, including station (chainage) notation." .
+
+# ================================================================================================
+# Responsibility and scope
+# Who designs, supplies or installs what, as printed. Status (new/existing) is separate from responsibility.
+# ================================================================================================
+
+# ---- classes
+steel:ScopeItem a owl:Class ;
+    rdfs:comment "One lettered or numbered scope-of-work item (an item code with its text, such as supply and install piles) on a scope plan or scope table; tells the fabricator what is theirs." .
+
+# ---- controlled vocabularies (closed lists)
+steel:ResponsibilityTag a owl:Class ;
+    rdfs:comment "Who must design, supply or detail an element as stated on the drawing." ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf (
+        steel:ByEngineerOfRecord steel:ByConnectionEngineer steel:ByFabricator steel:BySupplier
+        steel:ByOthers steel:ByOwner ) ] .
+steel:ByEngineerOfRecord a steel:ResponsibilityTag .
+steel:ByConnectionEngineer a steel:ResponsibilityTag .
+steel:ByFabricator a steel:ResponsibilityTag . steel:BySupplier a steel:ResponsibilityTag .
+steel:ByOthers a steel:ResponsibilityTag . steel:ByOwner a steel:ResponsibilityTag .
+[] a owl:AllDifferent ; owl:distinctMembers (
+    steel:ByEngineerOfRecord steel:ByConnectionEngineer steel:ByFabricator steel:BySupplier
+    steel:ByOthers steel:ByOwner ) .
+
+steel:WorkKind a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf (
+        steel:SupplyOnly steel:FabricateOnly steel:InstallOnly steel:SupplyAndInstall
+        steel:FieldWeldOnly steel:ShipLoose ) ] .
+steel:SupplyOnly a steel:WorkKind . steel:FabricateOnly a steel:WorkKind .
+steel:InstallOnly a steel:WorkKind . steel:SupplyAndInstall a steel:WorkKind .
+steel:FieldWeldOnly a steel:WorkKind . steel:ShipLoose a steel:WorkKind .
+[] a owl:AllDifferent ; owl:distinctMembers (
+    steel:SupplyOnly steel:FabricateOnly steel:InstallOnly steel:SupplyAndInstall
+    steel:FieldWeldOnly steel:ShipLoose ) .
+
+# ---- object properties
+steel:responsibility a owl:ObjectProperty ;
+    rdfs:domain steel:Element ;
+    rdfs:range steel:ResponsibilityTag ;
+    rdfs:comment "Scope split printed on the drawing ('joists by supplier' notes, 'connection to be designed by the fabricator's connection engineer')." .
+steel:responsiblePackage a owl:ObjectProperty ;
+    rdfs:domain steel:Element ;
+    rdfs:range steel:DrawingSet ;
+    rdfs:comment "Another work package that does this work, when the drawing says the work is 'by' a named package." .
+steel:workKind a owl:ObjectProperty ; rdfs:domain steel:Element ; rdfs:range steel:WorkKind .
+steel:scopeItemWork a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:ScopeItem ;
+    rdfs:range steel:WorkKind .
+steel:hasScopeItem a owl:ObjectProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( steel:Sheet steel:DrawingSet ) ] ;
+    rdfs:range steel:ScopeItem .
+
+# ---- datatype properties
+steel:requiresSealedDesign a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Element ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "Fabricator-designed item whose calculations must be sealed by a registered engineer." .
+steel:scopeItemId a owl:DatatypeProperty ; rdfs:domain steel:ScopeItem ; rdfs:range xsd:string .
+steel:scopeItemText a owl:DatatypeProperty ; rdfs:domain steel:ScopeItem ; rdfs:range xsd:string .
+
+# ================================================================================================
+# Forces, loads and zones
+# ================================================================================================
+
+# ---- classes
+steel:ForceRecord a owl:Class ;
+    rdfs:comment "Design forces or loads for one element and one load case, as printed on the drawing (not computed)." .
+steel:Zone a owl:Class ;
+    rdfs:comment "A region of a building or plant that carries its own data: area loads, repair type, status, or a column set." .
+steel:AreaLoad a owl:Class ;
+    rdfs:comment "A load stated per area (kPa) for a zone, not per element: snow drift, uplift zones, live load by room use." .
+steel:DesignParameter a owl:Class ;
+    rdfs:comment "A named design input printed on a notes sheet: wind pressure q, snow Ss, Sa(0.2), site class, importance factor." .
+
+# ---- controlled vocabularies (closed lists)
+steel:LoadType a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf (
+        steel:DeadLoad steel:LiveLoad steel:SnowLoad steel:WindLoad steel:SeismicLoad
+        steel:OtherLoad steel:TotalLoad steel:LoadCombination steel:BlastLoad steel:PondingLoad ) ] .
+steel:DeadLoad a steel:LoadType . steel:LiveLoad a steel:LoadType .
+steel:SnowLoad a steel:LoadType . steel:WindLoad a steel:LoadType .
+steel:SeismicLoad a steel:LoadType . steel:OtherLoad a steel:LoadType .
+steel:TotalLoad a steel:LoadType . steel:LoadCombination a steel:LoadType .
+steel:BlastLoad a steel:LoadType . steel:PondingLoad a steel:LoadType .
+[] a owl:AllDifferent ; owl:distinctMembers (
+    steel:DeadLoad steel:LiveLoad steel:SnowLoad steel:WindLoad steel:SeismicLoad
+    steel:OtherLoad steel:TotalLoad steel:LoadCombination steel:BlastLoad steel:PondingLoad ) .
+
+steel:LoadDirection a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf (
+        steel:Vertical steel:HorizontalNS steel:HorizontalEW steel:HorizontalGeneral
+        steel:UpliftDirection steel:AlongMemberAxis ) ] .
+steel:Vertical a steel:LoadDirection . steel:HorizontalNS a steel:LoadDirection .
+steel:HorizontalEW a steel:LoadDirection . steel:HorizontalGeneral a steel:LoadDirection .
+steel:UpliftDirection a steel:LoadDirection . steel:AlongMemberAxis a steel:LoadDirection .
+[] a owl:AllDifferent ; owl:distinctMembers (
+    steel:Vertical steel:HorizontalNS steel:HorizontalEW steel:HorizontalGeneral
+    steel:UpliftDirection steel:AlongMemberAxis ) .
+
+steel:ZoneKind a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf (
+        steel:LoadZoneKind steel:RepairZoneKind steel:PlantAreaKind steel:BuildingSegmentKind
+        steel:FutureAreaKind steel:HoldAreaKind ) ] .
+steel:LoadZoneKind a steel:ZoneKind . steel:RepairZoneKind a steel:ZoneKind .
+steel:PlantAreaKind a steel:ZoneKind . steel:BuildingSegmentKind a steel:ZoneKind .
+steel:FutureAreaKind a steel:ZoneKind . steel:HoldAreaKind a steel:ZoneKind .
+[] a owl:AllDifferent ; owl:distinctMembers (
+    steel:LoadZoneKind steel:RepairZoneKind steel:PlantAreaKind steel:BuildingSegmentKind
+    steel:FutureAreaKind steel:HoldAreaKind ) .
+
+# ---- object properties
+steel:areaLoadType a owl:ObjectProperty ; rdfs:domain steel:AreaLoad ; rdfs:range steel:LoadType .
+steel:hasForceRecord a owl:ObjectProperty ; rdfs:domain steel:Element ; rdfs:range steel:ForceRecord .
+steel:inZone a owl:ObjectProperty ; rdfs:domain steel:Element ; rdfs:range steel:Zone .
+steel:loadDirection a owl:ObjectProperty ;
+    rdfs:domain steel:ForceRecord ;
+    rdfs:range steel:LoadDirection .
+steel:loadType a owl:ObjectProperty ;
+    rdfs:domain steel:ForceRecord ;
+    rdfs:range steel:LoadType ;
+    rdfs:comment "Controlled type; loadCase stays as the printed label." .
+steel:hasDesignParameter a owl:ObjectProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( steel:Sheet steel:DrawingSet ) ] ;
+    rdfs:range steel:DesignParameter .
+steel:hasAreaLoad a owl:ObjectProperty ; rdfs:domain steel:Zone ; rdfs:range steel:AreaLoad .
+steel:zoneKind a owl:ObjectProperty ; rdfs:domain steel:Zone ; rdfs:range steel:ZoneKind .
+steel:zoneOnSheet a owl:ObjectProperty ; rdfs:domain steel:Zone ; rdfs:range steel:Sheet .
+steel:zoneStatus a owl:ObjectProperty ; rdfs:domain steel:Zone ; rdfs:range steel:ElementStatus .
+
+# ---- datatype properties
+steel:areaLoadFactored a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:AreaLoad ;
+    rdfs:range xsd:boolean .
+steel:areaLoadKPa a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:AreaLoad ;
+    rdfs:range xsd:decimal ;
+    rdfs:comment "The area load in kPa. A load printed in psf is converted (1 psf = 0.04788 kPa); the printed figure stays in the drawing, cited by the evidence." .
+steel:parameterName a owl:DatatypeProperty ; rdfs:domain steel:DesignParameter ; rdfs:range xsd:string .
+steel:parameterUnitText a owl:DatatypeProperty ;
+    rdfs:domain steel:DesignParameter ;
+    rdfs:range xsd:string .
+steel:parameterValueText a owl:DatatypeProperty ;
+    rdfs:domain steel:DesignParameter ;
+    rdfs:range xsd:string .
+steel:axialValue a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:ForceRecord ;
+    rdfs:range xsd:decimal ;
+    rdfs:comment "Axial force as printed, in forceUnit." .
+steel:compressionValue a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:ForceRecord ;
+    rdfs:range xsd:decimal ;
+    rdfs:comment "Compression force as printed, in forceUnit." .
+steel:compressionPositive a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:ForceRecord ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "Sign convention of the axial value as stated on the sheet (Fx + = compression in one set, tension in others)." .
+steel:forceGroup a owl:DatatypeProperty ;
+    rdfs:domain steel:ForceRecord ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Groups the components (F1,F2,F3) of one reaction row." .
+steel:forceUnit a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:ForceRecord ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Unit of the force values of this record (axial, compression, tension, shear) exactly as printed: kN, kip, lbf. The values are not converted." .
+steel:momentUnit a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:ForceRecord ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Unit of the moment and torsion values of this record exactly as printed: kN.m, kip.ft, ft-kip. The values are not converted." .
+steel:isFactored a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:ForceRecord ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "Schedules print either factored or unfactored loads; recording which is essential." .
+steel:loadCase a owl:DatatypeProperty ; rdfs:domain steel:ForceRecord ; rdfs:range xsd:string .
+steel:momentMajorValue a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:ForceRecord ;
+    rdfs:range xsd:decimal ;
+    rdfs:comment "Moment about the major axis as printed, in momentUnit." .
+steel:momentMinorValue a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:ForceRecord ;
+    rdfs:range xsd:decimal ;
+    rdfs:comment "Moment about the minor axis as printed, in momentUnit." .
+steel:shearMajorValue a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:ForceRecord ;
+    rdfs:range xsd:decimal ;
+    rdfs:comment "Shear about the major axis as printed, in forceUnit." .
+steel:shearMinorValue a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:ForceRecord ;
+    rdfs:range xsd:decimal ;
+    rdfs:comment "Shear about the minor axis as printed, in forceUnit." .
+steel:symmetricTensionCompression a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:ForceRecord ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "Printed as 'Tf/Cf = 300 kN': one value for both." .
+steel:tensionValue a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:ForceRecord ;
+    rdfs:range xsd:decimal ;
+    rdfs:comment "Tension force as printed, in forceUnit." .
+steel:torsionValue a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:ForceRecord ;
+    rdfs:range xsd:decimal ;
+    rdfs:comment "Torsion as printed, in momentUnit." .
+
+# ================================================================================================
+# Notes: requirement clauses and default rules
+# A default rule gives meaning to missing data on a drawing ('unless noted ...'). An extractor applies it and records that it did.
+# ================================================================================================
+
+# ---- classes
+steel:RequirementClause a owl:Class ;
+    rdfs:comment "One numbered clause of a notes sheet, standard or work package (e.g. 'minimum fillet weld 1/4 in', '100% UT on member splices'). Applies by reference to every element of the stated kind in the set." .
+steel:DefaultRule a owl:Class ;
+    rdfs:comment "A convention printed on the drawing that gives meaning to missing data, e.g. 'where no moment is shown, provide a full moment connection'." .
+
+# ---- controlled vocabularies (closed lists)
+steel:RequirementTopic a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf (
+        steel:WeldingReq steel:BoltingReq steel:CoatingReq steel:FireproofingReq
+        steel:InspectionReq steel:MaterialReq steel:ToleranceReq steel:GratingReq steel:UnitsReq
+        steel:ConnectionDesignReq steel:ErectionReq steel:ShopDrawingReq steel:LiftingReq
+        steel:PileInstallReq steel:ExistingStructureReq steel:ScopeExclusionReq
+        steel:SubmittalReq ) ] .
+steel:WeldingReq a steel:RequirementTopic . steel:BoltingReq a steel:RequirementTopic .
+steel:CoatingReq a steel:RequirementTopic . steel:FireproofingReq a steel:RequirementTopic .
+steel:InspectionReq a steel:RequirementTopic . steel:MaterialReq a steel:RequirementTopic .
+steel:ToleranceReq a steel:RequirementTopic . steel:GratingReq a steel:RequirementTopic .
+steel:UnitsReq a steel:RequirementTopic . steel:ConnectionDesignReq a steel:RequirementTopic .
+steel:ErectionReq a steel:RequirementTopic . steel:ShopDrawingReq a steel:RequirementTopic .
+steel:LiftingReq a steel:RequirementTopic . steel:PileInstallReq a steel:RequirementTopic .
+steel:ExistingStructureReq a steel:RequirementTopic .
+steel:ScopeExclusionReq a steel:RequirementTopic . steel:SubmittalReq a steel:RequirementTopic .
+[] a owl:AllDifferent ; owl:distinctMembers (
+    steel:WeldingReq steel:BoltingReq steel:CoatingReq steel:FireproofingReq steel:InspectionReq
+    steel:MaterialReq steel:ToleranceReq steel:GratingReq steel:UnitsReq
+    steel:ConnectionDesignReq steel:ErectionReq steel:ShopDrawingReq steel:LiftingReq
+    steel:PileInstallReq steel:ExistingStructureReq steel:ScopeExclusionReq steel:SubmittalReq ) .
+
+steel:DefaultRuleKind a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf (
+        steel:PercentOfYieldRule steel:PercentOfShearTableRule steel:PercentOfUdlRule
+        steel:ShearFromMomentCapacityUdlRule steel:FullMomentRule steel:FullShearRule
+        steel:NamedLibraryDetailRule steel:ConnectionTypeByConditionRule ) ] .
+steel:PercentOfYieldRule a steel:DefaultRuleKind .
+steel:PercentOfShearTableRule a steel:DefaultRuleKind .
+steel:PercentOfUdlRule a steel:DefaultRuleKind .
+steel:ShearFromMomentCapacityUdlRule a steel:DefaultRuleKind .
+steel:FullMomentRule a steel:DefaultRuleKind . steel:FullShearRule a steel:DefaultRuleKind .
+steel:NamedLibraryDetailRule a steel:DefaultRuleKind .
+steel:ConnectionTypeByConditionRule a steel:DefaultRuleKind .
+[] a owl:AllDifferent ; owl:distinctMembers (
+    steel:PercentOfYieldRule steel:PercentOfShearTableRule steel:PercentOfUdlRule
+    steel:ShearFromMomentCapacityUdlRule steel:FullMomentRule steel:FullShearRule
+    steel:NamedLibraryDetailRule steel:ConnectionTypeByConditionRule ) .
+
+# ---- object properties
+steel:appliesForPurpose a owl:ObjectProperty ;
+    rdfs:domain steel:DefaultRule ;
+    rdfs:range steel:IssuePurpose ;
+    rdfs:comment "Rule applies only for this issue purpose (bidding/pricing default that is replaced at design)." .
+steel:defaultRuleKind a owl:ObjectProperty ;
+    rdfs:domain steel:DefaultRule ;
+    rdfs:range steel:DefaultRuleKind .
+steel:requirementTopic a owl:ObjectProperty ;
+    rdfs:domain steel:RequirementClause ;
+    rdfs:range steel:RequirementTopic .
+steel:hasDefaultRule a owl:ObjectProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( steel:Sheet steel:DrawingSet ) ] ;
+    rdfs:range steel:DefaultRule .
+steel:hasRequirement a owl:ObjectProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( steel:Sheet steel:DrawingSet ) ] ;
+    rdfs:range steel:RequirementClause .
+
+# ---- datatype properties
+steel:appliesToProperty a owl:DatatypeProperty ; rdfs:domain steel:DefaultRule ; rdfs:range xsd:string .
+steel:defaultPercent a owl:DatatypeProperty ;
+    rdfs:domain steel:DefaultRule ;
+    rdfs:range xsd:decimal ;
+    rdfs:comment "Percentage printed in the rule (30, 50, 60, 100) where one exists." .
+steel:defaultRuleText a owl:DatatypeProperty ; rdfs:domain steel:DefaultRule ; rdfs:range xsd:string .
+steel:defaultValueText a owl:DatatypeProperty ; rdfs:domain steel:DefaultRule ; rdfs:range xsd:string .
+steel:libraryDetailRefText a owl:DatatypeProperty ;
+    rdfs:domain steel:DefaultRule ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Named library detail or standard drawing the rule points to, with its revision as printed." .
+steel:appliesAtElevationText a owl:DatatypeProperty ;
+    rdfs:domain steel:RequirementClause ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Clause applies only at a stated top-of-steel elevation." .
+steel:appliesToKindText a owl:DatatypeProperty ;
+    rdfs:domain steel:RequirementClause ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Element kind or condition it applies to (fillet weld, member splice, HSS end, lifting lug ...)." .
+steel:clauseNumber a owl:DatatypeProperty ; rdfs:domain steel:RequirementClause ; rdfs:range xsd:string .
+steel:clauseText a owl:DatatypeProperty ; rdfs:domain steel:RequirementClause ; rdfs:range xsd:string .
+steel:clauseValue a owl:DatatypeProperty ;
+    rdfs:domain steel:RequirementClause ;
+    rdfs:range xsd:string ;
+    rdfs:comment "The value as printed (with unit), e.g. '1/4 in', '100%', '2 in'." .
+steel:coatingCodeText a owl:DatatypeProperty ;
+    rdfs:domain steel:RequirementClause ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Colour or coating code printed in a coating clause (a federal-standard colour number, an owner colour code)." .
+steel:consequenceText a owl:DatatypeProperty ;
+    rdfs:domain steel:RequirementClause ;
+    rdfs:range xsd:string ;
+    rdfs:comment "What happens if the clause is not met (shop drawings are rejected without a sealed letter)." .
+steel:isDefaultRuleClause a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:RequirementClause ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "True when the clause also defines what absence means (see DefaultRule)." .
+steel:isProhibition a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:RequirementClause ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "Clause forbids something (do not field burn holes, do not paint, do not oversize holes)." .
+steel:isTemplateChoiceUnresolved a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:RequirementClause ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "Bracketed [A] [B] choice or a [jurisdiction] placeholder left unselected in a template clause." .
+steel:noticeHours a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:RequirementClause ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "Advance notice before a review or inspection (24, 48, 96 hours)." .
+
+# ================================================================================================
+# Annotations and markup
+# Anything on the sheet that is not design geometry, tagged by who drew it.
+# ================================================================================================
+
+# ---- classes
+steel:Annotation a owl:Class ;
+    rdfs:comment "Anything drawn on the sheet that is not design geometry: a revision cloud, a reviewer's highlight, a hand note." .
+steel:ConstructionSequence a owl:Class ;
+    rdfs:subClassOf steel:Annotation ;
+    rdfs:comment "A boxed or numbered sequence on a drawing (shore, excavate, install foundations, install steel, remove old column last); order is content and may include a prohibition (do not remove the existing column before the new support is in)." .
+
+# ---- controlled vocabularies (closed lists)
+steel:AnnotationOrigin a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf ( steel:EngineerOrigin steel:ThirdPartyOrigin ) ] .
+steel:EngineerOrigin a steel:AnnotationOrigin . steel:ThirdPartyOrigin a steel:AnnotationOrigin .
+[] a owl:AllDifferent ; owl:distinctMembers ( steel:EngineerOrigin steel:ThirdPartyOrigin ) .
+
+steel:MarkupKind a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf (
+        steel:TakeoffHighlight steel:CheckedHighlight steel:QueryNote steel:RevisionCloud
+        steel:DemolitionCloud steel:HandwrittenNote steel:ReviewerComment
+        steel:VendorReviewStamp steel:ReaderHighlight steel:ReceivedStamp steel:HoldMarker
+        steel:DocumentControlStamp steel:SealedStamp steel:EngineerRedline
+        steel:AsBuiltCertificationStamp steel:StatusWatermark ) ] .
+steel:TakeoffHighlight a steel:MarkupKind . steel:CheckedHighlight a steel:MarkupKind .
+steel:QueryNote a steel:MarkupKind . steel:RevisionCloud a steel:MarkupKind .
+steel:DemolitionCloud a steel:MarkupKind . steel:HandwrittenNote a steel:MarkupKind .
+steel:ReviewerComment a steel:MarkupKind . steel:VendorReviewStamp a steel:MarkupKind .
+steel:ReaderHighlight a steel:MarkupKind . steel:ReceivedStamp a steel:MarkupKind .
+steel:HoldMarker a steel:MarkupKind . steel:DocumentControlStamp a steel:MarkupKind .
+steel:SealedStamp a steel:MarkupKind . steel:EngineerRedline a steel:MarkupKind .
+steel:AsBuiltCertificationStamp a steel:MarkupKind . steel:StatusWatermark a steel:MarkupKind .
+[] a owl:AllDifferent ; owl:distinctMembers (
+    steel:TakeoffHighlight steel:CheckedHighlight steel:QueryNote steel:RevisionCloud
+    steel:DemolitionCloud steel:HandwrittenNote steel:ReviewerComment steel:VendorReviewStamp
+    steel:ReaderHighlight steel:ReceivedStamp steel:HoldMarker steel:DocumentControlStamp
+    steel:SealedStamp steel:EngineerRedline steel:AsBuiltCertificationStamp
+    steel:StatusWatermark ) .
+
+steel:ReviewOutcome a owl:Class ;
+    rdfs:comment "Outcome ticked on a vendor/document review stamp." ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf (
+        steel:ReturnedForCorrection steel:ExceptionsNoted steel:ReviewComplete
+        steel:ReviewNotRequired steel:ApprovedForFabrication steel:NoExceptionsNoted
+        steel:ReviseAndResubmit steel:ReviewedForLimitedScope steel:NotReviewed ) ] .
+steel:ReturnedForCorrection a steel:ReviewOutcome . steel:ExceptionsNoted a steel:ReviewOutcome .
+steel:ReviewComplete a steel:ReviewOutcome . steel:ReviewNotRequired a steel:ReviewOutcome .
+steel:ApprovedForFabrication a steel:ReviewOutcome . steel:NoExceptionsNoted a steel:ReviewOutcome .
+steel:ReviseAndResubmit a steel:ReviewOutcome .
+steel:ReviewedForLimitedScope a steel:ReviewOutcome . steel:NotReviewed a steel:ReviewOutcome .
+[] a owl:AllDifferent ; owl:distinctMembers (
+    steel:ReturnedForCorrection steel:ExceptionsNoted steel:ReviewComplete
+    steel:ReviewNotRequired steel:ApprovedForFabrication steel:NoExceptionsNoted
+    steel:ReviseAndResubmit steel:ReviewedForLimitedScope steel:NotReviewed ) .
+
+# ---- object properties
+steel:annotates a owl:ObjectProperty ; rdfs:domain steel:Annotation ; rdfs:range steel:Element .
+steel:annotationOrigin a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Annotation ;
+    rdfs:range steel:AnnotationOrigin .
+steel:holdsZone a owl:ObjectProperty ;
+    rdfs:domain steel:Annotation ;
+    rdfs:range steel:Zone ;
+    rdfs:comment "A HOLD that applies to a region of a sheet, not the whole sheet." .
+steel:markupKind a owl:ObjectProperty ; rdfs:domain steel:Annotation ; rdfs:range steel:MarkupKind .
+steel:reviewOutcome a owl:ObjectProperty ; rdfs:domain steel:Annotation ; rdfs:range steel:ReviewOutcome .
+steel:hasAnnotation a owl:ObjectProperty ; rdfs:domain steel:Sheet ; rdfs:range steel:Annotation .
+steel:hasConstructionSequence a owl:ObjectProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( steel:Sheet steel:View ) ] ;
+    rdfs:range steel:ConstructionSequence .
+
+# ---- datatype properties
+steel:holdCondition a owl:DatatypeProperty ;
+    rdfs:domain steel:Annotation ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Condition under which a hold applies (e.g. soil differs from design assumption)." .
+steel:isTBD a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain [ a owl:Class ; owl:unionOf ( steel:Annotation steel:Element steel:View ) ] ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "Reference or detail printed as TBD / to be determined: an open item, not data." .
+steel:limitsDesignResponsibility a owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Annotation ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "True when the sheet states the engineer is responsible only for what is inside this (revision cloud) boundary; content outside the cloud is not the engineer's to confirm." .
+steel:markupMeaningText a owl:DatatypeProperty ;
+    rdfs:domain steel:Annotation ;
+    rdfs:range xsd:string ;
+    rdfs:comment "What the markup colour means for this fabricator (one colour for taken off, another for checked, a third for a query); meaning differs between fabricators." .
+steel:annotationText a owl:DatatypeProperty ;
+    rdfs:domain steel:Annotation ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Wording of the note, stamp or markup as written on the sheet." .
+steel:stampDate a owl:DatatypeProperty ; rdfs:domain steel:Annotation ; rdfs:range xsd:string .
+steel:verbalInstructionNote a owl:DatatypeProperty ;
+    rdfs:domain steel:Annotation ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Dated note recording a phone/verbal instruction written on the sheet (source and date as printed)." .
+steel:sequenceStepText a owl:DatatypeProperty ;
+    rdfs:domain steel:ConstructionSequence ;
+    rdfs:range xsd:string ;
+    rdfs:comment "One step as printed; keep the printed number in the text." .
+
+# ================================================================================================
+# Evidence
+# Every extracted fact should point to where it was read and how sure the reader is.
+# ================================================================================================
+
+# ---- classes
+steel:Evidence a owl:Class ;
+    rdfs:comment "Where a fact was read: sheet, region and how sure the reader is. Every extracted fact should point to one (evidence-first)." .
+
+# ---- controlled vocabularies (closed lists)
+steel:ExtractionConfidence a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:oneOf ( steel:Verified steel:Probable steel:Unverified ) ] .
+steel:Verified a steel:ExtractionConfidence . steel:Probable a steel:ExtractionConfidence .
+steel:Unverified a steel:ExtractionConfidence .
+[] a owl:AllDifferent ; owl:distinctMembers ( steel:Verified steel:Probable steel:Unverified ) .
+
+# ---- object properties
+steel:confidence a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Evidence ;
+    rdfs:range steel:ExtractionConfidence .
+steel:onSheet a owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain steel:Evidence ;
+    rdfs:range steel:Sheet .
+steel:evidencedBy a owl:ObjectProperty ;
+    rdfs:range steel:Evidence ;
+    rdfs:comment "Applies to ForceRecord, ScheduleRow, Element, Annotation, Revision: any extracted fact." .
+
+# ---- datatype properties
+steel:regionBox a owl:DatatypeProperty ;
+    rdfs:domain steel:Evidence ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Normalised x0,y0,x1,y1 on the page." .
+
+# ================================================================================================
+# Defined classes
+# Membership is inferred by a reasoner from the stated facts. Each answers a practical question.
+# ================================================================================================
+
+steel:CommercialSheet a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+        steel:Sheet
+        [ a owl:Restriction ; owl:onProperty steel:pricingColumns ; owl:hasValue "true"^^xsd:boolean ] ) ] ;
+    rdfs:comment "Change/price sheets: keep out of take-off; link revised design sheets through revisions." .
+steel:ConnectionToBeDesignedByOthers a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+        steel:Connection
+        [ a owl:Restriction ; owl:onProperty steel:responsibility ; owl:hasValue steel:ByConnectionEngineer ] ) ] ;
+    rdfs:comment "A connection the fabricator is told another party will design: needs a hold-point before detailing." .
+steel:ExistingElement a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+        steel:Element
+        [ a owl:Class ; owl:unionOf (
+            [ a owl:Restriction ; owl:onProperty steel:elementStatus ; owl:hasValue steel:ExistingToRemain ]
+            [ a owl:Restriction ; owl:onProperty steel:elementStatus ; owl:hasValue steel:ExistingToDemolish ]
+            [ a owl:Restriction ; owl:onProperty steel:elementStatus ; owl:hasValue steel:ExistingToBeModified ] ) ] ) ] ;
+    rdfs:comment "Elements that exist already, whether they remain, are demolished or are modified: not new steel to fabricate." .
+steel:ExplicitNoHolds a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+        steel:Schedule
+        [ a owl:Restriction ; owl:onProperty steel:holdListIsExplicitlyEmpty ; owl:hasValue "true"^^xsd:boolean ] ) ] .
+steel:ExposedSteelElement a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+        steel:Element
+        [ a owl:Restriction ; owl:onProperty steel:exposureClass ; owl:hasValue steel:AESS ] ) ] .
+steel:FabricatorDesignedSealed a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+        steel:Element
+        [ a owl:Restriction ; owl:onProperty steel:responsibility ; owl:hasValue steel:ByFabricator ]
+        [ a owl:Restriction ; owl:onProperty steel:requiresSealedDesign ; owl:hasValue "true"^^xsd:boolean ] ) ] .
+steel:MarkedUpSet a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+        steel:DrawingSet
+        [ a owl:Restriction ; owl:onProperty steel:hasSheet ; owl:someValuesFrom steel:MarkedUpSheet ] ) ] .
+steel:MarkedUpSheet a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+        steel:Sheet
+        [ a owl:Restriction ; owl:onProperty steel:hasAnnotation ; owl:someValuesFrom steel:ThirdPartyMarkup ] ) ] ;
+    rdfs:comment "A sheet that carries third-party markup and therefore needs content/markup separation when read." .
+steel:ModuleWithWeight a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+        steel:Assembly
+        [ a owl:Restriction ; owl:onProperty steel:assemblyWeightTonnes ; owl:someValuesFrom xsd:decimal ] ) ] ;
+    rdfs:comment "Assemblies whose drawing states a weight: needed for lifting and shipping decisions." .
+steel:ProhibitionClause a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+        steel:RequirementClause
+        [ a owl:Restriction ; owl:onProperty steel:isProhibition ; owl:hasValue "true"^^xsd:boolean ] ) ] ;
+    rdfs:comment "Clauses that forbid an action; an agent must check them before suggesting a fabrication change." .
+steel:ReferenceOnlySheet a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+        steel:Sheet
+        [ a owl:Restriction ; owl:onProperty steel:hasStatusStamp ; owl:hasValue steel:ForReferenceOnly ] ) ] ;
+    rdfs:comment "Sheet stamped FOR REFERENCE ONLY: do not take off or fabricate from it." .
+steel:ReinforcementMember a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+        steel:Element
+        [ a owl:Restriction ; owl:onProperty steel:reinforces ; owl:someValuesFrom steel:Element ] ) ] ;
+    rdfs:comment "Members that strengthen an existing member; take-off must not count them as new primary steel." .
+steel:ResponsibilityBoundary a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+        steel:Annotation
+        [ a owl:Restriction ; owl:onProperty steel:limitsDesignResponsibility ; owl:hasValue "true"^^xsd:boolean ] ) ] ;
+    rdfs:comment "A cloud/boundary that limits the engineer's design responsibility: take-off outside it must be confirmed against earlier issues." .
+steel:ReviewedVendorSheet a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+        steel:Sheet
+        [ a owl:Restriction ; owl:onProperty steel:hasAnnotation ; owl:someValuesFrom [ a owl:Restriction ; owl:onProperty steel:markupKind ; owl:hasValue steel:VendorReviewStamp ] ] ) ] ;
+    rdfs:comment "Vendor drawing carrying a review stamp: read the stamp outcome before relying on the content." .
+steel:RowWithForces a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+        steel:ElementRow
+        [ a owl:Restriction ; owl:onProperty steel:describesElement ; owl:someValuesFrom [ a owl:Restriction ; owl:onProperty steel:hasForceRecord ; owl:someValuesFrom steel:ForceRecord ] ] ) ] ;
+    rdfs:comment "Rows whose element has force records: the data that drives connection design." .
+steel:ShopReadySet a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+        steel:DrawingSet
+        [ a owl:Restriction ; owl:onProperty steel:authorRole ; owl:hasValue steel:FabricatorShopRole ] ) ] .
+steel:SteelRelevantSheet a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+        steel:Sheet
+        [ a owl:Restriction ; owl:onProperty steel:sheetDiscipline ; owl:hasValue steel:SteelDiscipline ] ) ] ;
+    rdfs:comment "Sheet with steel content. Under the open world a sheet is only classified here when steel is asserted; absence is unknown." .
+steel:SupplierDesignedSet a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+        steel:DrawingSet
+        [ a owl:Restriction ; owl:onProperty steel:authorRole ; owl:hasValue steel:SupplierDesignRole ] ) ] .
+steel:SupplierValueCell a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+        steel:ScheduleCell
+        [ a owl:Restriction ; owl:onProperty steel:cellValueKind ; owl:hasValue steel:BySupplierCell ] ) ] ;
+    rdfs:comment "Schedule cells that say BY SUPPLIER: the value is someone else's responsibility, not missing data." .
+steel:TemporaryElement a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+        steel:Element
+        [ a owl:Restriction ; owl:onProperty steel:isTemporary ; owl:hasValue "true"^^xsd:boolean ] ) ] ;
+    rdfs:comment "Temporary items; excluded from permanent steel take-off." .
+steel:ThirdPartyMarkup a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+        steel:Annotation
+        [ a owl:Restriction ; owl:onProperty steel:annotationOrigin ; owl:hasValue steel:ThirdPartyOrigin ] ) ] ;
+    rdfs:comment "Reviewer/fabricator markup, not design content (take-off highlights, check marks, query notes)." .
+steel:UnconfirmedElement a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+        steel:Element
+        [ a owl:Restriction ; owl:onProperty steel:needsFieldConfirm ; owl:hasValue "true"^^xsd:boolean ] ) ] ;
+    rdfs:comment "Elements with dimensions or elevations to be field-confirmed before fabrication." .
+steel:UntrustedRasterSheet a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+        steel:Sheet
+        [ a owl:Restriction ; owl:onProperty steel:derivedFromRaster ; owl:hasValue "true"^^xsd:boolean ] ) ] ;
+    rdfs:comment "Sheets that warn of raster origin: treat extracted values from them as Probable at best." .
+steel:UnverifiedForceRecord a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+        steel:ForceRecord
+        [ a owl:Restriction ; owl:onProperty steel:evidencedBy ; owl:someValuesFrom [ a owl:Restriction ; owl:onProperty steel:confidence ; owl:hasValue steel:Unverified ] ] ) ] ;
+    rdfs:comment "Force records whose evidence is only unverified: needs human check before use." .
+steel:VoidedView a owl:Class ;
+    owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+        steel:View
+        [ a owl:Restriction ; owl:onProperty steel:isVoided ; owl:hasValue "true"^^xsd:boolean ] ) ] ;
+    rdfs:comment "Detail stamped NOT USED: exclude from take-off." .
+
+# ================================================================================================
+# Disjointness (only where truly exclusive)
+# ================================================================================================
+
+[] a owl:AllDisjointClasses ; owl:members (
+    steel:DrawingSet steel:Sheet steel:View steel:Schedule steel:ScheduleRow steel:Revision
+    steel:Annotation steel:Party steel:Element steel:ForceRecord steel:Standard
+    steel:ElementType steel:Evidence ) .
+[] a owl:AllDisjointClasses ; owl:members (
+    steel:ScopeItem steel:StandardDocument steel:RequirementClause steel:Zone steel:DefaultRule
+    steel:Evidence ) .
+[] a owl:AllDisjointClasses ; owl:members ( steel:Beam steel:Column steel:Brace steel:Joist steel:Stringer steel:Post ) .
+[] a owl:AllDisjointClasses ; owl:members ( steel:SelectionTable steel:SelectionRow steel:RequirementClause ) .
+[] a owl:AllDisjointClasses ; owl:members ( steel:DesignParameter steel:AreaLoad steel:RequirementClause ) .
+[] a owl:AllDisjointClasses ; owl:members ( steel:Member steel:Connection steel:Support steel:Assembly ) .
+[] a owl:AllDisjointClasses ; owl:members ( steel:Zone steel:AreaLoad steel:Evidence steel:ElementType ) .
+[] a owl:AllDisjointClasses ; owl:members ( steel:ScheduleCell steel:ScheduleRow steel:Schedule ) .
+[] a owl:AllDisjointClasses ; owl:members ( steel:InclusionRow steel:Revision steel:Sheet ) .
+[] a owl:AllDisjointClasses ; owl:members ( steel:WorkPoint steel:Zone steel:Evidence ) .
+[] a owl:AllDisjointClasses ; owl:members ( steel:ElementRow steel:DrawingListRow ) .

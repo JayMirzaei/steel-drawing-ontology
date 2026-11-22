@@ -1,0 +1,12 @@
+# id: CQ15
+# title: Construction sequence steps
+# question: What are the printed steps of each construction sequence?
+
+PREFIX steel: <https://jaymirzaei.github.io/steel-drawing-ontology/core#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?sequence ?step WHERE {
+    ?sequence a steel:ConstructionSequence ;
+              steel:sequenceStepText ?step .
+}
+ORDER BY ?sequence ?step

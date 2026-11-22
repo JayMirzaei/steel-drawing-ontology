@@ -1,0 +1,17 @@
+# id: CQ24
+# title: Printed schedule totals and their rows
+# question: What total does each schedule print (a total weight, for example), and what do its row values add up to?
+
+# Within one schedule the rows share a unit, so adding them is meaningful; the shapes warn when the
+# printed total and the sum differ (ScheduleTotalShape).
+
+PREFIX steel: <https://jaymirzaei.github.io/steel-drawing-ontology/core#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?schedule ?kind ?printedTotal (SUM(?value) AS ?sumOfRows) (COUNT(?row) AS ?rowsWithValue) WHERE {
+    ?schedule steel:declaredTotal ?printedTotal .
+    OPTIONAL { ?schedule steel:scheduleKind ?kind }
+    OPTIONAL { ?schedule steel:hasRow ?row . ?row steel:rowValue ?value }
+}
+GROUP BY ?schedule ?kind ?printedTotal
+ORDER BY ?schedule
