@@ -1,5 +1,7 @@
 # steel-drawing-ontology
 
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/JayMirzaei/steel-drawing-ontology)
+
 An OWL + SHACL vocabulary for structural steel fabrication drawings, with a pipeline from
 drawing to typed objects to a validated, queryable knowledge graph. Every fact keeps a pointer
 to the sheet and the zone it was read from.
@@ -35,6 +37,32 @@ flowchart LR
 More: [architecture](docs/architecture.md), [modelling decisions](docs/modelling-decisions.md),
 [vocabulary reference](docs/vocabulary.md), [changelog](CHANGELOG.md),
 [contributing](CONTRIBUTING.md).
+
+## Run it in your browser
+
+[Open the repository in GitHub Codespaces](https://codespaces.new/JayMirzaei/steel-drawing-ontology)
+and press **Create codespace**. GitHub builds a container from `.devcontainer/devcontainer.json`
+(Python 3.12, Java 21 for HermiT, uv, then `uv sync --frozen --extra app --extra hermit`), starts
+the explorer headless on port 8501 and opens it in a new browser tab. If the tab is blocked, open
+it from the **Ports** panel. The first start takes a few minutes.
+
+- The codespace runs on your own GitHub account and counts against your own Codespaces quota
+  (personal accounts get a free monthly allowance). Stop or delete it when you are done.
+- No API key is needed. The explorer routes questions with the keyword router and loads the
+  example data from the repository; the command line runs the extraction pipeline offline with
+  the recorded provider. The repository holds no keys, and the codespace gets none.
+- The forwarded port is private to you by default. The explorer is started with Streamlit's CORS
+  and XSRF checks off so it works behind the Codespaces proxy; do not make the port public.
+- The command line works in the codespace terminal, for example
+  `uv run steel-ontology validate examples/kestrel-platform/gold.json`,
+  `uv run steel-ontology reason --engine hermit examples/kestrel-platform/gold.json` and
+  `uv run pytest`.
+
+**Not verified on GitHub:** the codespace itself has not been built (Docker is not installed on
+the machine this was written on), so the Java feature and the HermiT tests inside it are
+untested. Verified locally: the same `uv sync --frozen` in a clean clone, the explorer starting with the
+same command on `0.0.0.0` and answering `/_stcore/health`, and the tests passing (HermiT tests
+skipped, no Java here).
 
 ## Quickstart (offline, about five minutes)
 
